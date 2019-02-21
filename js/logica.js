@@ -179,3 +179,4 @@ function eliminarLiga(id) {
     console.error("Error removing document: ", error);
   });
 }
+
