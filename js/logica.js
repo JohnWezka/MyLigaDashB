@@ -139,6 +139,9 @@ function crearLiga() {
   })
     .then(function (docRef) {
       console.log("Document written with ID: ", docRef.id);
+      document.getElementById('nomLiga').value = '';
+      document.getElementById('nomDueno').value = '';
+      document.getElementById('descripcion').value = '';
     })
     .catch(function (error) {
       console.error("Error adding document: ", error);
@@ -151,15 +154,16 @@ function leerLigas() {
   db.collection("ligas").onSnapshot((querySnapshot) => {
     tabla.innerHTML = '';
     querySnapshot.forEach((doc) => {
-      
+
       tabla.innerHTML += `
         <tr>
           <th scope="row">${doc.id}</th>
           <td>${doc.data().nombreLiga}</td>
           <td>${doc.data().nombreDueno}</td>
           <td>${doc.data().descripcion}</td>
-          <td><button class="btn btn-warning" id="boton" onclick="editarLiga('${doc.id}')">Editar</button></td>
-          <td><button class="btn btn-danger" id="boton" onclick="eliminarLiga('${doc.id}')">Eliminar</button></td>
+          <td><button class="btn btn-warning" id="boton" onclick="actualizarLiga('${doc.id}','${doc.data().nombreLiga}',
+          '${doc.data().nombreDueno}','${doc.data().descripcion}')">Editar</button></td>
+          <td><button class="btn red accent-4" id="boton" onclick="eliminarLiga('${doc.id}')">Eliminar</button></td>
         </tr>
         `;
     });
@@ -168,14 +172,44 @@ function leerLigas() {
 
 leerLigas();
 
-function editarLiga(id) {
-
-}
-
 function eliminarLiga(id) {
   db.collection("ligas").doc(id).delete().then(function () {
     console.log("Document successfully deleted!");
   }).catch(function (error) {
     console.error("Error removing document: ", error);
   });
+}
+
+function actualizarLiga(id, nomLiga, nomDueno, desc) {
+
+  document.getElementById('nomLiga').value = nomLiga;
+  document.getElementById('nomDueno').value = nomDueno;
+  document.getElementById('descripcion').value = desc;
+  var boton = document.getElementById('boton');
+  boton.innerHTML = 'Editar';
+
+  boton.onclick = function () {
+    var washingtonRef = db.collection("ligas").doc(id);
+
+    var nomLiga = document.getElementById('nomLiga').value;
+    var nomDueno = document.getElementById('nomDueno').value;
+    var desc = document.getElementById('descripcion').value;
+
+    return washingtonRef.update({
+      nombreLiga: nomLiga,
+      nombreDueno: nomDueno,
+      descripcion: desc
+    })
+      .then(function () {
+        console.log("Document successfully updated!");
+        document.getElementById('nomLiga').value = '';
+        document.getElementById('nomDueno').value = '';
+        document.getElementById('descripcion').value = '';
+        boton.innerHTML = 'Guardar';
+      })
+      .catch(function (error) {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+      });
+  }
 }
