@@ -11,9 +11,6 @@
 
     <title>SB Admin - Dashboard</title>
 
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
@@ -27,29 +24,59 @@
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- Custom fonts for this template-->
-    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
 </head>
 
 <body id="page-top">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-        <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand mr-1" href="index.html">Registro Torneos</a>
 
         <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i>
         </button>
 
+        <!-- Navbar Search -->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." aria-label="Search"
+                    aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
         <!-- Navbar -->
         <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell fa-fw"></i>
+                    <span class="badge badge-danger">9+</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-envelope fa-fw"></i>
+                    <span class="badge badge-danger">7</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -83,13 +110,13 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                     <h6 class="dropdown-header">Login Screens:</h6>
-                    <a class="dropdown-item" href="login.html">Login</a>
-                    <a class="dropdown-item" href="register.html">Register</a>
-                    <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+                    <a class="dropdown-item" href="#">Login</a>
+                    <a class="dropdown-item" href="#">Register</a>
+                    <a class="dropdown-item" href="#">Forgot Password</a>
                     <div class="dropdown-divider"></div>
                     <h6 class="dropdown-header">Other Pages:</h6>
-                    <a class="dropdown-item" href="404.html">404 Page</a>
-                    <a class="dropdown-item" href="blank.html">Blank Page</a>
+                    <a class="dropdown-item" href="#">404 Page</a>
+                    <a class="dropdown-item" href="#">Blank Page</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -104,39 +131,44 @@
             </li>
         </ul>
 
-        <!-- Registro -->
-
-        <div id="content-wrapper" class="container">
+        <!-- Registro de Torneo -->
+        <div id="content-wrapper">
             <div class="container-fluid">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre de Liga:</label>
-                    <input type="text" class="form-control" id="nomLiga" aria-describedby="emailHelp"
-                        placeholder="Enter email">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre de Dueño:</label>
-                    <input type="text" class="form-control" id="nomDueno" aria-describedby="emailHelp"
-                        placeholder="Enter email">
+                    <label for="exampleInputEmail1">Nombre del Torneo:</label>
+                    <input type="text" class="form-control" id="nombreTorneo" aria-describedby="nombreTorneo"
+                        placeholder="Introduce el nombre del torneo">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Descripción:</label>
-                    <input type="text" class="form-control" id="descripcion" aria-describedby="emailHelp"
-                        placeholder="Enter email">
+                    <label for="exampleInputEmail1">Tipo de Torneo:</label>
+                    <input type="text" class="form-control" id="tipoTorneo" aria-describedby="tipoTorneo"
+                        placeholder="Selecciona un tipo de torneo">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Foto:</label>
-                    <input type="file" class="form-control" id="foto" aria-describedby="emailHelp"
-                        placeholder="Enter email">
+                    <label for="exampleInputEmail1">Fecha de incio:</label>
+                    <input type="date" class="form-control" id="fechaInicio" aria-describedby="fechaInicio"
+                        placeholder="Fecha incio">
                 </div>
-                <button class="btn btn-primary" id="boton" onclick="crearLiga()">Crear</button>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Fecha de cierre:</label>
+                    <input type="date" class="form-control" id="fechaCierre" aria-describedby="fechaCierre"
+                        placeholder="Fecha cierre">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Categoria:</label>
+                    <input type="text" class="form-control" id="categoria" aria-describedby="Categoria"
+                        placeholder="Categoria">
+                </div>
+                <button  style="position: relative"  class="btn btn-primary" id="boton" onclick="crearTorneo()">Guardar</button>
                 <table class="table my-3">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Nombre De Liga</th>
-                            <th scope="col">Nombre De Dueño</th>
-                            <th scope="col">Descripcion</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Inicio</th>
+                            <th scope="col">Cierre</th>
+                            <th scope="col">Categoria</th>
                             <th scope="col">Editar</th>
                             <th scope="col">Eliminar</th>
                         </tr>
@@ -178,10 +210,7 @@
     <!-- SCRIPT -->
     <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
     <!--<script src="../js/conexion.js"></script>-->
-    <script src="../js/logica.js"></script>
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="../js/registro-torneos.js"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
