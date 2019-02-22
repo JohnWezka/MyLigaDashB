@@ -219,6 +219,8 @@ function eliminarLiga(id) {
   });
 }
 
+<<<<<<< HEAD
+=======
 function actualizarLiga(id, nomLiga, nomDueno, desc) {
 
   document.getElementById('nomLiga').value = nomLiga;
@@ -252,3 +254,4 @@ function actualizarLiga(id, nomLiga, nomDueno, desc) {
       });
   }
 }
+>>>>>>> 6dee475a7df33b2cf163ecd8bf83c7189cead9dd
