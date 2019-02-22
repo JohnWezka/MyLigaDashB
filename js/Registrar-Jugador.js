@@ -2,12 +2,12 @@ firebase.initializeApp({
     apiKey: "AIzaSyCrrASgB21Xwu1HKPkEMxyJRtSsrgGyr1g",
     authDomain: "myleague-5a9c8.firebaseapp.com",
     projectId: "myleague-5a9c8"
-  });
+});
 
-  // Initialize Cloud Firestore through Firebase
+// Initialize Cloud Firestore through Firebase
 var db = firebase.firestore();
 
-function registrarJugador(){
+function registrarJugador() {
     var nombre = document.getElementById('nomJugador').value;
     var apellidoP = document.getElementById('aPaterno').value;
     var apellidoM = document.getElementById('aMaterno').value;
@@ -25,19 +25,22 @@ function registrarJugador(){
         estatura: estatura,
         curp: curp
     })
-      .then(function (docRef){
-        console.log("Document written with ", docRef);
-    })
-    .catch(function (error){
-        console.error("Error adding document", error);
-    });
+        .then(function (docRef) {
+            console.log("Document written with ", docRef);
+        })
+        .catch(function (error) {
+            console.error("Error adding document", error);
+        });
+}
+        
 
-
-    (function leerJugadores(){
-        var table = document.getElementById('table');
+function leerJugadores() {
+    var table = document.getElementById('table');
         table.innerHTML = '';
-        querySnapshost.forEach((doc) => {
-            table.innerHTML +=`
+        db.collection("jugadores").onSnapshot((querySnapshot) => {
+            table.innerHTML = '';
+            querySnapshot.forEach((doc) => {
+                table.innerHTML += `
             <tr>
                 <th scope="row">${doc.id}</th>
                 <td>${doc.data().nombre}</td>
@@ -51,21 +54,20 @@ function registrarJugador(){
                 <td><botton class="btn btan-warning" id="boton" oneclick="eliminarJugador('${doc.id}')">Eliminar</button></td>
             </tr>
             `;
+            });
         });
-    })();
-
+    }
     leerJugadores();
 
-    function editarJugador(){
+function editarJugador() {
         db.collection("jugadores").doc(id).ed
-    }
+}
 
-    function eliminarJugador(id){
-        db.collection("jugadores").doc(id).delete().then(function (){
+function eliminarJugador(id) {
+        db.collection("jugadores").doc(id).delete().then(function () {
             console.log("Document succesfully deleted!");
         }).catch(function (error) {
             console.error("Error removing document: ", error);
         });
-    }
-
 }
+
