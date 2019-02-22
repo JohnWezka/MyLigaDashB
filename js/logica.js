@@ -1,11 +1,15 @@
 firebase.initializeApp({
   apiKey: "AIzaSyCrrASgB21Xwu1HKPkEMxyJRtSsrgGyr1g",
   authDomain: "myleague-5a9c8.firebaseapp.com",
-  projectId: "myleague-5a9c8"
+  projectId: "myleague-5a9c8",
+  storageBucket: 'gs://myleague-5a9c8.appspot.com/'
 });
 
 // Initialize Cloud Firestore through Firebase
 var db = firebase.firestore();
+
+// Get a reference to the storage service, which is used to create references in your storage bucket
+var storage = firebase.storage();
 
 function head() {
   var head = document.getElementById('head');
@@ -124,28 +128,63 @@ function verificar() {
   });
 }
 
-function storage() {
-
-}
-
 function crearLiga() {
   var nomLiga = document.getElementById('nomLiga').value;
   var nomDueno = document.getElementById('nomDueno').value;
   var desc = document.getElementById('descripcion').value;
-  db.collection("ligas").add({
-    nombreLiga: nomLiga,
-    nombreDueno: nomDueno,
-    descripcion: desc
-  })
-    .then(function (docRef) {
-      console.log("Document written with ID: ", docRef.id);
-      document.getElementById('nomLiga').value = '';
-      document.getElementById('nomDueno').value = '';
-      document.getElementById('descripcion').value = '';
-    })
-    .catch(function (error) {
-      console.error("Error adding document: ", error);
+  var img = ($('#foto'))[0].files[0];
+  var downloadURL;
+
+  var storageRef = storage.ref('ligas/' + img.name);
+  storageRef.put(img).then((data) => {
+    console.log("then");
+    console.log(data);
+    storage.ref('ligas/' + img.name).getDownloadURL().then((url) => {
+      console.log("url");
+      console.log(url);
+      downloadURL = url;
+      console.log("downloadURL");
+      console.log(downloadURL);
+
+      db.collection("ligas").add({
+        nombreLiga: nomLiga,
+        nombreDueno: nomDueno,
+        descripcion: desc,
+        foto: downloadURL
+      }).then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        document.getElementById('nomLiga').value = '';
+        document.getElementById('nomDueno').value = '';
+        document.getElementById('descripcion').value = '';
+        document.getElementById('foto').value = null;
+        window.location = "../index.html";
+      })
+        .catch(function (error) {
+          console.error("Error adding document: ", error);
+        });
+    }).catch((error) => {
+      console.log("url error");
+      console.log(error);
     });
+
+  }).catch((error) => {
+    console.log("error");
+    console.log(error);
+  });
+  /*.catch((error) => {
+    console.log("error");
+    console.log(error);
+  });*/
+  /*uploadTask.on('state_changed', (snapshot) => {
+      console.log("snapshot:");
+      console.log(snapshot);
+      
+    },function(error){
+      console.log("error storage");
+      console.log(error);
+    }, function(){
+      downloadURL = uploadTask.snapshot.downloadURL;
+    });*/
 }
 
 function leerLigas() {
