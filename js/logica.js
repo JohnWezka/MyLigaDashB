@@ -1,9 +1,11 @@
-firebase.initializeApp({
+/*firebase.initializeApp({
   apiKey: "AIzaSyCrrASgB21Xwu1HKPkEMxyJRtSsrgGyr1g",
   authDomain: "myleague-5a9c8.firebaseapp.com",
+  databaseURL: "https://myleague-5a9c8.firebaseio.com",
   projectId: "myleague-5a9c8",
-  storageBucket: 'gs://myleague-5a9c8.appspot.com/'
-});
+  storageBucket: 'gs://myleague-5a9c8.appspot.com/',
+  messagingSenderId: "167455229801"
+});*/
 
 // Initialize Cloud Firestore through Firebase
 var db = firebase.firestore();
@@ -25,32 +27,6 @@ function head() {
     <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet"> 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin.css" rel="stylesheet"></link>`;
-}
-
-function script() {
-  var script = document.getElementById('script');
-  script.innerHTML = `<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
-  <script src="../js/conexion.js"></script>
-  <script src = "../js/logica.js"></script>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Page level plugin JavaScript-->
-  <script src="../vendor/chart.js/Chart.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin.min.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="../js/demo/datatables-demo.js"></script>
-  <script src="../js/demo/chart-area-demo.js"></script>`;
 }
 
 function registrar() {
@@ -219,8 +195,6 @@ function eliminarLiga(id) {
   });
 }
 
-<<<<<<< HEAD
-=======
 function actualizarLiga(id, nomLiga, nomDueno, desc) {
 
   document.getElementById('nomLiga').value = nomLiga;
@@ -254,4 +228,3 @@ function actualizarLiga(id, nomLiga, nomDueno, desc) {
       });
   }
 }
->>>>>>> 6dee475a7df33b2cf163ecd8bf83c7189cead9dd
