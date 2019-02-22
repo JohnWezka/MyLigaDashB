@@ -5,32 +5,38 @@
 <head>
 
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>SB Admin - Dashboard</title>
+    <title>SB Admin - Dashboard</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+    <!-- Page level plugin CSS-->
+    <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
-  <link href="../scss/_registroJugadores.scss" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="../css/sb-admin.css" rel="stylesheet">
+
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body id="page-top">
-
-  <div id = "app">
-    <h1></h1>
-  </div>
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
@@ -149,49 +155,74 @@
   <link href="../css/sb-admin.css" rel="stylesheet">
 
 </head>
-    <li>
-      <ol>
-       <form>
-         <div class="breadcrumb-item">
-          <h1>Registro de  Jugadores</h1>
-         </div>
+    <!-- Registrar Jugador -->
+
+    <div id="content-wrapper" class="container">
+      <div class="container-fluid">
           <div class="form-group">
-            <label for="exampleInputEmail1">Nombre(s)</label>
-            <input type="name" class="form-control" id="exampleInputNombre" aria-describedby="nameHelp" placeholder="Nombre(s) del Jugador">
-            <small id="nameHelp" class="form-text text-muted"></small>
+              <label for="exampleInputEmail1">Nombre(s):</label>
+              <input type="text" class="form-control" id="nomJugador" aria-describedby="emailHelp"
+                  placeholder="Enter email">
           </div>
+
           <div class="form-group">
-            <label for="exampleInputPassword1">Apellido Paterno</label>
-            <input type="lastName" class="form-control" id="exampleInputAPaterno" placeholder="Apellido Paterno">
-          </div>
-          <div class="form-group">
-              <label for="exampleInputPassword1">Apellido Materno</label>
-              <input type="lastName" class="form-control" id="exampleInputAMaterno" placeholder="Apellido Materno">
+              <label for="exampleInputEmail1">Apellido Paterno:</label>
+              <input type="text" class="form-control" id="aPaterno" aria-describedby="emailHelp"
+                  placeholder="Enter email">
           </div>
           <div class="form-group">
-              <label for="exampleInputPassword1">Numero</label>
-              <input type="numer" class="form-control" id="exampleInputNumero" placeholder="Numero del Jugador">
+              <label for="exampleInputEmail1">Apellido Materno:</label>
+              <input type="text" class="form-control" id="aMaterno" aria-describedby="emailHelp"
+                  placeholder="Enter email">
           </div>
           <div class="form-group">
-                <label for="exampleInputPassword1">Peso</label>
-                 <input type="peso" class="form-control" id="exampleInputPeso" placeholder="Peso del Jugador">
+            <label for="exampleInputEmail1">Peso:</label>
+            <input type="text" class="form-control" id="pesoJuga" aria-describedby="emailHelp"
+                placeholder="Enter email">
           </div>
           <div class="form-group">
-              <label for="exampleInputPassword1">Estatura</label>
-              <input type="estatura" class="form-control" id="exampleInputEstatura" placeholder="Estatura del Jugador">
+            <label for="exampleInputEmail1">Numero:</label>
+            <input type="text" class="form-control" id="numJuga" aria-describedby="emailHelp"
+                placeholder="Enter email">
           </div>
           <div class="form-group">
-              <label for="exampleInputPassword1">Curp</label>
-              <input type="name" class="form-control" id="exampleInputCurp" placeholder="Curp del Jugador">
+            <label for="exampleInputEmail1">Estatura:</label>
+            <input type="text" class="form-control" id="estaJuga" aria-describedby="emailHelp"
+                placeholder="Enter email">
           </div>
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Acepto Terminos</label>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Curp:</label>
+            <input type="text" class="form-control" id="curpJuga" aria-describedby="emailHelp"
+                placeholder="Enter email">
           </div>
-          <button type="submit" class="btn btn-primary">Registrar</button>
-         </form>
-      </ol>
-    </li>
+          <div class="form-group">
+              <label for="exampleInputEmail1">Foto:</label>
+              <input type="file" class="form-control" id="foto" aria-describedby="emailHelp"
+                  placeholder="Enter email">
+          </div>
+          <button class="btn btn-primary" id="boton" onclick="registrarJugador()">Registrar</button>
+          <table class="table my-3">
+              <thead>
+                  <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Apellido Paterno</th>
+                      <th scope="col">Apellido Materno</th>
+                      <th scope="col">Numero</th>
+                      <th scope="col">Peso</th>
+                      <th scope="col">Estatura</th>
+                      <th scope="col">Curp</th>
+                      <button scope="col">Editar</button>
+                      <button scope="col">Eliminar</button>
+                  </tr>
+              </thead>
+              <tbody id="table">
+
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
 
       <!-- Sticky Footer -->
       <footer class="sticky-footer">
@@ -232,27 +263,32 @@
     </div>
   </div>
 
+  <!-- SCRIPT -->
   <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
-  <script src="js/conexion.js"></script>
+  <!--<script src="../js/conexion.js"></script>-->
+  <script src="../js/Registrar-Jugador.js"></script>
+
+  <!-- Compiled and minified JavaScript -->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Page level plugin JavaScript-->
-  <script src="vendor/chart.js/Chart.min.js"></script>
-  <script src="vendor/datatables/jquery.dataTables.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+  <script src="../vendor/chart.js/Chart.min.js"></script>
+  <script src="../vendor/datatables/jquery.dataTables.js"></script>
+  <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin.min.js"></script>
+  <script src="../js/sb-admin.min.js"></script>
 
   <!-- Demo scripts for this page-->
-  <script src="js/demo/datatables-demo.js"></script>
-  <script src="js/demo/chart-area-demo.js"></script>
+  <script src="../js/demo/datatables-demo.js"></script>
+  <script src="../js/demo/chart-area-demo.js"></script>
 
 </body>
 
