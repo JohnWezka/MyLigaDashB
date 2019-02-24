@@ -50,8 +50,8 @@ function leerJugadores() {
                 <td>${doc.data().peso}</td>
                 <td>${doc.data().estatura}</td>
                 <td>${doc.data().curp}</td>
-                <td><botton class="btn btan-warning" id="boton" oneclick="editarJugador('${doc.id}')">Editar</button></td>
-                <td><botton class="btn btan-warning" id="boton" oneclick="eliminarJugador('${doc.id}')">Eliminar</button></td>
+                <td><button class="btn btan-warning" id="boton" oneclick="editarJugador('${doc.id}')">Editar</button></td>
+                <td><button class="btn btan-warning" id="boton" oneclick="eliminarJugador('${doc.id}')">Eliminar</button></td>
             </tr>
             `;
             });
@@ -59,8 +59,26 @@ function leerJugadores() {
     }
     leerJugadores();
 
-function editarJugador() {
-        db.collection("jugadores").doc(id).ed
+function editarJugador(id, nombre, apellidoP, apellidoM, numero, peso, estatura, curp) {
+    
+    document.getElementById('nomJugador'),value = nomJugador;
+    document.getElementById('aPaterno'),value = aPaterno;
+    document.getElementById('aMaterno'),value = aMaterno;
+    document.getElementById('numJuga'),value = numJuga;
+    document.getElementById('pesoJuga'),value = pesoJuga;
+    document.getElementById('estaJuga'),value = estaJuga;
+    document.getElementById('curpJuga'),value = curpJuga;
+    var boton = document.getElementById('boton');
+    boton.innerHTML = 'editarJugador';
+
+    boton.onclick = function (){
+        var washingtonRef = db.collection("jugadores").doc(id);
+
+        var nomJugador = document.getElementById('nomJugador').value;
+        var aPaterno = document.getElementById('aPaterno').value;
+        var aMaterno = document.getElementById
+    }
+    db.collection("jugadores").doc(id).ed
 }
 
 function eliminarJugador(id) {
