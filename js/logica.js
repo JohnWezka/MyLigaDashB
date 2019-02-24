@@ -1,11 +1,17 @@
-firebase.initializeApp({
+/*firebase.initializeApp({
   apiKey: "AIzaSyCrrASgB21Xwu1HKPkEMxyJRtSsrgGyr1g",
   authDomain: "myleague-5a9c8.firebaseapp.com",
-  projectId: "myleague-5a9c8"
-});
+  databaseURL: "https://myleague-5a9c8.firebaseio.com",
+  projectId: "myleague-5a9c8",
+  storageBucket: 'gs://myleague-5a9c8.appspot.com/',
+  messagingSenderId: "167455229801"
+});*/
 
 // Initialize Cloud Firestore through Firebase
 var db = firebase.firestore();
+
+// Get a reference to the storage service, which is used to create references in your storage bucket
+var storage = firebase.storage();
 
 function head() {
   var head = document.getElementById('head');
@@ -21,32 +27,6 @@ function head() {
     <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet"> 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin.css" rel="stylesheet"></link>`;
-}
-
-function script() {
-  var script = document.getElementById('script');
-  script.innerHTML = `<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
-  <script src="../js/conexion.js"></script>
-  <script src = "../js/logica.js"></script>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Page level plugin JavaScript-->
-  <script src="../vendor/chart.js/Chart.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin.min.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="../js/demo/datatables-demo.js"></script>
-  <script src="../js/demo/chart-area-demo.js"></script>`;
 }
 
 function registrar() {
@@ -124,28 +104,63 @@ function verificar() {
   });
 }
 
-function storage() {
-
-}
-
 function crearLiga() {
   var nomLiga = document.getElementById('nomLiga').value;
   var nomDueno = document.getElementById('nomDueno').value;
   var desc = document.getElementById('descripcion').value;
-  db.collection("ligas").add({
-    nombreLiga: nomLiga,
-    nombreDueno: nomDueno,
-    descripcion: desc
-  })
-    .then(function (docRef) {
-      console.log("Document written with ID: ", docRef.id);
-      document.getElementById('nomLiga').value = '';
-      document.getElementById('nomDueno').value = '';
-      document.getElementById('descripcion').value = '';
-    })
-    .catch(function (error) {
-      console.error("Error adding document: ", error);
+  var img = ($('#foto'))[0].files[0];
+  var downloadURL;
+
+  var storageRef = storage.ref('ligas/' + img.name);
+  storageRef.put(img).then((data) => {
+    console.log("then");
+    console.log(data);
+    storage.ref('ligas/' + img.name).getDownloadURL().then((url) => {
+      console.log("url");
+      console.log(url);
+      downloadURL = url;
+      console.log("downloadURL");
+      console.log(downloadURL);
+
+      db.collection("ligas").add({
+        nombreLiga: nomLiga,
+        nombreDueno: nomDueno,
+        descripcion: desc,
+        foto: downloadURL
+      }).then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        document.getElementById('nomLiga').value = '';
+        document.getElementById('nomDueno').value = '';
+        document.getElementById('descripcion').value = '';
+        document.getElementById('foto').value = null;
+        window.location = "../index.html";
+      })
+        .catch(function (error) {
+          console.error("Error adding document: ", error);
+        });
+    }).catch((error) => {
+      console.log("url error");
+      console.log(error);
     });
+
+  }).catch((error) => {
+    console.log("error");
+    console.log(error);
+  });
+  /*.catch((error) => {
+    console.log("error");
+    console.log(error);
+  });*/
+  /*uploadTask.on('state_changed', (snapshot) => {
+      console.log("snapshot:");
+      console.log(snapshot);
+      
+    },function(error){
+      console.log("error storage");
+      console.log(error);
+    }, function(){
+      downloadURL = uploadTask.snapshot.downloadURL;
+    });*/
 }
 
 function leerLigas() {
@@ -180,8 +195,6 @@ function eliminarLiga(id) {
   });
 }
 
-<<<<<<< HEAD
-=======
 function actualizarLiga(id, nomLiga, nomDueno, desc) {
 
   document.getElementById('nomLiga').value = nomLiga;
@@ -215,4 +228,3 @@ function actualizarLiga(id, nomLiga, nomDueno, desc) {
       });
   }
 }
->>>>>>> 6dee475a7df33b2cf163ecd8bf83c7189cead9dd
