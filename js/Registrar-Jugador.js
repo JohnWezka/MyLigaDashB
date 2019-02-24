@@ -15,6 +15,7 @@ function registrarJugador() {
     var peso = document.getElementById('pesoJuga').value;
     var estatura = document.getElementById('estaJuga').value;
     var curp = document.getElementById('curp').value;
+    var equipo = document.getElementById('equipoJuga').value;
     var foto = document.getElementById('foto').value;
     db.collection("jugadores").add({
         nombre: nombre,
@@ -23,7 +24,8 @@ function registrarJugador() {
         numero: numero,
         peso: peso,
         estatura: estatura,
-        curp: curp
+        curp: curp,
+        equipo: equipoJuga
     })
         .then(function (docRef) {
             console.log("Document written with ", docRef);
@@ -50,8 +52,10 @@ function leerJugadores() {
                 <td>${doc.data().peso}</td>
                 <td>${doc.data().estatura}</td>
                 <td>${doc.data().curp}</td>
+                <td>${doc.data().equipo}</td>
                 <td><button class="btn btan-warning" id="boton" oneclick="editarJugador('${doc.id}')">Editar</button></td>
                 <td><button class="btn btan-warning" id="boton" oneclick="eliminarJugador('${doc.id}')">Eliminar</button></td>
+                <td><button class="btn btan-warning" id="boton" oneclick="guardarJugador('${doc.id}')">Guardar</button></td>
             </tr>
             `;
             });
@@ -68,6 +72,7 @@ function editarJugador(id, nombre, apellidoP, apellidoM, numero, peso, estatura,
     document.getElementById('pesoJuga'),value = pesoJuga;
     document.getElementById('estaJuga'),value = estaJuga;
     document.getElementById('curpJuga'),value = curpJuga;
+    document.getElementById('equipoJuga'),value = equipoJuga;
     var boton = document.getElementById('boton');
     boton.innerHTML = 'editarJugador';
 
@@ -76,7 +81,36 @@ function editarJugador(id, nombre, apellidoP, apellidoM, numero, peso, estatura,
 
         var nomJugador = document.getElementById('nomJugador').value;
         var aPaterno = document.getElementById('aPaterno').value;
-        var aMaterno = document.getElementById
+        var aMaterno = document.getElementById('aMaterno'),aMaterno;
+        var numJuga = document.getElementById('numJuga'),numJuga;
+        var pesoJuga = document.getElementById('pesoJuga'),pesoJuga;
+        var estaJuga = document.getElementById('estaJuga'),estaJuga;
+        var curpJuga = document.getElementById('curpJuga'),curpJuga;
+        var equipoJuga = document.getElementById('equipoJuga'),equipoJuga;
+        
+        return washingtonRef.update({
+            nombre: nombre,
+            aPaterno: aPaterno,
+            aMaterno: aMaterno,
+            numJuga: numJuga,
+            pesoJuga: pesoJuga,
+            estaJuga: estaJuga,
+            curpJuga: curpJuga,
+            equipoJuga: equipoJuga
+
+        })
+        .then(function (){
+            console.log("Document successfully updated!");
+            document.getElementById('nomJugador').value = '';
+            document.getElementById('aPaterno').value = '';
+            document.getElementById('aMaterno').value = '';
+            document.getElementById('numJugadr').value = '';
+            document.getElementById('pesoJuga').value = '';
+            document.getElementById('estaJuga').value = '';
+            document.getElementById('curpJuga').value = '';
+            document.getElementById('equipoJuga').value = '';
+            boton.innerHTML = 'guardarJugador';
+        })
     }
     db.collection("jugadores").doc(id).ed
 }

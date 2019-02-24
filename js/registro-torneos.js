@@ -37,23 +37,24 @@ function crearTorneo() {
         tabla.innerHTML += `
           <tr>
             <th scope="row">${doc.id}</th>
-            <td>${doc.data().nombreTorneo}</td>
+            <td>${doc.data().nombreTornoe}</td>
             <td>${doc.data().tipoTorneo}</td>
             <td>${doc.data().fechaInicio}</td>
             <td>${doc.data().fechaCierre}</td>
-            <td>${doc.data().Categoria}</td>
-            <td><button class="btn btn-warning" id="boton" onclick="editarTorneo('${doc.id}')">Editar</button></td>
-            <td><button class="btn btn-danger" id="boton" onclick="eliminarTorneo('${doc.id}')">Eliminar</button></td>
+            <td>${doc.data().categoria}</td>
+            <td><button class="btn " id="boton" onclick="editarTorneo('${doc.id}')"><i class="fas fa-edit"></i></button></td>
+            <td><button class="btn " id="boton" onclick="eliminarTorneo('${doc.id}')"><i class="fas fa-trash-alt"></i></button></td>
           </tr>
           `;
       });
     });
   }
-  leerLigas();
+  leerTorneos();
   
   function editarTorneo(){
 
   }
+
   function eliminarTorneo(id) {
     db.collection("torneos").doc(id).delete().then(function () {
       console.log("Document successfully deleted!");
