@@ -98,22 +98,22 @@ console.log(doc);
         });
     }
 
-    function actualizarEquipo(id, nomEquipo, nomCategoria, nomRama, nomEntrenador, nomAsistente, descripcion) {
-        document.getElementById('nombreEquipo').value = nomEquipo;
-        document.getElementById('nombreCategoria').value = nomCategoria;
-        document.getElementById('nombreRama').value = nomRama;
-        document.getElementById('nombreEntrenador').value = nomEntrenador;
-        document.getElementById('nombreAsistente').value = nomAsistente;
-        document.getElementById('descripcion').value = desc;
+    function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreEntrenador, nombreAsistente, descripcion) {
+        document.getElementById('nomEquipo').value = nombreEquipo;
+        document.getElementById('nomCategoria').value = nombreCategoria;
+        document.getElementById('nomRama').value = nombreRama;
+        document.getElementById('nomEntrenador').value = nombreEntrenador;
+        document.getElementById('nomAsistente').value = nombreAsistente;
+        document.getElementById('desc').value = descripcion;
         var boton = document.getElementById('boton');
         boton.innerHTML = 'Editar';
         boton.onclick = function () {
             var washingtonRef = db.collection("equipos").doc(id);
-            var nomEquipo = document.getElementById('nombreEquipo').value;
-            var nomCategoria = document.getElementById('nombreCategoria').value;
-            var nomRama = document.getElementById('nombreRama').value;
-            var nomEntrenador = document.getElementById('nombreEntrenador').value;
-            var nomAsistente = document.getElementById('nombreAsistente').value;
+            var nomEquipo = document.getElementById('nomEquipo').value;
+            var nomCategoria = document.getElementById('nomCategoria').value;
+            var nomRama = document.getElementById('nomeRama').value;
+            var nomEntrenador = document.getElementById('nomEntrenador').value;
+            var nomAsistente = document.getElementById('nomAsistente').value;
             var imgEquipo = ($('#foto'))[0].files[0];
             if (img != null) {
                 var downloadURL;
