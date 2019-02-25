@@ -68,7 +68,7 @@ function crearArbitro() {
           <td>${doc.data().roll}</td>
             <td><img  height="70" width="70" src=${doc.data().foto}></td>
               <td><h4><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" onclick="actualizarArbitro('${doc.id}','${doc.data().nombreArbitro}',
-          '${doc.data().apellidoPaterno}','${doc.data().apellidoMaterno}','${doc.data().edad}','${doc.data().roll}','${doc.data().foto}')"></i></h4</td>
+          '${doc.data().apellidoPaterno}','${doc.data().apellidoMaterno}','${doc.data().edad}','${doc.data().roll}','${doc.data().foto}')"></i></h4></td>
           <td><h4><i class="fas fa-trash-alt" onclick="eliminarArbitro('${doc.id}')"></i></h4></td>
         </tr>
         `;
