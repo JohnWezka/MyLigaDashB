@@ -63,7 +63,6 @@ function registrarEquipo() {
 }
 
     function leerEquipos(){
-        console.log('entro');
         var tabla = document.getElementById('tabla');
         tabla.innerHTML = '';
         db.collection("equipos").onSnapshot((querySnapshot) => {
@@ -99,6 +98,7 @@ console.log(doc);
     }
 
     function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreEntrenador, nombreAsistente, descripcion) {
+        console.log('entro');
         document.getElementById('nomEquipo').value = nombreEquipo;
         document.getElementById('nomCategoria').value = nombreCategoria;
         document.getElementById('nomRama').value = nombreRama;
@@ -178,5 +178,6 @@ console.log(doc);
             }
         }
     }
+
 
 
