@@ -71,7 +71,7 @@ function leerEquipos() {
         querySnapshot.forEach((doc) => {
             console.log(doc);
             tabla.innerHTML += `
-                <tr>
+            <tr>
                 <td>${doc.data().nombreEquipo}</td>
                 <td>${doc.data().nombreCategoria}</td>
                 <td>${doc.data().nombreRama}</td>
@@ -80,10 +80,9 @@ function leerEquipos() {
                 <td>${doc.data().descripcion}</td>
                 <td><img height="70" width="70" src="${doc.data().foto}"></td>
                 <td><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" onclick="actualizarEquipo('${doc.id}','${doc.data().nombreEquipo}',
-          '${doc.data().nombreCategoria}','${doc.data().nombreRama}','${doc.data().nombreEntrenador}','${doc.data().nombreAsistente}','${doc.data().descripcion})"></i></td>
-          <td><i class="fas fa-trash-alt" onclick="eliminarEquipo('${doc.id}')"></i></td>
-        </tr>
-        `;
+                '${doc.data().nombreCategoria}','${doc.data().nombreRama}','${doc.data().nombreEntrenador}','${doc.data().nombreAsistente}','${doc.data().descripcion}')"></i></td>
+                <td><i class="fas fa-trash-alt" onclick="eliminarEquipo('${doc.id}')"></i></td>
+            </tr>`;
         });
     });
 }
@@ -105,7 +104,7 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
     document.getElementById('nomRama').value = nombreRama;
     document.getElementById('nomEntrenador').value = nombreEntrenador;
     document.getElementById('nomAsistente').value = nombreAsistente;
-    document.getElementById('desc').value = descripcion;
+    document.getElementById('descripcion').value = descripcion;
     var boton = document.getElementById('boton');
     boton.innerHTML = 'Editar';
     boton.onclick = function () {
@@ -115,6 +114,7 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
         var nomRama = document.getElementById('nomeRama').value;
         var nomEntrenador = document.getElementById('nomEntrenador').value;
         var nomAsistente = document.getElementById('nomAsistente').value;
+        var desc = document.getElementById('descripcion').value;
         var imgEquipo = ($('#foto'))[0].files[0];
         if (img != null) {
             var downloadURL;
