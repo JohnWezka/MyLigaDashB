@@ -1,71 +1,53 @@
+/*firebase.initializeApp({
+  apiKey: "AIzaSyCrrASgB21Xwu1HKPkEMxyJRtSsrgGyr1g",
+  authDomain: "myleague-5a9c8.firebaseapp.com",
+  databaseURL: "https://myleague-5a9c8.firebaseio.com",
+  projectId: "myleague-5a9c8",
+  storageBucket: 'gs://myleague-5a9c8.appspot.com/',
+  messagingSenderId: "167455229801"
+});*/
 
 var db = firebase.firestore();
 
-// Get a reference to the storage service, which is used to create references in your storage bucket
-var storage = firebase.storage();
-
-
-function registrarEquipo() {
+function crearTorneo() {
   var nombreTornoe = document.getElementById('nombreTorneo').value;
   var tipoTorneo = document.getElementById('tipoTorneo').value;
   var fechaInicio = document.getElementById('fechaInicio').value;
   var fechaCierre = document.getElementById('fechaCierre').value;
-  var fechaCierre = document.getElementById('fechaNacimientoInicio').value;
-  var fechaCierre = document.getElementById('fechaNacimientoFinal').value;
+  var fechaNacimientoInicio = document.getElementById('fechaNacimientoInicio').value;
+  var fechaNacimientoFinal = document.getElementById('fechaNacimientoFinal').value;
   var categoria = document.getElementById('categoria').value;
 
-  var storageRef = storage.ref('torneos/' + imgEquipo.name);
-  storageRef.put(imgEquipo).then((data) => {
-    console.log("then");
-    console.log(data);
-    storage.ref('torneos/' + imgEquipo.name).getDownloadURL().then((url) => {
-      console.log("url");
-      console.log(url);
-      downloadURL = url;
-      console.log("downloadURL");
-      console.log(downloadURL);
-
-      db.collection("torneos").add({
-        nombreTornoe: nombreTornoe,
-        tipoTorneo: tipoTorneo,
-        fechaInicio: fechaInicio,
-        fechaCierre: fechaCierre,
-        fechaNacimientoInicio: fechaNacimientoInicio,
-        fechaNacimientoFinal: fechaNacimientoFinal,
-        categoria: categoria
-      }).then(function (docRef) {
-        console.log("Document written with ID: ", docRef.id);
-        document.getElementById('nombreTornoe').value = '';
-        document.getElementById('tipoTorneo').value = '';
-        document.getElementById('fechaInicio').value = '';
-        document.getElementById('fechaCierre').value = '';
-        document.getElementById('fechaNacimientoInicio').value = '';
-        document.getElementById('fechaNacimientoFinal').value = '';
-        document.getElementById('categoria').value = '';
-        //window.location = "../index.html";
-      })
-        .catch(function (error) {
-          console.error("Error adding document: ", error);
-        });
-    }).catch((error) => {
-      console.log("url error");
-      console.log(error);
+  db.collection("torneo").add({  
+    nombreTornoe: nombreTornoe,
+    tipoTorneo: tipoTorneo,
+    fechaInicio: fechaInicio,
+    fechaCierre: fechaCierre,
+    fechaNacimientoInicio: fechaNacimientoInicio,
+    fechaNacimientoFinal: fechaNacimientoFinal,
+    categoria: categoria
+  }).then(function (docRef) {
+    console.log("Document written with ID: ", docRef.id);
+    document.getElementById('nombreTornoe').value = '';
+    document.getElementById('tipoTorneo').value = '';
+    document.getElementById('fechaInicio').value = '';
+    document.getElementById('fechaCierre').value = '';
+    document.getElementById('fechaNacimientoInicio').value = '';
+    document.getElementById('fechaNacimientoFinal').value = '';
+    document.getElementById('categoria').value = '';
+    //window.location = "../index.html";
+  })
+    .catch(function (error) {
+      console.error("Error adding document: ", error);
     });
-
-  }).catch((error) => {
-    console.log("error");
-    console.log(error);
-  });
 }
 
 function leerTorneos() {
-  console.log('entro');
   var tabla = document.getElementById('tabla');
   tabla.innerHTML = '';
-  db.collection("torneos").onSnapshot((querySnapshot) => {
+  db.collection("torneo").onSnapshot((querySnapshot) => {
     tabla.innerHTML = '';
     querySnapshot.forEach((doc) => {
-      console.log(doc);
       tabla.innerHTML += `
           <tr>
           <th scope="row">${doc.id}</th>
@@ -77,6 +59,8 @@ function leerTorneos() {
           <td>${doc.data().fechaNacimientoFinal}</td>
           <td>${doc.data().categoria}</td>
           <td><button class="btn " id="boton" onclick="editarTorneo('${doc.id}')"><i class="fas fa-edit"></i></button></td>
+          <td><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" onclick="actualizarEquipo('${doc.id}','${doc.data().nombreTornoe}',
+                '${doc.data().tipoTorneo}','${doc.data().fechaInicio}','${doc.data().fechaCierre}','${doc.data().fechaNacimientoInicio}','${doc.data().fechaNacimientoFinal}','${doc.data().categoria}')"></i></td>
           <td><button class="btn " id="boton" onclick="eliminarTorneo('${doc.id}')"><i class="fas fa-trash-alt"></i></button></td>
           </tr>`;
     });
@@ -84,9 +68,8 @@ function leerTorneos() {
 }
 leerTorneos();
 
-function eliminarEquipo(id) {
-  db.collection("equipos").doc(id).delete().then(function () {
-    console.log("Document successfuly deleted!");
+function eliminarTorneo(id) {
+  db.collection("torneo").doc(id).delete().then(function () {
   }).catch(function (error) {
     console.error("Error removing document: ", error);
   });
