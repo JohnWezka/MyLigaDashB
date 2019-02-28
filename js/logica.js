@@ -129,11 +129,22 @@ function crearLiga() {
         foto: downloadURL
       }).then(function (docRef) {
         console.log("Document written with ID: ", docRef.id);
-        document.getElementById('nomLiga').value = '';
-        document.getElementById('nomDueno').value = '';
-        document.getElementById('descripcion').value = '';
-        document.getElementById('foto').value = null;
-        window.location = "../index.html";
+        var washingtonRef = db.collection("ligas").doc(docRef.id);
+        return washingtonRef.update({
+          id: docRef.id
+        })
+          .then(function () {
+            console.log("Document successfully updated!");
+            document.getElementById('nomLiga').value = '';
+            document.getElementById('nomDueno').value = '';
+            document.getElementById('descripcion').value = '';
+            //window.location = "../index.html";
+          })
+          .catch(function (error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+          });
+
       })
         .catch(function (error) {
           console.error("Error adding document: ", error);
@@ -165,6 +176,7 @@ function crearLiga() {
 
 function leerLigas() {
   var tabla = document.getElementById('tabla');
+  console.log(tabla);
   tabla.innerHTML = '';
   db.collection("ligas").onSnapshot((querySnapshot) => {
     tabla.innerHTML = '';
@@ -177,7 +189,7 @@ function leerLigas() {
           <td>${doc.data().nombreDueno}</td>
           <td>${doc.data().descripcion}</td>
           <td><button class="btn btn-warning" id="boton" onclick="actualizarLiga('${doc.id}','${doc.data().nombreLiga}',
-          '${doc.data().nombreDueno}','${doc.data().descripcion}')">Editar</button></td>
+          '${doc.data().nombreDueno}','${doc.data().descripcion}','${doc.data().foto}')">Editar</button></td>
           <td><button class="btn red accent-4" id="boton" onclick="eliminarLiga('${doc.id}')">Eliminar</button></td>
         </tr>
         `;
@@ -195,11 +207,12 @@ function eliminarLiga(id) {
   });
 }
 
-function actualizarLiga(id, nomLiga, nomDueno, desc) {
+function actualizarLiga(id, nomLiga, nomDueno, desc, foto) {
 
   document.getElementById('nomLiga').value = nomLiga;
   document.getElementById('nomDueno').value = nomDueno;
   document.getElementById('descripcion').value = desc;
+  document.getElementById('foto').value = foto;
   var boton = document.getElementById('boton');
   boton.innerHTML = 'Editar';
 
