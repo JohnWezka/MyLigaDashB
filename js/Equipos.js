@@ -32,30 +32,38 @@ function registrarEquipo() {
                 nombreEquipo: nomEquipo,
                 nombreCategoria: nomCategoria,
                 nombreRama: nomRama,
+                ideLiga: idLiga,
                 nombreEntrenador: nomEntrenador,
                 nombreAsistente: nomAsistente,
-                idEquipo: Date.now(),
                 descripcion: desc,
                 foto: downloadURL
             }).then(function (docRef) {
                 console.log("Document written with ID: ", docRef.id);
+                var washingtonRef = db.collection("ligas").doc(docRef.id);
+                return washingtonRef.update({
+                    idEquipo: docRef.id
+            })
+            .then(function () {
+                console.log("Document successfully updated!");
                 document.getElementById('nomEquipo').value = '';
                 document.getElementById('nomCategoria').value = '';
                 document.getElementById('nomRama').value = '';
                 document.getElementById('nomEntrenador').value = '';
                 document.getElementById('nomAsistente').value = '';
-                document.getElementById('descripcion').value = '';
+                document.getElementById('desc').value = '';
                 document.getElementById('foto').value = null;
-                //window.location = "../index.html";
             })
                 .catch(function (error) {
-                    console.error("Error adding document: ", error);
+                    console.error("Error updating document: ", error);
                 });
+            })
+            .catch(function (error) {
+                console.error("Error adding document: ", error);
+            });
         }).catch((error) => {
             console.log("url error");
             console.log(error);
         });
-
     }).catch((error) => {
         console.log("error");
         console.log(error);
