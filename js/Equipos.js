@@ -119,15 +119,15 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
         var washingtonRef = db.collection("equipos").doc(id);
         var nomEquipo = document.getElementById('nomEquipo').value;
         var nomCategoria = document.getElementById('nomCategoria').value;
-        var nomRama = document.getElementById('nomRama').value;
+        var nomRama = document.getElementById('nomeRama').value;
         var nomEntrenador = document.getElementById('nomEntrenador').value;
         var nomAsistente = document.getElementById('nomAsistente').value;
         var desc = document.getElementById('descripcion').value;
         var imgEquipo = ($('#foto'))[0].files[0];
-        if (imgEquipo != null) {
+        if (img != null) {
             var downloadURL;
             var storageRef = storage.ref('equipo/' + imgEquipo.name);
-            storageRef.put(imgEquipo).then((data) => {
+            storageRef.put(img).then((data) => {
                 console.log("then");
                 console.log(data);
                 storage.ref('equipo/' + imgEquipo.name).getDownloadURL().then((url) => {
@@ -187,6 +187,5 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
         }
     }
 }
-
 
 
