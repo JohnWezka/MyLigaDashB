@@ -3,7 +3,7 @@
 var db = firebase.firestore();
 var storage = firebase.storage();
 
-function registrarJugador() {
+function registrarJugador(idEquipo, idLiga) {
     var nombre = document.getElementById('nomJugador').value;
     var apellidoP = document.getElementById('aPaterno').value;
     var apellidoM = document.getElementById('aMaterno').value;
@@ -27,7 +27,10 @@ function registrarJugador() {
             downloadURL = url;
             console.log("downloadURL");
             console.log(downloadURL);
+
             db.collection("jugadores").add({
+                idEquipo: idEquipo,
+                idLiga: idLiga,
                 nombre: nombre,
                 apellidoP: apellidoP,
                 apellidoM: apellidoM,
@@ -39,21 +42,27 @@ function registrarJugador() {
                 equipo: equipo,
                 categoria: categoria,
                 foto: downloadURL,
-                id: Date.now()
             }).then(function (docRef) {
                 console.log("Document written with ID: ", docRef.id);
-                document.getElementById('nomJuga').value = '';
-                document.getElementById('aPaterno').value = '';
-                document.getElementById('aMaterno').value = '';
-                document.getElementById('fechaJuga').value = '';
-                document.getElementById('numJuga').value = '';
-                document.getElementById('pesoJuga').value = '';
-                document.getElementById('estaJuga').value = '';
-                document.getElementById('curpJuga').value = '';
-                document.getElementById('equipoJuga').value = '';
-                document.getElementById('cateJuga').value = '';
-                document.getElementById('foto').value = null;
-                window.location = "RegistrarJugador.html";
+                var washingtonRef = db.collection("jugadores").doc(docRef.id);
+                return washingtonRef.update({
+                    id: docRef.id
+                }).then(function (){
+                    console.log("Document successfully update!");
+                    document.getElementById('nomJugador').value;
+                    document.getElementById('aPaterno').value;
+                    document.getElementById('aMaterno').value;
+                    document.getElementById('fechaJuga').value;
+                    document.getElementById('numJuga').value;
+                    document.getElementById('pesoJuga').value;
+                    document.getElementById('estaJuga').value;
+                    document.getElementById('curpJuga').value;
+                    document.getElementById('aPaterno').value;
+                    document.getElementById('equipoJuga').value;
+                    document.getElementById('cateJuga').value;
+                    document.getElementById('foto').value;
+
+                })
             }).catch(function (error) {
                 console.error("Error adding document: ", error);
             });
