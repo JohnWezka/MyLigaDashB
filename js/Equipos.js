@@ -7,7 +7,7 @@ var db = firebase.firestore();
 var storage = firebase.storage();
 
 
-function registrarEquipo() {
+function registrarEquipo(idLiga) {
     var nomEquipo = document.getElementById('nomEquipo').value;
     var nomCategoria = document.getElementById('nomCategoria').value;
     var nomRama = document.getElementById('nomRama').value;
@@ -16,50 +16,73 @@ function registrarEquipo() {
     var desc = document.getElementById('descripcion').value;
     var imgEquipo = ($('#foto'))[0].files[0];
     var downloadURL;
+    var existe;
+    db.collection("equipos").get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            if (doc.data().nombreEquipo == nomEquipo) {
+                existe = true;
+            } else {
+                existe = false;
+            }
+        });
+    });
+    console.log(existe);
+    if (existe) {
+        console.log('El equipo ya existe');
+    } else {
+        var storageRef = storage.ref('equipos/' + imgEquipo.name);
+        storageRef.put(imgEquipo).then((data) => {
+            console.log("then");
+            console.log(data);
+            storage.ref('equipos/' + imgEquipo.name).getDownloadURL().then((url) => {
+                console.log("url");
+                console.log(url);
+                downloadURL = url;
+                console.log("downloadURL");
+                console.log(downloadURL);
 
-    var storageRef = storage.ref('equipos/' + imgEquipo.name);
-    storageRef.put(imgEquipo).then((data) => {
-        console.log("then");
-        console.log(data);
-        storage.ref('equipos/' + imgEquipo.name).getDownloadURL().then((url) => {
-            console.log("url");
-            console.log(url);
-            downloadURL = url;
-            console.log("downloadURL");
-            console.log(downloadURL);
-
-            db.collection("equipos").add({
-                nombreEquipo: nomEquipo,
-                nombreCategoria: nomCategoria,
-                nombreRama: nomRama,
-                nombreEntrenador: nomEntrenador,
-                nombreAsistente: nomAsistente,
-                idEquipo: Date.now(),
-                descripcion: desc,
-                foto: downloadURL
-            }).then(function (docRef) {
-                console.log("Document written with ID: ", docRef.id);
-                document.getElementById('nomEquipo').value = '';
-                document.getElementById('nomCategoria').value = '';
-                document.getElementById('nomRama').value = '';
-                document.getElementById('nomEntrenador').value = '';
-                document.getElementById('nomAsistente').value = '';
-                document.getElementById('descripcion').value = '';
-                document.getElementById('foto').value = null;
-                //window.location = "../index.html";
-            })
-                .catch(function (error) {
-                    console.error("Error adding document: ", error);
-                });
+                db.collection("equipos").add({
+                    nombreEquipo: nomEquipo,
+                    nombreCategoria: nomCategoria,
+                    nombreRama: nomRama,
+                    idLiga: idLiga,
+                    nombreEntrenador: nomEntrenador,
+                    nombreAsistente: nomAsistente,
+                    descripcion: desc,
+                    foto: downloadURL
+                }).then(function (docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                    var washingtonRef = db.collection("ligas").doc(docRef.id);
+                    return washingtonRef.update({
+                        idEquipo: docRef.id
+                    })
+                        .then(function () {
+                            console.log("Document successfully updated!");
+                            document.getElementById('nomEquipo').value = '';
+                            document.getElementById('nomCategoria').value = '';
+                            document.getElementById('nomRama').value = '';
+                            document.getElementById('nomEntrenador').value = '';
+                            document.getElementById('nomAsistente').value = '';
+                            document.getElementById('desc').value = '';
+                            document.getElementById('foto').value = null;
+                        })
+                        .catch(function (error) {
+                            console.error("Error updating document: ", error);
+                        });
+                })
+                    .catch(function (error) {
+                        console.error("Error adding document: ", error);
+                    });
+            }).catch((error) => {
+                console.log("url error");
+                console.log(error);
+            });
         }).catch((error) => {
-            console.log("url error");
+            console.log("error");
             console.log(error);
         });
+    }
 
-    }).catch((error) => {
-        console.log("error");
-        console.log(error);
-    });
 }
 
 function leerEquipos() {
