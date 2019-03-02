@@ -12,7 +12,7 @@ function registrarJugador(idEquipo, idLiga) {
     var peso = document.getElementById('pesoJuga').value;
     var estatura = document.getElementById('estaJuga').value;
     var curp = document.getElementById('curpJuga').value;
-    var equipo = document.getElementById('equipoJuga').value;
+    var equipo = document.getElementById('combo').value;
     var categoria = document.getElementById('cateJuga').value;
     var foto = ($('#foto'))[0].files[0];
     console.log(foto);
@@ -58,7 +58,7 @@ function registrarJugador(idEquipo, idLiga) {
                     document.getElementById('estaJuga').value;
                     document.getElementById('curpJuga').value;
                     document.getElementById('aPaterno').value;
-                    document.getElementById('equipoJuga').value;
+                    document.getElementById('combo').value;
                     document.getElementById('cateJuga').value;
                     document.getElementById('foto').value;
 
@@ -77,6 +77,18 @@ function registrarJugador(idEquipo, idLiga) {
 
 
 }
+(function consultarEquipos() {
+    var combo = document.getElementById('combo');
+    combo.innerHTML = '';
+    db.collection("equipos").onSnapshot((querySnapshot) =>{
+        combo.innerHTML = '';
+        querySnapshot.forEach((doc) =>{
+            combo.innerHTML +=`
+            <option>${doc.data().nombreEquipo}</option>
+            `;
+        })
+    })
+})();
 
 
 (function leerJugadores() {
@@ -110,7 +122,7 @@ function registrarJugador(idEquipo, idLiga) {
 })();
 
 function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, pesoJuga, estaJuga, curpJuga, equipoJuga,categoria) {
-    console.log('entreo');
+    console.log('entro');
     document.getElementById('nomJugador').value = nomJugador;
     document.getElementById('aPaterno').value = aPaterno;
     document.getElementById('aMaterno').value = aMaterno;
@@ -119,7 +131,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
     document.getElementById('pesoJuga').value = pesoJuga;
     document.getElementById('estaJuga').value = estaJuga;
     document.getElementById('curpJuga').value = curpJuga;
-    document.getElementById('equipoJuga').value = equipoJuga;
+    document.getElementById('combo').value = equipoJuga;
     document.getElementById('cateJuga').value = categoria;
     var boton = document.getElementById('boton');
     boton.innerHTML = 'Editar';
@@ -133,7 +145,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
         var pesoJuga = document.getElementById('pesoJuga').value;
         var estaJuga = document.getElementById('estaJuga').value;
         var curpJuga = document.getElementById('curpJuga').value;
-        var equipoJuga = document.getElementById('equipoJuga').value;
+        var equipoJuga = document.getElementById('combo').value;
         var foto = ($('#foto'))[0].files[0];
         if (foto != null) {
             var downloadURL;
@@ -157,7 +169,8 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                         pesoJuga: pesoJuga,
                         estaJuga: estaJuga,
                         curpJuga: curpJuga,
-                        equipoJuga: equipoJuga
+                        equipoJuga: equipoJuga,
+                        foto: downloadURL
 
                     }).then(function () {
                         console.log("Document successfully updated!");
@@ -168,8 +181,9 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                         document.getElementById('pesoJuga').value = '';
                         document.getElementById('estaJuga').value = '';
                         document.getElementById('curpJuga').value = '';
-                        document.getElementById('equipoJuga').value = '';
-                        boton.innerHTML = 'guardarJugador';
+                        document.getElementById('combo').value = '';
+                        document.getElementById('foto').value = null;
+                        boton.innerHTML = 'Guardar';
                     }).catch(function (error) {
                         // The document probably doesn't exist.
                         console.error("Error updating document: ", error);
@@ -199,7 +213,8 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                 document.getElementById('pesoJuga').value = '';
                 document.getElementById('estaJuga').value = '';
                 document.getElementById('curpJuga').value = '';
-                document.getElementById('equipoJuga').value = '';
+                document.getElementById('combo').value = '';
+                document.getElementById('foto').value = null;
                 boton.innerHTML = 'Guardar';
                 window.location = "RegistarJugadores.html"
             }).catch(function (error) {
