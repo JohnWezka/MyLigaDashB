@@ -7,6 +7,8 @@ var db = firebase.firestore();
 var storage = firebase.storage();
 
 
+
+
 function registrarEquipo(idLiga) {
     var nomEquipo = document.getElementById('nomEquipo').value;
     var nomCategoria = document.getElementById('nomCategoria').value;
@@ -18,29 +20,26 @@ function registrarEquipo(idLiga) {
     var downloadURL;
     var existe;
     db.collection("equipos").get().then(function (querySnapshot) {
+        
         querySnapshot.forEach(function (doc) {
+            
             if (doc.data().nombreEquipo == nomEquipo) {
-                existe = true;
+                existe = "si";
+                break;
             } else {
-                existe = false;
+                existe = "no";
             }
+            
         });
     });
-    console.log(existe);
-    if (existe) {
-        console.log('El equipo ya existe');
-    } else {
+    alert(existe);
+    if (existe === "si"){
+        console.log('ya existe');
+    }else{
         var storageRef = storage.ref('equipos/' + imgEquipo.name);
         storageRef.put(imgEquipo).then((data) => {
-            console.log("then");
-            console.log(data);
             storage.ref('equipos/' + imgEquipo.name).getDownloadURL().then((url) => {
-                console.log("url");
-                console.log(url);
                 downloadURL = url;
-                console.log("downloadURL");
-                console.log(downloadURL);
-
                 db.collection("equipos").add({
                     nombreEquipo: nomEquipo,
                     nombreCategoria: nomCategoria,
@@ -51,7 +50,6 @@ function registrarEquipo(idLiga) {
                     descripcion: desc,
                     foto: downloadURL
                 }).then(function (docRef) {
-                    console.log("Document written with ID: ", docRef.id);
                     var washingtonRef = db.collection("ligas").doc(docRef.id);
                     return washingtonRef.update({
                         idEquipo: docRef.id
@@ -92,7 +90,6 @@ function leerEquipos() {
     db.collection("equipos").onSnapshot((querySnapshot) => {
         tabla.innerHTML = '';
         querySnapshot.forEach((doc) => {
-            console.log(doc);
             tabla.innerHTML += `
             <tr>
                 <td>${doc.data().nombreEquipo}</td>
@@ -105,6 +102,7 @@ function leerEquipos() {
                 <td><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" onclick="actualizarEquipo('${doc.id}','${doc.data().nombreEquipo}',
                 '${doc.data().nombreCategoria}','${doc.data().nombreRama}','${doc.data().nombreEntrenador}','${doc.data().nombreAsistente}','${doc.data().descripcion}')"></i></td>
                 <td><i class="fas fa-trash-alt" onclick="eliminarEquipo('${doc.id}')"></i></td>
+                <td><i class="fas fa-trash-alt" ('${doc.id}')"></i></td>
             </tr>`;
         });
     });
