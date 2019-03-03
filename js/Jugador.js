@@ -16,7 +16,7 @@ function registrarJugador(idLiga) {
     var categoria = document.getElementById('cateJuga').value;
     var foto = ($('#foto'))[0].files[0];
     var downloadURL;
-    db.collection("jugadores").where("nombre", "==", nomJugador).gte().then(function (querySnapshot) {
+    db.collection("jugadores").where("nombre", "==", nombre).gte().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
         if (querySnapshot.empty) {
             console.log('Jugador existente')
@@ -68,6 +68,11 @@ function registrarJugador(idLiga) {
                             var contenedor = document.getElementById('contCarga');
                             contenedor.style.visibility = 'hidden';
                             contenedor.style.opacity = '0';
+                        }).catch(function (error){
+                            console.error("Error updating document: ", error);
+                            var contenedor = document.getElementById('contCarga');
+                            contenedor.style.visibility = 'hidden';
+                            contenedor.style.opacity = '0';
                         })
                     }).catch(function (error) {
                         console.error("Error adding document: ", error);
@@ -78,10 +83,16 @@ function registrarJugador(idLiga) {
                 }).catch((error) => {
                     console.log("url error");
                     console.log(error);
+                    var contenedor = document.getElementById('contCarga');
+                    contenedor.style.visibility = 'hidden';
+                    contenedor.style.opacity = '0';
                 });
             }).catch((error) => {
                 console.log("error");
                 console.log(error);
+                var contenedor = document.getElementById('contCarga');
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
             });
         }
     }).catch(function (error){
