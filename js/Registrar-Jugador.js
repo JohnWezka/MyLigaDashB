@@ -17,80 +17,70 @@ function registrarJugador(idLiga) {
     var foto = ($('#foto'))[0].files[0];
     var downloadURL;
     var existe;
-    db.collection("jugadores").get().then(function (querySnapshot) {
+    db.collection("jugadores").where("nombre", "==", nombre).gte().then(function (querySnapshot) {
+        console.log(querySnapshot.empty);
+        if (querySnapshot.empty) {
+            console.log('Jugador existente')
+        } else {
+            var storageRef = storage.ref('jugadores/' + foto.name);
+            storageRef.put(foto).then((data) => {
+                console.log("then");
+                console.log(data);
+                storage.ref('jugadores/' + foto.name).getDownloadURL().then((url) => {
+                    console.log("url");
+                    console.log(url);
+                    downloadURL = url;
+                    console.log("downloadURL");
+                    console.log(downloadURL);
 
-        querySnapshot.forEach(function (doc) {
+                    db.collection("jugadores").add({
+                        idLiga: idLiga,
+                        nombre: nombre,
+                        apellidoP: apellidoP,
+                        apellidoM: apellidoM,
+                        fechaNacimiento: fechaNacimiento,
+                        numero: numero,
+                        peso: peso,
+                        estatura: estatura,
+                        curp: curp,
+                        equipo: equipo,
+                        categoria: categoria,
+                        foto: downloadURL,
+                    }).then(function (docRef) {
+                        console.log("Document written with ID: ", docRef.id);
+                        var washingtonRef = db.collection("jugadores").doc(docRef.id);
+                        return washingtonRef.update({
+                            id: docRef.id
+                        }).then(function () {
+                            console.log("Document successfully update!");
+                            document.getElementById('nomJugador').value = '';
+                            document.getElementById('aPaterno').value = '';
+                            document.getElementById('aMaterno').value = '';
+                            document.getElementById('fechaJuga').value = '';
+                            document.getElementById('numJuga').value = '';
+                            document.getElementById('pesoJuga').value = '';
+                            document.getElementById('estaJuga').value = '';
+                            document.getElementById('curpJuga').value = '';
+                            document.getElementById('aPaterno').value = '';
+                            document.getElementById('combo').value = '';
+                            document.getElementById('cateJuga').value = '';
+                            document.getElementById('foto').value = null;
 
-            if (doc.data().nombre == nombre) {
-                existe = "si";
-                break;
-            } else {
-                existe = "no";
-            }
-        });
-    });
-    alert(existe);
-    if (existe == "si") {
-        console.log('ya existe');
-    } else {
-
-        var storageRef = storage.ref('jugadores/' + foto.name);
-        storageRef.put(foto).then((data) => {
-            console.log("then");
-            console.log(data);
-            storage.ref('jugadores/' + foto.name).getDownloadURL().then((url) => {
-                console.log("url");
-                console.log(url);
-                downloadURL = url;
-                console.log("downloadURL");
-                console.log(downloadURL);
-
-                db.collection("jugadores").add({
-                    idLiga: idLiga,
-                    nombre: nombre,
-                    apellidoP: apellidoP,
-                    apellidoM: apellidoM,
-                    fechaNacimiento: fechaNacimiento,
-                    numero: numero,
-                    peso: peso,
-                    estatura: estatura,
-                    curp: curp,
-                    equipo: equipo,
-                    categoria: categoria,
-                    foto: downloadURL,
-                }).then(function (docRef) {
-                    console.log("Document written with ID: ", docRef.id);
-                    var washingtonRef = db.collection("jugadores").doc(docRef.id);
-                    return washingtonRef.update({
-                        id: docRef.id
-                    }).then(function () {
-                        console.log("Document successfully update!");
-                        document.getElementById('nomJugador').value = '';
-                        document.getElementById('aPaterno').value = '';
-                        document.getElementById('aMaterno').value = '';
-                        document.getElementById('fechaJuga').value = '';
-                        document.getElementById('numJuga').value = '';
-                        document.getElementById('pesoJuga').value = '';
-                        document.getElementById('estaJuga').value = '';
-                        document.getElementById('curpJuga').value = '';
-                        document.getElementById('aPaterno').value = '';
-                        document.getElementById('combo').value = '';
-                        document.getElementById('cateJuga').value = ''; 
-                        document.getElementById('foto').value = null;
-
-                    })
-                }).catch(function (error) {
-                    console.error("Error adding document: ", error);
+                        })
+                    }).catch(function (error) {
+                        console.error("Error adding document: ", error);
+                    });
+                }).catch((error) => {
+                    console.log("url error");
+                    console.log(error);
                 });
             }).catch((error) => {
-                console.log("url error");
+                console.log("error");
                 console.log(error);
             });
-        }).catch((error) => {
-            console.log("error");
-            console.log(error);
-        });
-    }
+        }
+    });
+
 }
 (function consultarEquipos() {
     var combo = document.getElementById('combo');
