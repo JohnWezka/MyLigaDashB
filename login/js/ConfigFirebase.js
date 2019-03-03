@@ -1,5 +1,5 @@
   //llave de configuracion de firebase
-  const varConfig = {
+  /*const varConfig = {
       apiKey: "AIzaSyDu92rdtAJ-mOjDF2IoMua6gM5S_1RaMMU",
       authDomain: "myleague-a4d04.firebaseapp.com",
       databaseURL: "https://myleague-a4d04.firebaseio.com",
@@ -9,8 +9,8 @@
   };
 
   firebase.initializeApp(varConfig);
-  var db = firebase.firestore();
-  var storage = firebase.storage();
+  /*var db = firebase.firestore();
+  var storage = firebase.storage();*/
 
   function registrar() {
       var email = document.getElementById('emailr').value;
