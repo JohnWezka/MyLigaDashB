@@ -2,52 +2,63 @@
 var db = firebase.firestore();
 // Get a reference to the storage service, which is used to create references in your storage bucket
 var storage = firebase.storage();
+// Current user
+var uid;
 
-function crearLiga() {
-    var nomLiga = document.getElementById('nomLiga').value;
-    var nomDueno = document.getElementById('nomDueno').value;
-    var desc = document.getElementById('descripcion').value;
-    var img = ($('#foto'))[0].files[0];
+function observador() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            uid = user.uid;
+            console.log("Existe usuario");
+            console.log(user);
+        } else {
+            console.log("No existe usuario");
+            console.log(user);
+        }
+    });
+}
+observador();
+
+function registrarAdmin() {
+    var nombres = document.getElementById('nom').value;
+    var appma = document.getElementById('appma').value;
+    var apppa = document.getElementById('apppa').value;
+    var dicc = document.getElementById('dicc').value;
+    var telefono = document.getElementById('tel').value;
+    var photo = ($('#foto'))[0].files[0];
     var downloadURL;
-
-    var storageRef = storage.ref('ligas/' + img.name);
-    storageRef.put(img).then((data) => {
-        console.log("then");
-        console.log(data);
-        storage.ref('ligas/' + img.name).getDownloadURL().then((url) => {
-            console.log("url");
-            console.log(url);
+    var storageRef = storage.ref('admin/' + photo.name);
+    storageRef.put(photo).then((data) => {
+        storage.ref('admin/' + photo.name).getDownloadURL().then((url) => {
             downloadURL = url;
-            console.log("downloadURL");
-            console.log(downloadURL);
-
-            db.collection("ligas").add({
-                    nombreLiga: nomLiga,
-                    nombreDueno: nomDueno,
-                    descripcion: desc,
-                    foto: downloadURL
-                }).then(function(docRef) {
-                    console.log("Document written with ID: ", docRef.id);
-                    var washingtonRef = db.collection("ligas").doc(docRef.id);
-                    return washingtonRef.update({
-                            id: docRef.id
-                        })
-                        .then(function() {
-                            console.log("Document successfully updated!");
-                            document.getElementById('nomLiga').value = '';
-                            document.getElementById('nomDueno').value = '';
-                            document.getElementById('descripcion').value = '';
-                            //window.location = "../index.html";
-                        })
-                        .catch(function(error) {
-                            // The document probably doesn't exist.
-                            console.error("Error updating document: ", error);
-                        });
-
-                })
-                .catch(function(error) {
-                    console.error("Error adding document: ", error);
+            db.collection("admin").add({
+                nombreLiga: nombres,
+                apellidoMaterno: appma,
+                apellidoPaterno: apppa,
+                direccion: dicc,
+                telefono: telefono,
+                foto: downloadURL,
+                userID: uid
+            }).then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                var washingtonRef = db.collection("admin").doc(docRef.id);
+                return washingtonRef.update({
+                    id: docRef.id
+                }).then(function() {
+                    alert("Perfil Completo");
+                    document.getElementById('nom').value = '';
+                    document.getElementById('appma').value = '';
+                    document.getElementById('apppa').value = '';
+                    document.getElementById('dicc').value = '';
+                    document.getElementById('tel').value = '';
+                    //window.location = "../index.html";
+                }).catch(function(error) {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
                 });
+            }).catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
         }).catch((error) => {
             console.log("url error");
             console.log(error);
@@ -57,20 +68,6 @@ function crearLiga() {
         console.log("error");
         console.log(error);
     });
-    /*.catch((error) => {
-      console.log("error");
-      console.log(error);
-    });*/
-    /*uploadTask.on('state_changed', (snapshot) => {
-        console.log("snapshot:");
-        console.log(snapshot);
-        
-      },function(error){
-        console.log("error storage");
-        console.log(error);
-      }, function(){
-        downloadURL = uploadTask.snapshot.downloadURL;
-      });*/
 }
 
 function eliminarLiga(id) {
