@@ -16,8 +16,7 @@ function registrarJugador(idLiga) {
     var categoria = document.getElementById('cateJuga').value;
     var foto = ($('#foto'))[0].files[0];
     var downloadURL;
-    var existe;
-    db.collection("jugadores").where("nombre", "==", nombre).gte().then(function (querySnapshot) {
+    db.collection("jugadores").where("nombre", "==", nomJugador).gte().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
         if (querySnapshot.empty) {
             console.log('Jugador existente')
@@ -66,9 +65,15 @@ function registrarJugador(idLiga) {
                             document.getElementById('cateJuga').value = '';
                             document.getElementById('foto').value = null;
 
+                            var contenedor = document.getElementById('contCarga');
+                            contenedor.style.visibility = 'hidden';
+                            contenedor.style.opacity = '0';
                         })
                     }).catch(function (error) {
                         console.error("Error adding document: ", error);
+                        var contenedor = document.getElementById('contCarga');
+                        contenedor.style.visibility = 'hidden';
+                        contenedor.style.opacity = '0';
                     });
                 }).catch((error) => {
                     console.log("url error");
@@ -79,6 +84,11 @@ function registrarJugador(idLiga) {
                 console.log(error);
             });
         }
+    }).catch(function (error){
+        console.log("Error getting documents: ", error);    
+        var contenedor = document.getElementById('contCarga');
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
     });
 
 }
@@ -101,6 +111,7 @@ function registrarJugador(idLiga) {
     table.innerHTML = '';
     db.collection("jugadores").onSnapshot((querySnapshot) => {
         table.innerHTML = '';
+
         querySnapshot.forEach((doc) => {
             table.innerHTML += `
             <tr>
@@ -122,8 +133,13 @@ function registrarJugador(idLiga) {
                 <td><button class="btn btan-warning" onclick="eliminarJugador('${doc.id}')">Eliminar</button></td>
             </tr>
             `;
+
         });
+        var contenedor = document.getElementById('contCarga');
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
     });
+
 })();
 
 function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, pesoJuga, estaJuga, curpJuga, equipoJuga, categoria) {
