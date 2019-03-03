@@ -68,6 +68,9 @@ function leerTorneos() {
           <td><i class="fas fa-trash-alt" onclick="eliminarTorneo('${doc.id}')"></i></td>
           </tr>`;
     });
+    var contenedor = document.getElementById('contCarga');
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
   });
 }
 leerTorneos();
@@ -93,7 +96,7 @@ function actualizarTorneo(id, nombreTorneo, tipoTorneo, fechaInicio, fechaCierre
   boton.innerHTML = 'Editar';
   boton.onclick = function () {
     
-    var washingtonRef = db.collection("torneos").doc(id);
+    var washingtonRef = db.collection("torneo").doc(id);
     var nombreTorneo = document.getElementById('nombreTorneo').value;
     var tipoTorneo = document.getElementById('tipoTorneo').value;
     var fechaInicio = document.getElementById('fechaInicio').value;
