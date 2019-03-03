@@ -92,6 +92,7 @@ function actualizarTorneo(id, nombreTorneo, tipoTorneo, fechaInicio, fechaCierre
   var boton = document.getElementById('boton');
   boton.innerHTML = 'Editar';
   boton.onclick = function () {
+    
     var washingtonRef = db.collection("torneos").doc(id);
     var nombreTorneo = document.getElementById('nombreTorneo').value;
     var tipoTorneo = document.getElementById('tipoTorneo').value;
@@ -100,54 +101,28 @@ function actualizarTorneo(id, nombreTorneo, tipoTorneo, fechaInicio, fechaCierre
     var fechaNacimientoInicio = document.getElementById('fechaNacimientoInicio').value;
     var fechaNacimientoFinal = document.getElementById('fechaNacimientoFinal').value;
     var categoria = document.getElementById('categoria').value;
-    var img = null;
-    if (img != null) {
-      return washingtonRef.update({
-        nombreTorneo: nombreTorneo,
-        tipoTorneo: tipoTorneo,
-        fechaInicio: fechaInicio,
-        fechaCierre: fechaCierre,
-        fechaNacimientoInicio: fechaNacimientoInicio,
-        fechaNacimientoFinal: fechaNacimientoFinal,
-        categoria: categoria
-      }).then(function () {
-        console.log("Document successfully updated!");
-        document.getElementById('nombreTorneo').value = '';
-        document.getElementById('tipoTorneo').value = '';
-        document.getElementById('fechaInicio').value = '';
-        document.getElementById('fechaCierre').value = '';
-        document.getElementById('fechaNacimientoInicio').value = '';
-        document.getElementById('fechaNacimientoFinal').value = '';
-        document.getElementById('categoria').value = '';
-        boton.innerHTML = 'Guardar';
-      }).catch(function (error) {
-        console.error("Error updating document: ", error);
-      });
-    } else {
-      return washingtonRef.update({
-        nombreTorneo: nombreTorneo,
-        tipoTorneo: tipoTorneo,
-        fechaInicio: fechaInicio,
-        fechaCierre: fechaCierre,
-        fechaNacimientoInicio: fechaNacimientoInicio,
-        fechaNacimientoFinal: fechaNacimientoFinal,
-        categoria: categoria
-      }).then(function () {
-        console.log("Document succesfully updated!");
-        document.getElementById('nombreTorneo').value = '';
-        document.getElementById('tipoTorneo').value = '';
-        document.getElementById('fechaInicio').value = '';
-        document.getElementById('fechaCierre').value = '';
-        document.getElementById('fechaNacimientoInicio').value = '';
-        document.getElementById('fechaNacimientoFinal').value = '';
-        document.getElementById('fechaNacimientoFinal').value = '';
-        document.getElementById('categoria').value = '';
-        boton.innerHTML = 'Guardar';
-        window.location = "Torneos.html";
-      }).catch(function (error) {
-        console.error("Error updating document: ", error);
-      })
-    }
+
+    return washingtonRef.update({
+      nombreTorneo: nombreTorneo,
+      tipoTorneo: tipoTorneo,
+      fechaInicio: fechaInicio,
+      fechaCierre: fechaCierre,
+      fechaNacimientoInicio: fechaNacimientoInicio,
+      fechaNacimientoFinal: fechaNacimientoFinal,
+      categoria: categoria
+    }).then(function () {
+      console.log("Document succesfully updated!");
+      document.getElementById('nombreTorneo').value = '';
+      document.getElementById('tipoTorneo').value = '';
+      document.getElementById('fechaInicio').value = '';
+      document.getElementById('fechaCierre').value = '';
+      document.getElementById('fechaNacimientoInicio').value = '';
+      document.getElementById('fechaNacimientoFinal').value = '';
+      document.getElementById('categoria').value = '';  
+      window.location = "Torneos.html";
+    }).catch(function (error) {
+      console.error("Error updating document: ", error);
+    })
   }
 }
 
