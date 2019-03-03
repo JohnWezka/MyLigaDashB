@@ -6,10 +6,10 @@ var db = firebase.firestore();
 // Get a reference to the storage service, which is used to create references in your storage bucket
 var storage = firebase.storage();
 
-
-
-
 function registrarEquipo(idLiga) {
+    var contenedor = document.getElementById('contCarga');
+    contenedor.style.visibility = 'visible';
+    contenedor.style.opacity = '100';
     var nomEquipo = document.getElementById('nomEquipo').value;
     var nomCategoria = document.getElementById('nomCategoria').value;
     var nomRama = document.getElementById('nomRama').value;
@@ -20,52 +20,70 @@ function registrarEquipo(idLiga) {
     var downloadURL;
     db.collection("equipos").where("nombreEquipo", "==", nomEquipo).get().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
-            if (querySnapshot.empty) {
-                console.log('ya existe');
-            } else {
-                var storageRef = storage.ref('equipos/' + imgEquipo.name);
-                storageRef.put(imgEquipo).then((data) => {
-                    storage.ref('equipos/' + imgEquipo.name).getDownloadURL().then((url) => {
-                        downloadURL = url;
-                        db.collection("equipos").add({
-                            nombreEquipo: nomEquipo,
-                            nombreCategoria: nomCategoria,
-                            nombreRama: nomRama,
-                            idLiga: idLiga,
-                            nombreEntrenador: nomEntrenador,
-                            nombreAsistente: nomAsistente,
-                            descripcion: desc,
-                            foto: downloadURL
-                        }).then(function (docRef) {
-                            var washingtonRef = db.collection("equipos").doc(docRef.id);
-                            return washingtonRef.update({
-                                idEquipo: docRef.id
-                            }).then(function () {
-                                console.log("Document successfully updated!");
-                                document.getElementById('nomEquipo').value = '';
-                                document.getElementById('nomCategoria').value = '';
-                                document.getElementById('nomRama').value = '';
-                                document.getElementById('nomEntrenador').value = '';
-                                document.getElementById('nomAsistente').value = '';
-                                document.getElementById('descripcion').value = '';
-                                document.getElementById('foto').value = null;
-                            }).catch(function (error) {
-                                console.error("Error updating document: ", error);
-                            });
+        if (!querySnapshot.empty) {
+            console.log('ya existe');
+        } else {
+            var storageRef = storage.ref('equipos/' + imgEquipo.name);
+            storageRef.put(imgEquipo).then((data) => {
+                storage.ref('equipos/' + imgEquipo.name).getDownloadURL().then((url) => {
+                    downloadURL = url;
+                    db.collection("equipos").add({
+                        nombreEquipo: nomEquipo,
+                        nombreCategoria: nomCategoria,
+                        nombreRama: nomRama,
+                        idLiga: idLiga,
+                        nombreEntrenador: nomEntrenador,
+                        nombreAsistente: nomAsistente,
+                        descripcion: desc,
+                        foto: downloadURL
+                    }).then(function (docRef) {
+                        var washingtonRef = db.collection("equipos").doc(docRef.id);
+                        return washingtonRef.update({
+                            idEquipo: docRef.id
+                        }).then(function () {
+                            console.log("Document successfully updated!");
+                            document.getElementById('nomEquipo').value = '';
+                            document.getElementById('nomCategoria').value = '';
+                            document.getElementById('nomRama').value = '';
+                            document.getElementById('nomEntrenador').value = '';
+                            document.getElementById('nomAsistente').value = '';
+                            document.getElementById('descripcion').value = '';
+                            document.getElementById('foto').value = null;
+                            var contenedor = document.getElementById('contCarga');
+                            contenedor.style.visibility = 'hidden';
+                            contenedor.style.opacity = '0';
                         }).catch(function (error) {
-                            console.error("Error adding document: ", error);
+                            console.error("Error updating document: ", error);
+                            var contenedor = document.getElementById('contCarga');
+                            contenedor.style.visibility = 'hidden';
+                            contenedor.style.opacity = '0';
                         });
-                    }).catch((error) => {
-                        console.log("url error");
-                        console.log(error);
+                    }).catch(function (error) {
+                        console.error("Error adding document: ", error);
+                        var contenedor = document.getElementById('contCarga');
+                        contenedor.style.visibility = 'hidden';
+                        contenedor.style.opacity = '0';
                     });
                 }).catch((error) => {
-                    console.log("error");
+                    console.log("url error");
                     console.log(error);
+                    var contenedor = document.getElementById('contCarga');
+                    contenedor.style.visibility = 'hidden';
+                    contenedor.style.opacity = '0';
                 });
-            }
+            }).catch((error) => {
+                console.log("error");
+                console.log(error);
+                var contenedor = document.getElementById('contCarga');
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
+            });
+        }
     }).catch(function (error) {
         console.log("Error getting documents: ", error);
+        var contenedor = document.getElementById('contCarga');
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
     });
 
 
@@ -90,9 +108,11 @@ function leerEquipos() {
                 <td><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" onclick="actualizarEquipo('${doc.id}','${doc.data().nombreEquipo}',
                 '${doc.data().nombreCategoria}','${doc.data().nombreRama}','${doc.data().nombreEntrenador}','${doc.data().nombreAsistente}','${doc.data().descripcion}')"></i></td>
                 <td><i class="fas fa-trash-alt" onclick="eliminarEquipo('${doc.id}')"></i></td>
-                <td><i class="fas fa-trash-alt" ('${doc.id}')"></i></td>
             </tr>`;
         });
+        var contenedor = document.getElementById('contCarga');
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
     });
 }
 
@@ -107,7 +127,9 @@ function eliminarEquipo(idEquipo) {
 }
 
 function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreEntrenador, nombreAsistente, descripcion) {
-    console.log('entro');
+    var contenedor = document.getElementById('contCarga');
+    contenedor.style.visibility = 'visible';
+    contenedor.style.opacity = '100';
     document.getElementById('nomEquipo').value = nombreEquipo;
     document.getElementById('nomCategoria').value = nombreCategoria;
     document.getElementById('nomRama').value = nombreRama;
@@ -129,14 +151,8 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
             var downloadURL;
             var storageRef = storage.ref('equipo/' + imgEquipo.name);
             storageRef.put(img).then((data) => {
-                console.log("then");
-                console.log(data);
                 storage.ref('equipo/' + imgEquipo.name).getDownloadURL().then((url) => {
-                    console.log("url");
-                    console.log(url);
                     downloadURL = url;
-                    console.log("downloadURL");
-                    console.log(downloadURL);
                     return washingtonRef.update({
                         nombreEquipo: nomEquipo,
                         nombreCategoria: nomCategoria,
@@ -155,6 +171,9 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
                         document.getElementById('descripcion').value = '';
                         document.getElementById('foto').value = null;
                         boton.innerHTML = 'Guardar';
+                        var contenedor = document.getElementById('contCarga');
+                        contenedor.style.visibility = 'hidden';
+                        contenedor.style.opacity = '0';
                     }).catch(function (error) {
                         console.error("Error updating document: ", error);
                     });
@@ -172,6 +191,9 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
                 nombreAsistente: nomAsistente,
                 desc: descripcion
             }).then(function () {
+                var contenedor = document.getElementById('contCarga');
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
                 console.log("Document succesfully updated!");
                 document.getElementById('nombreEquipo').value = '';
                 document.getElementById('nombreCategoria').value = '';
