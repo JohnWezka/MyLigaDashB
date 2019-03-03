@@ -32,19 +32,19 @@ function crearTorneo() {
     return washingtonRef.update({
       id: docRef.id
     }).then(function () {
-        console.log("Document successfully updated!");
-        document.getElementById('nombreTorneo').value = '';
-        document.getElementById('tipoTorneo').value = '';
-        document.getElementById('fechaInicio').value = '';
-        document.getElementById('fechaCierre').value = '';
-        document.getElementById('fechaNacimientoInicio').value = '';
-        document.getElementById('fechaNacimientoFinal').value = '';
-        document.getElementById('categoria').value = '';
-        //window.location = "../index.html";
-      })
+      console.log("Document successfully updated!");
+      document.getElementById('nombreTorneo').value = '';
+      document.getElementById('tipoTorneo').value = '';
+      document.getElementById('fechaInicio').value = '';
+      document.getElementById('fechaCierre').value = '';
+      document.getElementById('fechaNacimientoInicio').value = '';
+      document.getElementById('fechaNacimientoFinal').value = '';
+      document.getElementById('categoria').value = '';
+      //window.location = "../index.html";
+    })
   }).catch(function (error) {
-      console.error("Error adding document: ", error);
-    });
+    console.error("Error adding document: ", error);
+  });
 }
 
 function leerTorneos() {
@@ -63,10 +63,9 @@ function leerTorneos() {
           <td>${doc.data().fechaNacimientoInicio}</td>
           <td>${doc.data().fechaNacimientoFinal}</td>
           <td>${doc.data().categoria}</td>
-          <td><button class="btn " id="boton" onclick="editarTorneo('${doc.id}')"><i class="fas fa-edit"></i></button></td>
-          <td><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" onclick="actualizarTorneo('${doc.id}','${doc.data().nombreTorneo}',
-                '${doc.data().tipoTorneo}','${doc.data().fechaInicio}','${doc.data().fechaCierre}','${doc.data().fechaNacimientoInicio}','${doc.data().fechaNacimientoFinal}','${doc.data().categoria}')"></i></td>
-          <td><button class="btn " id="boton" onclick="eliminarTorneo('${doc.id}')"><i class="fas fa-trash-alt"></i></button></td>
+          <td><i class="fas fa-sync-alt" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="actualizarTorneo('${doc.id}','${doc.data().nombreTorneo}',
+          '${doc.data().fechaInicio}','${doc.data().fechaCierre}','${doc.data().fechaNacimientoInicio}','${doc.data().fechaNacimientoFinal}','${doc.data().categoria}')"></i></td>
+          <td><i class="fas fa-trash-alt" onclick="eliminarTorneo('${doc.id}')"></i></td>
           </tr>`;
     });
   });
@@ -101,6 +100,7 @@ function actualizarTorneo(id, nombreTorneo, tipoTorneo, fechaInicio, fechaCierre
     var fechaNacimientoInicio = document.getElementById('fechaNacimientoInicio').value;
     var fechaNacimientoFinal = document.getElementById('fechaNacimientoFinal').value;
     var categoria = document.getElementById('categoria').value;
+    var img = null;
     if (img != null) {
       return washingtonRef.update({
         nombreTorneo: nombreTorneo,
@@ -129,9 +129,9 @@ function actualizarTorneo(id, nombreTorneo, tipoTorneo, fechaInicio, fechaCierre
         tipoTorneo: tipoTorneo,
         fechaInicio: fechaInicio,
         fechaCierre: fechaCierre,
-        fechaNacimientoInicio:fechaNacimientoInicio,
+        fechaNacimientoInicio: fechaNacimientoInicio,
         fechaNacimientoFinal: fechaNacimientoFinal,
-        categoria:categoria
+        categoria: categoria
       }).then(function () {
         console.log("Document succesfully updated!");
         document.getElementById('nombreTorneo').value = '';
@@ -143,7 +143,7 @@ function actualizarTorneo(id, nombreTorneo, tipoTorneo, fechaInicio, fechaCierre
         document.getElementById('fechaNacimientoFinal').value = '';
         document.getElementById('categoria').value = '';
         boton.innerHTML = 'Guardar';
-        window.location = "RegistroArbitros.html";
+        window.location = "Torneos.html";
       }).catch(function (error) {
         console.error("Error updating document: ", error);
       })

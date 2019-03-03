@@ -102,7 +102,7 @@ function leerEquipos() {
                 <td><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" onclick="actualizarEquipo('${doc.id}','${doc.data().nombreEquipo}',
                 '${doc.data().nombreCategoria}','${doc.data().nombreRama}','${doc.data().nombreEntrenador}','${doc.data().nombreAsistente}','${doc.data().descripcion}')"></i></td>
                 <td><i class="fas fa-trash-alt" onclick="eliminarEquipo('${doc.id}')"></i></td>
-                <td><i class="fas fa-trash-alt" ('${doc.id}')"></i></td>
+                
             </tr>`;
         });
     });
