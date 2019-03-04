@@ -107,19 +107,15 @@ function crearLiga() {
     var nomLiga = document.getElementById('nomLiga').value;
     var nomDueno = document.getElementById('nomDueno').value;
     var desc = document.getElementById('descripcion').value;
+    var id;
+    var userID;
     var img = ($('#foto'))[0].files[0];
     var downloadURL;
 
     var storageRef = storage.ref('ligas/' + img.name);
     storageRef.put(img).then((data) => {
-        console.log("then");
-        console.log(data);
         storage.ref('ligas/' + img.name).getDownloadURL().then((url) => {
-            console.log("url");
-            console.log(url);
             downloadURL = url;
-            console.log("downloadURL");
-            console.log(downloadURL);
 
             db.collection("ligas").add({
                     nombreLiga: nomLiga,
@@ -129,20 +125,41 @@ function crearLiga() {
                 }).then(function(docRef) {
                     console.log("Document written with ID: ", docRef.id);
                     var washingtonRef = db.collection("ligas").doc(docRef.id);
+                    id = docRef.id;
                     return washingtonRef.update({
-                            id: docRef.id
-                        })
-                        .then(function() {
-                            console.log("Document successfully updated!");
-                            document.getElementById('nomLiga').value = '';
-                            document.getElementById('nomDueno').value = '';
-                            document.getElementById('descripcion').value = '';
-                            //window.location = "../index.html";
-                        })
-                        .catch(function(error) {
-                            // The document probably doesn't exist.
-                            console.error("Error updating document: ", error);
-                        });
+                        id: docRef.id
+                    }).then(function() {
+                        console.log(id);
+                        var user = firebase.auth().currentUser;
+                        if (user) {
+                            db.collection("admin").where("userID", "==", user.uid).get().then(function(querySnapshot) {
+                                    querySnapshot.forEach(function(doc) {
+                                        console.log(doc.id, " => ", doc.data());
+                                    });
+                                })
+                                .catch(function(error) {
+                                    console.log("Error getting documents: ", error);
+                                });
+
+                            //----------
+                            var idadmin = db.collection("admin").doc("NMnSK88zidhr1QEbsbcY");
+                            return idadmin.update({
+                                idliga: docRef.id
+                            }).then(function() {
+                                console.log("inserccion correcta");
+                                console.log("Document successfully updated!");
+                                document.getElementById('nomLiga').value = '';
+                                document.getElementById('nomDueno').value = '';
+                                document.getElementById('descripcion').value = '';
+                                //window.location = "../index.html";
+                            }).catch(function(error) {
+                                console.log("error en la inserccion");
+                            });
+                        }
+                    }).catch(function(error) {
+                        // The document probably doesn't exist.
+                        console.error("Error updating document: ", error);
+                    });
 
                 })
                 .catch(function(error) {
