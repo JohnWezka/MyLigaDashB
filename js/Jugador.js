@@ -14,18 +14,18 @@ function registrarJugador(idLiga) {
     var curp = document.getElementById('curpJuga').value;
     var equipo = document.getElementById('combo').value;
     var categoria = document.getElementById('cateJuga').value;
-    var foto = ($('#foto'))[0].files[0];
+    var img = ($('#foto'))[0].files[0];
     var downloadURL;
-    db.collection("jugadores").where("nombre", "==", nombre).gte().then(function (querySnapshot) {
+    db.collection("jugadores").where("nomJuga", "==", nombre).gte().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
         if (querySnapshot.empty) {
             console.log('Jugador existente')
         } else {
-            var storageRef = storage.ref('jugadores/' + foto.name);
+            var storageRef = storage.ref('jugadores/' + img.name);
             storageRef.put(foto).then((data) => {
                 console.log("then");
                 console.log(data);
-                storage.ref('jugadores/' + foto.name).getDownloadURL().then((url) => {
+                storage.ref('jugadores/' + img.name).getDownloadURL().then((url) => {
                     console.log("url");
                     console.log(url);
                     downloadURL = url;
@@ -34,17 +34,17 @@ function registrarJugador(idLiga) {
 
                     db.collection("jugadores").add({
                         idLiga: idLiga,
-                        nombre: nombre,
-                        apellidoP: apellidoP,
-                        apellidoM: apellidoM,
-                        fechaNacimiento: fechaNacimiento,
-                        numero: numero,
-                        peso: peso,
-                        estatura: estatura,
-                        curp: curp,
-                        equipo: equipo,
-                        categoria: categoria,
-                        foto: downloadURL,
+                        nom: nombre,
+                        apeP: apellidoP,
+                        apeM: apellidoM,
+                        fechaN: fechaNacimiento,
+                        num: numero,
+                        pes: peso,
+                        esta: estatura,
+                        cp: curp,
+                        equip: equipo,
+                        cate: categoria,
+                        picture: downloadURL,
                     }).then(function (docRef) {
                         console.log("Document written with ID: ", docRef.id);
                         var washingtonRef = db.collection("jugadores").doc(docRef.id);
@@ -136,11 +136,11 @@ function registrarJugador(idLiga) {
                 <td>${doc.data().curp}</td>
                 <td>${doc.data().equipo}</td>
                 <td>${doc.data().categoria}</>
-                <td><img height="70" width="70" src=${doc.data().foto}</td>
+                <td><img height="70" width="70" src=${doc.data().img}</td>
                 <td><h4><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" 
                 onclick="editarJugador('${doc.id}','${doc.data().nombre}','${doc.data().apellidoP}','${doc.data().apellidoM}',
                 '${doc.data().fechaNacimiento}','${doc.data().numero}','${doc.data().peso}','${doc.data().estatura}','${doc.data().curp}',
-                '${doc.data().equipo}','${doc.data().categoria}','${doc.data().foto}')">Editar</i></h4></td>
+                '${doc.data().equipo}','${doc.data().categoria}','${doc.data().img}')">Editar</i></h4></td>
                 <td><button class="btn btan-warning" onclick="eliminarJugador('${doc.id}')">Eliminar</button></td>
             </tr>
             `;
@@ -178,14 +178,14 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
         var estaJuga = document.getElementById('estaJuga').value;
         var curpJuga = document.getElementById('curpJuga').value;
         var equipoJuga = document.getElementById('combo').value;
-        var foto = ($('#foto'))[0].files[0];
-        if (foto != null) {
+        var img = ($('#foto'))[0].files[0];
+        if (img != null) {
             var downloadURL;
-            var storageRef = storage.ref('jugadores/' + foto.name);
-            storageRef.put(foto).then((data) => {
+            var storageRef = storage.ref('jugadores/' + img.name);
+            storageRef.put(img).then((data) => {
                 console.log("then");
                 console.log(data);
-                storage.ref('jugadores/' + foto.name).getDownloadURL().then((url) => {
+                storage.ref('jugadores/' + img.name).getDownloadURL().then((url) => {
                     console.log("url");
                     console.log(url);
                     downloadURL = url;
@@ -202,7 +202,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                         estaJuga: estaJuga,
                         curpJuga: curpJuga,
                         equipoJuga: equipoJuga,
-                        foto: downloadURL
+                        img: downloadURL
 
                     }).then(function () {
                         console.log("Document successfully updated!");
@@ -248,7 +248,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                 document.getElementById('combo').value = '';
                 document.getElementById('foto').value = null;
                 boton.innerHTML = 'Guardar';
-                window.location = "RegistarJugadores.html"
+                window.location = "Jugadores.html"
             }).catch(function (error) {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
