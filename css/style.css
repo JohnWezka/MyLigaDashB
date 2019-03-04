@@ -17,7 +17,7 @@
 
 #carga{
     border: 15px solid #ccc;
-    border-top-color: #F4266A;
+    border-top-color: #6200ea;
     border-top-style: groove;
     height: 100px;
     width: 100px;
@@ -36,4 +36,8 @@
 @keyframes girar {
     from {transform: rotate(0deg);}
     to { transform: rotate(360deg);}
+}
+
+.agregar{
+    text-decoration: none;
 }

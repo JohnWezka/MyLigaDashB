@@ -1,4 +1,4 @@
-// Initialize Firebase
+//Initialize Firebase
 /*var config = {
     apiKey: "AIzaSyCrrASgB21Xwu1HKPkEMxyJRtSsrgGyr1g",
     authDomain: "myleague-5a9c8.firebaseapp.com",
