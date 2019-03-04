@@ -32,7 +32,7 @@ function registrarAdmin() {
         storage.ref('admin/' + photo.name).getDownloadURL().then((url) => {
             downloadURL = url;
             db.collection("admin").add({
-                nombreLiga: nombres,
+                nombre: nombres,
                 apellidoMaterno: appma,
                 apellidoPaterno: apppa,
                 direccion: dicc,
@@ -46,12 +46,12 @@ function registrarAdmin() {
                     id: docRef.id
                 }).then(function() {
                     alert("Perfil Completo");
+                    location.href = "../pages/crear-liga.html";
                     document.getElementById('nom').value = '';
                     document.getElementById('appma').value = '';
                     document.getElementById('apppa').value = '';
                     document.getElementById('dicc').value = '';
                     document.getElementById('tel').value = '';
-                    //window.location = "../index.html";
                 }).catch(function(error) {
                     // The document probably doesn't exist.
                     console.error("Error updating document: ", error);
