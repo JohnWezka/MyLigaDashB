@@ -132,29 +132,29 @@ function crearLiga() {
                         console.log(id);
                         var user = firebase.auth().currentUser;
                         if (user) {
+                            //-------------
                             db.collection("admin").where("userID", "==", user.uid).get().then(function(querySnapshot) {
-                                    querySnapshot.forEach(function(doc) {
-                                        console.log(doc.id, " => ", doc.data());
+                                querySnapshot.forEach(function(doc) {
+                                    // doc.data() is never undefined for query doc snapshots
+                                    var idliga = doc.id;
+                                    //---
+                                    var idadmin = db.collection("admin").doc(idliga);
+                                    return idadmin.update({
+                                        idliga: docRef.id
+                                    }).then(function() {
+                                        console.log("inserccion correcta");
+                                        console.log("Document successfully updated!");
+                                        document.getElementById('nomLiga').value = '';
+                                        document.getElementById('nomDueno').value = '';
+                                        document.getElementById('descripcion').value = '';
+                                        //window.location = "../index.html";
+                                    }).catch(function(error) {
+                                        console.log("error en la inserccion");
                                     });
-                                })
-                                .catch(function(error) {
-                                    console.log("Error getting documents: ", error);
+                                    //---
                                 });
-
-                            //----------
-                            var idadmin = db.collection("admin").doc("NMnSK88zidhr1QEbsbcY");
-                            return idadmin.update({
-                                idliga: docRef.id
-                            }).then(function() {
-                                console.log("inserccion correcta");
-                                console.log("Document successfully updated!");
-                                document.getElementById('nomLiga').value = '';
-                                document.getElementById('nomDueno').value = '';
-                                document.getElementById('descripcion').value = '';
-                                //window.location = "../index.html";
-                            }).catch(function(error) {
-                                console.log("error en la inserccion");
                             });
+                            //-------------
                         }
                     }).catch(function(error) {
                         // The document probably doesn't exist.
