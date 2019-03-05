@@ -47,6 +47,22 @@ function crearTorneo() {
   });
 }
 
+function limpiar() {
+    
+  document.getElementById('nombreTorneo').value = '';
+  document.getElementById('tipoTorneo').value = '';
+  document.getElementById('fechaInicio').value = '';
+  document.getElementById('fechaCierre').value = '';
+  document.getElementById('fechaNacimientoInicio').value = '';
+  document.getElementById('fechaNacimientoFinal').value = '';
+  document.getElementById('fechaNacimientoFinal').value = '';
+  var boton = document.getElementById('categoria');
+  boton.innerHTML = 'Guardar';
+  boton.onclick = function (){
+    crearTorneo();
+  }
+}
+
 function leerTorneos() {
   var tabla = document.getElementById('tabla');
   tabla.innerHTML = '';
