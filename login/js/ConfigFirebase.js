@@ -82,7 +82,7 @@ function verificar() {
     user.sendEmailVerification().then(function() {
         // Email sent.
         console.log('enviando correo');
-        location.href = "redi.html";
+        location.href = "datos_personales.html";
     }).catch(function(error) {
         // An error happened.
         console.log('error al enviar correo');
@@ -94,7 +94,7 @@ function Enviarcorreo_rest() {
     var auth = firebase.auth();
     var email = document.getElementById('email').value;
     auth.sendPasswordResetEmail(email).then(function() {
-        location.href = "redi.html";
+        location.href = "../datos_personales.html";
     }).catch(function(error) {
         // An error happened.
     });
@@ -115,7 +115,7 @@ function observador() {
 
             // ...
         } else {
-            location.href = "../login/index.html";
+            //location.href = "../login/index.html";
             console.log("No existe usuario")
         }
     });
