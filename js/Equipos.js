@@ -18,10 +18,13 @@ function registrarEquipo(idLiga) {
     var desc = document.getElementById('descripcion').value;
     var imgEquipo = ($('#foto'))[0].files[0];
     var downloadURL;
-    db.collection("equipos").where("nombreEquipo", "==", nomEquipo).get().then(function (querySnapshot) {
+    db.collection("equipos").where("nombreEquipo", "==", nomEquipo, "nombreCategoria", "==", nomCategoria).get().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
         if (!querySnapshot.empty) {
-            console.log('ya existe');
+            alert('Ese nombre de ya existe');
+            var contenedor = document.getElementById('contCarga');
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
         } else {
             var storageRef = storage.ref('equipos/' + imgEquipo.name);
             storageRef.put(imgEquipo).then((data) => {
@@ -105,7 +108,8 @@ function leerEquipos() {
                 <td>${doc.data().nombreAsistente}</td>
                 <td>${doc.data().descripcion}</td>
                 <td><img height="70" width="70" src="${doc.data().foto}"></td>
-                <td class="center"><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" onclick="actualizarEquipo('${doc.id}','${doc.data().nombreEquipo}',
+                <td class="center"><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4"
+                href="#modal1" onclick="actualizarEquipo('${doc.id}','${doc.data().nombreEquipo}',
                 '${doc.data().nombreCategoria}','${doc.data().nombreRama}','${doc.data().nombreEntrenador}','${doc.data().nombreAsistente}','${doc.data().descripcion}')"></i></td>
                 <td class="center"><i class="fas fa-trash-alt" onclick="eliminarEquipo('${doc.id}')"></i></td>
             </tr>`;
@@ -138,19 +142,22 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
     document.getElementById('descripcion').value = descripcion;
     var boton = document.getElementById('boton');
     boton.innerHTML = 'Editar';
+    var contenedor = document.getElementById('contCarga');
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
     boton.onclick = function () {
         var washingtonRef = db.collection("equipos").doc(id);
         var nomEquipo = document.getElementById('nomEquipo').value;
         var nomCategoria = document.getElementById('nomCategoria').value;
-        var nomRama = document.getElementById('nomeRama').value;
+        var nomRama = document.getElementById('nomRama').value;
         var nomEntrenador = document.getElementById('nomEntrenador').value;
         var nomAsistente = document.getElementById('nomAsistente').value;
-        var desc = document.getElementById('descripcion').value;
+        var descripcion = document.getElementById('descripcion').value;
         var imgEquipo = ($('#foto'))[0].files[0];
-        if (img != null) {
+        if (imgEquipo != null) {
             var downloadURL;
             var storageRef = storage.ref('equipo/' + imgEquipo.name);
-            storageRef.put(img).then((data) => {
+            storageRef.put(imgEquipo).then((data) => {
                 storage.ref('equipo/' + imgEquipo.name).getDownloadURL().then((url) => {
                     downloadURL = url;
                     return washingtonRef.update({
@@ -159,7 +166,7 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
                         nombreRama: nomRama,
                         nombreEntrenador: nomEntrenador,
                         nombreAsistente: nomAsistente,
-                        descripcion: desc,
+                        descripcion: descripcion,
                         foto: downloadURL
                     }).then(function () {
                         console.log("Document successfully updated!");
