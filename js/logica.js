@@ -132,29 +132,29 @@ function crearLiga() {
                         console.log(id);
                         var user = firebase.auth().currentUser;
                         if (user) {
+                            //-------------
                             db.collection("admin").where("userID", "==", user.uid).get().then(function(querySnapshot) {
-                                    querySnapshot.forEach(function(doc) {
-                                        userID = doc.id;
+                                querySnapshot.forEach(function(doc) {
+                                    // doc.data() is never undefined for query doc snapshots
+                                    var idliga = doc.id;
+                                    //---
+                                    var idadmin = db.collection("admin").doc(idliga);
+                                    return idadmin.update({
+                                        idliga: docRef.id
+                                    }).then(function() {
+                                        console.log("inserccion correcta");
+                                        console.log("Document successfully updated!");
+                                        document.getElementById('nomLiga').value = '';
+                                        document.getElementById('nomDueno').value = '';
+                                        document.getElementById('descripcion').value = '';
+                                        //window.location = "../index.html";
+                                    }).catch(function(error) {
+                                        console.log("error en la inserccion");
                                     });
-                                })
-                                .catch(function(error) {
-                                    console.log("Error getting documents: ", error);
+                                    //---
                                 });
-
-                            //----------
-                            var idadmin = db.collection("admin").doc(userID);
-                            return idadmin.update({
-                                idliga: id
-                            }).then(function() {
-                                console.log("inserccion correcta");
-                                console.log("Document successfully updated!");
-                                document.getElementById('nomLiga').value = '';
-                                document.getElementById('nomDueno').value = '';
-                                document.getElementById('descripcion').value = '';
-                                //window.location = "../index.html";
-                            }).catch(function(error) {
-                                console.log("error en la inserccion");
                             });
+                            //-------------
                         }
                     }).catch(function(error) {
                         // The document probably doesn't exist.
@@ -174,20 +174,6 @@ function crearLiga() {
         console.log("error");
         console.log(error);
     });
-    /*.catch((error) => {
-      console.log("error");
-      console.log(error);
-    });*/
-    /*uploadTask.on('state_changed', (snapshot) => {
-        console.log("snapshot:");
-        console.log(snapshot);
-        
-      },function(error){
-        console.log("error storage");
-        console.log(error);
-      }, function(){
-        downloadURL = uploadTask.snapshot.downloadURL;
-      });*/
 }
 
 function leerLigas() {
