@@ -142,6 +142,7 @@ function crearLiga() {
                                     return idadmin.update({
                                         idliga: docRef.id
                                     }).then(function() {
+                                        alert("Creacion exitosa");
                                         console.log("inserccion correcta");
                                         console.log("Document successfully updated!");
                                         document.getElementById('nomLiga').value = '';
@@ -174,20 +175,6 @@ function crearLiga() {
         console.log("error");
         console.log(error);
     });
-    /*.catch((error) => {
-      console.log("error");
-      console.log(error);
-    });*/
-    /*uploadTask.on('state_changed', (snapshot) => {
-        console.log("snapshot:");
-        console.log(snapshot);
-        
-      },function(error){
-        console.log("error storage");
-        console.log(error);
-      }, function(){
-        downloadURL = uploadTask.snapshot.downloadURL;
-      });*/
 }
 
 function leerLigas() {

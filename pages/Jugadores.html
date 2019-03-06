@@ -1,27 +1,20 @@
 <!DOCTYPE html>
-
-
 <html lang="en">
 
 <head id="head">
-
 
 </head>
 
 <body id="page-top">
 
-  <div id="contCarga">
-    <div id="carga"></div>
-  </div>
-
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top" id="navbar">
-
 
   </nav>
 
   <div id="wrapper" class="fondoGris">
 
     <!-- Sidebar -->
+
     <ul class="sidebar navbar-nav" id="sidebar">
 
     </ul>
@@ -44,114 +37,113 @@
                   </h4>
                 </span>
                 <h5>Jugadores</h5>
-              </div>
-              <div class="content table-responsive table-full-width">
-                <table class="table table-hover table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Apellido Paterno</th>
-                      <th scope="col">Apellido Materno</th>
-                      <th scope="col">Fecha de nacimieto</th>
-                      <th scope="col">Numero</th>
-                      <th scope="col">Peso</th>
-                      <th scope="col">Estatura</th>
-                      <th scope="col">Curp</th>
-                      <th scope="col">Equipo</th>
-                      <th scope="col">Categoria</th>
-                      <th scope="col">Foto</th>
-                      <th scope="col">Editar</th>
-                      <th scope="col">Eliminar</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table">
+                <div class="content table-responsive table-full-width">
+                  <table class="table table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido Paterno</th>
+                        <th scope="col">Apellido Materno</th>
+                        <th scope="col">Fecha de nacimieto</th>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Estatura</th>
+                        <th scope="col">Curp</th>
+                        <th scope="col">Equipo</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Foto</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                      </tr>
+                    </thead>
+                    <tbody id="table">
 
-                  </tbody>
-                </table>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
+
         </div>
 
-      </div>
+        <footer class="sticky-footer" id="footer">
 
-      <footer class="sticky-footer" id="footer">
-
-      </footer>
-    </div>
-  </div>
-
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title black-text">Registro de Jugador</h3>
-      </div>
-      <div class="modal-body">
-        <div class="input-field col s6">
-          <input id="nomJugador" type="text" class="validate" placeholder="Nombre" required>
-          <label for="nomJugador">Nombres(s)</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="aPaterno" type="text" class="validate" placeholder="Apellido Paterno" required>
-          <label for="aPaterno">Apellido Paterno</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="aMaterno" type="text" class="validate" placeholder="Apellido Materno" required>
-          <label for="aMaterno">Apellido Materno</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="fechaJuga" type="text" class="validate" placeholder="Fecha de Nacimiento" required>
-          <label for="fechaJuga">Fecha de Nacimiento</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="numJuga" type="text" class="validate" placeholder="Numero" required>
-          <label for="numJuga">Numero</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="pesoJuga" type="text" class="validate" placeholder="Peso" required>
-          <label for="pesoJuga">Peso</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="estaJuga" type="text" class="validate" placeholder="Estatura" required>
-          <label for="estaJuga">Estatura</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="curpJuga" type="text" class="validate" placeholder="Curp" required>
-          <label for="curpJuga">Curp</label>
-        </div>
-        <div class="input-field col s6" placeholder="Equipos  ">
-          <select class="form-control form-control-lg" id="combo" >
-          </select>
-        </div>
-        <div class="input-field col s6" placeholder="Categoria  ">
-          <select class="form-control form-control-lg" id="cateJuga" >
-            <option class="form-control">Infantil</option>
-            <option class="form-control">Juvenil</option>
-            <option class="form-control">Libre</option>
-          </select>
-        </div>
-        <div class="file-field input-field">
-          <div class="btn">
-            <span>File</span>
-            <input type="file" id="foto">
-          </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" required type="text">
-          </div>
-        </div>
-
-        <div>
-          <button class="btn waves-effect waves-light purple darken-4" id="boton" type="submit"
-            onclick="registrarJugador('QePXhkX8CCx8NqDDgit5')">Registrar</button>
-          <button class="btn waves-effect waves-light red accent-2" data-dismiss="modal">Close</button>
-        </div>
+        </footer>
       </div>
     </div>
-  </div>
 
-  <footer class="sticky-footer" id="footer">
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title black-text">Registro de Jugador</h3>
+        </div>
+        <div class="modal-body">
+          <div class="input-field col s6">
+            <input id="nomJugador" type="text" class="validate" placeholder="Nombre" required>
+            <label for="nomJugador">Nombres(s)</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="aPaterno" type="text" class="validate" placeholder="Apellido Paterno" required>
+            <label for="aPaterno">Apellido Paterno</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="aMaterno" type="text" class="validate" placeholder="Apellido Materno" required>
+            <label for="aMaterno">Apellido Materno</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="fechaJuga" type="text" class="validate" placeholder="Fecha de Nacimiento" required>
+            <label for="fechaJuga">Fecha de Nacimiento</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="numJuga" type="text" class="validate" placeholder="Numero" required>
+            <label for="numJuga">Numero</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="pesoJuga" type="text" class="validate" placeholder="Peso" required>
+            <label for="pesoJuga">Peso</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="estaJuga" type="text" class="validate" placeholder="Estatura" required>
+            <label for="estaJuga">Estatura</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="curpJuga" type="text" class="validate" placeholder="Curp" required>
+            <label for="curpJuga">Curp</label>
+          </div>
+          <div class="input-field col s6" placeholder="Equipos  ">
+            <select class="form-control form-control-lg" id="combo">
+            </select>
+          </div>
+          <div class="input-field col s6" placeholder="Categoria  ">
+            <select class="form-control form-control-lg" id="cateJuga">
+              <option class="form-control">Infantil</option>
+              <option class="form-control">Juvenil</option>
+              <option class="form-control">Libre</option>
+            </select>
+          </div>
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>File</span>
+              <input type="file" id="foto">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" required type="text">
+            </div>
+          </div>
 
-  </footer>
+          <div>
+            <button class="btn waves-effect waves-light purple darken-4" id="boton" type="submit"
+              onclick="registrarJugador('QePXhkX8CCx8NqDDgit5')">Registrar</button>
+            <button class="btn modal-close waves-effect waves-light red accent-2" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="sticky-footer" id="footer">
+
+    </footer>
   </div>
   </div>
 
@@ -178,31 +170,31 @@
   <script src="../js/conexion.js"></script>
   <script src="../js/Jugador.js"></script>
   <script src="../js/plantilla.js"></script>
+  <<<<<<< HEAD=======>>>>>>> f57b0237dc7483c946e29cee5ae7749edec3fa2c
 
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
 
-  <!-- Page level plugin JavaScript-->
-  <script src="../vendor/chart.js/Chart.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin.min.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin.min.js"></script>
+    <!-- Demo scripts for this page-->
+    <script src="../js/demo/datatables-demo.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
 
-  <!-- Demo scripts for this page-->
-  <script src="../js/demo/datatables-demo.js"></script>
-  <script src="../js/demo/chart-area-demo.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="../js/demo/datatables-demo.js"></script>
-  <script src="../js/demo/chart-area-demo.js"></script>
+    <!-- Demo scripts for this page-->
+    <script src="../js/demo/datatables-demo.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
 </body>
 
 </html>

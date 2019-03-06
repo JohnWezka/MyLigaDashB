@@ -18,14 +18,76 @@ function registrarEquipo(idLiga) {
     var desc = document.getElementById('descripcion').value;
     var imgEquipo = ($('#foto'))[0].files[0];
     var downloadURL;
-    db.collection("equipos").where("nombreEquipo", "==", nomEquipo, "nombreCategoria", "==", nomCategoria).get().then(function (querySnapshot) {
+    db.collection("equipos").where("nombreEquipo", "==", nomEquipo).get().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
         if (!querySnapshot.empty) {
-            alert('Ese nombre de ya existe');
-            var contenedor = document.getElementById('contCarga');
-        contenedor.style.visibility = 'hidden';
-        contenedor.style.opacity = '0';
-        } else {
+                if ("nombreCategoria" === nomCategoria){
+                    alert('Ese nombre de ya existe');
+                var contenedor = document.getElementById('contCarga');
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
+                break;
+                }else{
+                    
+            var storageRef = storage.ref('equipos/' + imgEquipo.name);
+            storageRef.put(imgEquipo).then((data) => {
+                storage.ref('equipos/' + imgEquipo.name).getDownloadURL().then((url) => {
+                    downloadURL = url;
+                    db.collection("equipos").add({
+                        nombreEquipo: nomEquipo,
+                        nombreCategoria: nomCategoria,
+                        nombreRama: nomRama,
+                        idLiga: idLiga,
+                        nombreEntrenador: nomEntrenador,
+                        nombreAsistente: nomAsistente,
+                        descripcion: desc,
+                        foto: downloadURL
+                    }).then(function (docRef) {
+                        var washingtonRef = db.collection("equipos").doc(docRef.id);
+                        return washingtonRef.update({
+                            idEquipo: docRef.id
+                        }).then(function () {
+                            console.log("Document successfully updated!");
+                            document.getElementById('nomEquipo').value = '';
+                            document.getElementById('nomCategoria').value = '';
+                            document.getElementById('nomRama').value = '';
+                            document.getElementById('nomEntrenador').value = '';
+                            document.getElementById('nomAsistente').value = '';
+                            document.getElementById('descripcion').value = '';
+                            document.getElementById('foto').value = null;
+                            var contenedor = document.getElementById('contCarga');
+                            contenedor.style.visibility = 'hidden';
+                            contenedor.style.opacity = '0';
+                        }).catch(function (error) {
+                            console.error("Error updating document: ", error);
+                            var contenedor = document.getElementById('contCarga');
+                            contenedor.style.visibility = 'hidden';
+                            contenedor.style.opacity = '0';
+                        });
+                    }).catch(function (error) {
+                        console.error("Error adding document: ", error);
+                        var contenedor = document.getElementById('contCarga');
+                        contenedor.style.visibility = 'hidden';
+                        contenedor.style.opacity = '0';
+                    });
+                }).catch((error) => {
+                    console.log("url error");
+                    console.log(error);
+                    var contenedor = document.getElementById('contCarga');
+                    contenedor.style.visibility = 'hidden';
+                    contenedor.style.opacity = '0';
+                });
+            }).catch((error) => {
+                console.log("error");
+                console.log(error);
+                var contenedor = document.getElementById('contCarga');
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
+            });
+                }
+            
+            } else {
+                
             var storageRef = storage.ref('equipos/' + imgEquipo.name);
             storageRef.put(imgEquipo).then((data) => {
                 storage.ref('equipos/' + imgEquipo.name).getDownloadURL().then((url) => {
@@ -143,8 +205,8 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
     var boton = document.getElementById('boton');
     boton.innerHTML = 'Editar';
     var contenedor = document.getElementById('contCarga');
-        contenedor.style.visibility = 'hidden';
-        contenedor.style.opacity = '0';
+    contenedor.style.visibility = 'hidden';
+    contenedor.style.opacity = '0';
     boton.onclick = function () {
         var washingtonRef = db.collection("equipos").doc(id);
         var nomEquipo = document.getElementById('nomEquipo').value;
