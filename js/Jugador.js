@@ -29,7 +29,7 @@ function registrarJugador() {
     var categoria = document.getElementById('cateJuga').value;
     var foto = ($('#foto'))[0].files[0];
     var downloadURL;
-    db.collection("jugadores").where("nombre", "==", nombre).gte().then(function(querySnapshot) {
+    db.collection("jugadores").where("nomJuga", "==", nombre).gte().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
         if (querySnapshot.empty) {
             console.log('Jugador existente')
@@ -47,16 +47,16 @@ function registrarJugador() {
 
                     db.collection("jugadores").add({
                         idLiga: idLiga,
-                        nombre: nombre,
-                        apellidoP: apellidoP,
-                        apellidoM: apellidoM,
-                        fechaNacimiento: fechaNacimiento,
-                        numero: numero,
-                        peso: peso,
-                        estatura: estatura,
-                        curp: curp,
-                        equipo: equipo,
-                        categoria: categoria,
+                        nom: nombre,
+                        apeP: apellidoP,
+                        apeM: apellidoM,
+                        fechaN: fechaNacimiento,
+                        num: numero,
+                        pes: peso,
+                        esta: estatura,
+                        cp: curp,
+                        equip: equipo,
+                        cate: categoria,
                         foto: downloadURL,
                     }).then(function(docRef) {
                         console.log("Document written with ID: ", docRef.id);
@@ -150,7 +150,7 @@ function registrarJugador() {
                 <td>${doc.data().equipo}</td>
                 <td>${doc.data().categoria}</>
                 <td><img height="70" width="70" src=${doc.data().foto}</td>
-                <td><h4><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" 
+                <td><h4><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4" href="#modal1"
                 onclick="editarJugador('${doc.id}','${doc.data().nombre}','${doc.data().apellidoP}','${doc.data().apellidoM}',
                 '${doc.data().fechaNacimiento}','${doc.data().numero}','${doc.data().peso}','${doc.data().estatura}','${doc.data().curp}',
                 '${doc.data().equipo}','${doc.data().categoria}','${doc.data().foto}')">Editar</i></h4></td>
@@ -198,7 +198,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
             storageRef.put(foto).then((data) => {
                 console.log("then");
                 console.log(data);
-                storage.ref('jugadores/' + foto.name).getDownloadURL().then((url) => {
+                storage.ref('jugadores/' + foto     .name).getDownloadURL().then((url) => {
                     console.log("url");
                     console.log(url);
                     downloadURL = url;
@@ -261,7 +261,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                 document.getElementById('combo').value = '';
                 document.getElementById('foto').value = null;
                 boton.innerHTML = 'Guardar';
-                window.location = "RegistarJugadores.html"
+                window.location = "Jugadores.html"
             }).catch(function(error) {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
@@ -277,6 +277,25 @@ function eliminarJugador(id) {
     }).catch(function(error) {
         console.error("Error removing document: ", error);
     });
+}
+
+function lipmiar(){
+    db.collection("nomJugador").value = '';
+    db.collection("aPaterno").value = '';
+    db.collection("aMaterno").value = '';   
+    db.collection("fechaJuga").value = '';
+    db.collection("numJugadr").value = '';
+    db.collection("pesoJuga").value = '';
+    db.collection("estaJuga").value = '';
+    db.collection("curpJuga").value = '';
+    db.collection("combo").value = '';
+    db.collection("cateJuga").value = '';
+    db.collection("foto").value = '';
+    var boton = document.getElementById('boton');
+    boton.innerHTML = 'Guardar';
+    boton.onclick = function (){
+        registrarJugador();
+    }
 }
 
 function verificarJugador(id) {
