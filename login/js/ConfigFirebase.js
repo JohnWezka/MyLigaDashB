@@ -82,7 +82,7 @@ function verificar() {
     user.sendEmailVerification().then(function() {
         // Email sent.
         console.log('enviando correo');
-        location.href = "datos_personales.html";
+        location.href = "redi.html";
     }).catch(function(error) {
         // An error happened.
         console.log('error al enviar correo');
@@ -94,7 +94,7 @@ function Enviarcorreo_rest() {
     var auth = firebase.auth();
     var email = document.getElementById('email').value;
     auth.sendPasswordResetEmail(email).then(function() {
-        location.href = "../datos_personales.html";
+        location.href = "../redi.html";
     }).catch(function(error) {
         // An error happened.
     });
