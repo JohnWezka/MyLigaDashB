@@ -37,7 +37,8 @@
             <div class="card">
               <div class="card-content">
                 <span class="card-title">
-                  <h4 class="waves-effect waves-light modal-trigger deep-purple-text text-accent-4" href="#modal1" onclick="limpiar()">
+                  <h4 class="waves-effect waves-light modal-trigger deep-purple-text text-accent-4" href="#modal1"
+                    onclick="limpiar()">
                     Agregar
                     <i class="fas fa-plus-circle"></i>
                   </h4>
@@ -87,45 +88,43 @@
       </div>
       <div class="modal-body">
         <div class="input-field col s6">
-          <input id="nomJugador" type="text" class="validate" required>
+          <input id="nomJugador" type="text" class="validate" placeholder="Nombre" required>
           <label for="nomJugador">Nombres(s)</label>
         </div>
         <div class="input-field col s6">
-          <input id="aPaterno" type="text" class="validate" required>
+          <input id="aPaterno" type="text" class="validate" placeholder="Apellido Paterno" required>
           <label for="aPaterno">Apellido Paterno</label>
         </div>
         <div class="input-field col s6">
-          <input id="aMaterno" type="text" class="validate" required>
+          <input id="aMaterno" type="text" class="validate" placeholder="Apellido Materno" required>
           <label for="aMaterno">Apellido Materno</label>
         </div>
         <div class="input-field col s6">
-          <input id="fechaJuga" type="text" class="validate" required>
+          <input id="fechaJuga" type="text" class="validate" placeholder="Fecha de Nacimiento" required>
           <label for="fechaJuga">Fecha de Nacimiento</label>
         </div>
         <div class="input-field col s6">
-          <input id="numJuga" type="text" class="validate" required>
+          <input id="numJuga" type="text" class="validate" placeholder="Numero" required>
           <label for="numJuga">Numero</label>
         </div>
         <div class="input-field col s6">
-          <input id="pesoJuga" type="text" class="validate" required>
+          <input id="pesoJuga" type="text" class="validate" placeholder="Peso" required>
           <label for="pesoJuga">Peso</label>
         </div>
         <div class="input-field col s6">
-          <input id="estaJuga" type="text" class="validate" required>
+          <input id="estaJuga" type="text" class="validate" placeholder="Estatura" required>
           <label for="estaJuga">Estatura</label>
         </div>
         <div class="input-field col s6">
-          <input id="curpJuga" type="text" class="validate" required>
+          <input id="curpJuga" type="text" class="validate" placeholder="Curp" required>
           <label for="curpJuga">Curp</label>
         </div>
-        <div class="input-field col s6">
-          <input id="combo" type="text" class="validate" required>
-          <label for="combo">Equipo</label>
+        <div class="input-field col s6" placeholder="Equipos  ">
+          <select class="form-control form-control-lg" id="combo" >
+          </select>
         </div>
-        <div class="input-field col s6">
-          <label for="cateJuga">Categoria</label>
+        <div class="input-field col s6" placeholder="Categoria  ">
           <select class="form-control form-control-lg" id="cateJuga" >
-            <option class="from-control">Categoria</option>
             <option class="form-control">Infantil</option>
             <option class="form-control">Juvenil</option>
             <option class="form-control">Libre</option>
@@ -133,17 +132,17 @@
         </div>
         <div class="file-field input-field">
           <div class="btn">
-              <span>File</span>
-              <input type="file" id="foto">
+            <span>File</span>
+            <input type="file" id="foto">
           </div>
           <div class="file-path-wrapper">
-              <input class="file-path validate" required type="text">
+            <input class="file-path validate" required type="text">
           </div>
-      </div>
-        
+        </div>
+
         <div>
           <button class="btn waves-effect waves-light purple darken-4" id="boton" type="submit"
-          onclick="registrarJugador('QePXhkX8CCx8NqDDgit5')">Registrar</button>
+            onclick="registrarJugador('QePXhkX8CCx8NqDDgit5')">Registrar</button>
           <button class="btn waves-effect waves-light red accent-2" data-dismiss="modal">Close</button>
         </div>
       </div>

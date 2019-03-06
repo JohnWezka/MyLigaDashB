@@ -1,9 +1,22 @@
-
 // Initialize Cloud Firestore through Firebase
 var db = firebase.firestore();
 var storage = firebase.storage();
 
-function registrarJugador(idLiga) {
+var idLiga;
+
+(function() {
+    var user = firebase.auth().currentUser;
+    if (user) {
+        db.collection("admin").where("userID", "==", user.uid).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                idLiga = idliga;
+            });
+        });
+    }
+})();
+
+function registrarJugador() {
+
     var nombre = document.getElementById('nomJugador').value;
     var apellidoP = document.getElementById('aPaterno').value;
     var apellidoM = document.getElementById('aMaterno').value;
@@ -45,12 +58,12 @@ function registrarJugador(idLiga) {
                         equip: equipo,
                         cate: categoria,
                         foto: downloadURL,
-                    }).then(function (docRef) {
+                    }).then(function(docRef) {
                         console.log("Document written with ID: ", docRef.id);
                         var washingtonRef = db.collection("jugadores").doc(docRef.id);
                         return washingtonRef.update({
                             id: docRef.id
-                        }).then(function () {
+                        }).then(function() {
                             console.log("Document successfully update!");
                             document.getElementById('nomJugador').value = '';
                             document.getElementById('aPaterno').value = '';
@@ -68,13 +81,13 @@ function registrarJugador(idLiga) {
                             var contenedor = document.getElementById('contCarga');
                             contenedor.style.visibility = 'hidden';
                             contenedor.style.opacity = '0';
-                        }).catch(function (error){
+                        }).catch(function(error) {
                             console.error("Error updating document: ", error);
                             var contenedor = document.getElementById('contCarga');
                             contenedor.style.visibility = 'hidden';
                             contenedor.style.opacity = '0';
                         })
-                    }).catch(function (error) {
+                    }).catch(function(error) {
                         console.error("Error adding document: ", error);
                         var contenedor = document.getElementById('contCarga');
                         contenedor.style.visibility = 'hidden';
@@ -95,8 +108,8 @@ function registrarJugador(idLiga) {
                 contenedor.style.opacity = '0';
             });
         }
-    }).catch(function (error){
-        console.log("Error getting documents: ", error);    
+    }).catch(function(error) {
+        console.log("Error getting documents: ", error);
         var contenedor = document.getElementById('contCarga');
         contenedor.style.visibility = 'hidden';
         contenedor.style.opacity = '0';
@@ -137,7 +150,7 @@ function registrarJugador(idLiga) {
                 <td>${doc.data().equipo}</td>
                 <td>${doc.data().categoria}</>
                 <td><img height="70" width="70" src=${doc.data().foto}</td>
-                <td><h4><i class="fas fa-sync-alt"  data-toggle="modal" data-target=".bd-example-modal-lg" 
+                <td><h4><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4" href="#modal1"
                 onclick="editarJugador('${doc.id}','${doc.data().nombre}','${doc.data().apellidoP}','${doc.data().apellidoM}',
                 '${doc.data().fechaNacimiento}','${doc.data().numero}','${doc.data().peso}','${doc.data().estatura}','${doc.data().curp}',
                 '${doc.data().equipo}','${doc.data().categoria}','${doc.data().foto}')">Editar</i></h4></td>
@@ -167,7 +180,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
     document.getElementById('cateJuga').value = categoria;
     var boton = document.getElementById('boton');
     boton.innerHTML = 'Editar';
-    boton.onclick = function () {
+    boton.onclick = function() {
         var washingtonRef = db.collection("jugadores").doc(id);
         var nombre = document.getElementById('nomJugador').value;
         var aPaterno = document.getElementById('aPaterno').value;
@@ -185,7 +198,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
             storageRef.put(foto).then((data) => {
                 console.log("then");
                 console.log(data);
-                storage.ref('jugadores/' + img.name).getDownloadURL().then((url) => {
+                storage.ref('jugadores/' + foto     .name).getDownloadURL().then((url) => {
                     console.log("url");
                     console.log(url);
                     downloadURL = url;
@@ -204,7 +217,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                         equipoJuga: equipoJuga,
                         foto: downloadURL
 
-                    }).then(function () {
+                    }).then(function() {
                         console.log("Document successfully updated!");
                         document.getElementById('nomJugador').value = '';
                         document.getElementById('aPaterno').value = '';
@@ -216,7 +229,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                         document.getElementById('combo').value = '';
                         document.getElementById('foto').value = null;
                         boton.innerHTML = 'Guardar';
-                    }).catch(function (error) {
+                    }).catch(function(error) {
                         // The document probably doesn't exist.
                         console.error("Error updating document: ", error);
                     });
@@ -236,7 +249,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                 estaJuga: estaJuga,
                 curpJuga: curpJuga,
                 equipoJuga: equipoJuga
-            }).then(function () {
+            }).then(function() {
                 console.log("Document successfully updated!");
                 document.getElementById('nomJugador').value = '';
                 document.getElementById('aPaterno').value = '';
@@ -249,7 +262,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                 document.getElementById('foto').value = null;
                 boton.innerHTML = 'Guardar';
                 window.location = "Jugadores.html"
-            }).catch(function (error) {
+            }).catch(function(error) {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
             });
@@ -259,14 +272,32 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
 }
 
 function eliminarJugador(id) {
-    db.collection("jugadores").doc(id).delete().then(function () {
+    db.collection("jugadores").doc(id).delete().then(function() {
         console.log("Document succesfully deleted!");
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.error("Error removing document: ", error);
     });
+}
+
+function lipmiar(){
+    db.collection("nomJugador").value = '';
+    db.collection("aPaterno").value = '';
+    db.collection("aMaterno").value = '';   
+    db.collection("fechaJuga").value = '';
+    db.collection("numJugadr").value = '';
+    db.collection("pesoJuga").value = '';
+    db.collection("estaJuga").value = '';
+    db.collection("curpJuga").value = '';
+    db.collection("combo").value = '';
+    db.collection("cateJuga").value = '';
+    db.collection("foto").value = '';
+    var boton = document.getElementById('boton');
+    boton.innerHTML = 'Guardar';
+    boton.onclick = function (){
+        registrarJugador();
+    }
 }
 
 function verificarJugador(id) {
     db.collection("jugadores").doc(id)
 }
-
