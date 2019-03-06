@@ -43,7 +43,7 @@
 (function navbar() {
     var navbar = document.getElementById('navbar');
     navbar.innerHTML = `
-    <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand mr-1" href="../index.html">My League</a>
 
         <button class="btn btn-link btn-sm text-white order-1 order-sm-0 deep-purple accent-4" id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i>
@@ -71,12 +71,6 @@
 (function sidebar(){
     var sidebar = document.getElementById('sidebar');
     sidebar.innerHTML = `
-    <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -85,11 +79,11 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                     <h6 class="dropdown-header">Registros:</h6>
-                    <a class="dropdown-item" href="Equipos.html">Equipos</a>
-                    <a class="dropdown-item" href="Jugadores.html">Jugadores</a>
-                    <a class="dropdown-item" href="Arbitros.html">Arbitros</a>
-                    <a class="dropdown-item" href="Torneos.html">Torneos</a>
-                    <a class="dropdown-item" href="Partidos.html">Partidos</a>
+                    <a class="dropdown-item" href="../pages/Equipos.html">Equipos</a>
+                    <a class="dropdown-item" href="../pages/Jugadores.html">Jugadores</a>
+                    <a class="dropdown-item" href="../pages/RegistrosArbitros.html">Arbitros</a>
+                    <a class="dropdown-item" href="../pages/Torneos.html">Torneos</a>
+                    <a class="dropdown-item" href="../pages/Partidos.html">Partidos</a>
                 </div>
             </li>
             <li class="nav-item">

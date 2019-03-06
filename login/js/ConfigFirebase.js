@@ -32,7 +32,7 @@ function acceder() {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
     firebase.auth().signInWithEmailAndPassword(email, password).then(result => {
-        location.href = "../pages/crear-Liga.html";
+        location.href = "../index.html";
         alert("Bienvenido");
     }).catch(function(error) {
         // Handle Errors here.
@@ -44,30 +44,6 @@ function acceder() {
         // ...
     });
 }
-
-function observador() {
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            // User is signed in.
-            var displayName = user.displayName;
-            var email = user.email;
-            var emailVerified = user.emailVerified;
-            var photoURL = user.photoURL;
-            var isAnonymous = user.isAnonymous;
-            var uid = user.uid;
-            var providerData = user.providerData;
-            console.log("Existe usuario")
-
-            // ...
-        } else {
-            // User is signed out.
-            // ...
-            console.log("No existe usuario")
-        }
-    });
-}
-
-observador();
 
 function logout() {
     firebase.auth().signOut().then(() => {
