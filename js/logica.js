@@ -134,7 +134,7 @@ function crearLiga() {
                         if (user) {
                             db.collection("admin").where("userID", "==", user.uid).get().then(function(querySnapshot) {
                                     querySnapshot.forEach(function(doc) {
-                                        console.log(doc.id, " => ", doc.data());
+                                        userID = doc.id;
                                     });
                                 })
                                 .catch(function(error) {
@@ -142,9 +142,9 @@ function crearLiga() {
                                 });
 
                             //----------
-                            var idadmin = db.collection("admin").doc("NMnSK88zidhr1QEbsbcY");
+                            var idadmin = db.collection("admin").doc(userID);
                             return idadmin.update({
-                                idliga: docRef.id
+                                idliga: id
                             }).then(function() {
                                 console.log("inserccion correcta");
                                 console.log("Document successfully updated!");
