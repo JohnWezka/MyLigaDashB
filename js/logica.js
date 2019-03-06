@@ -142,6 +142,7 @@ function crearLiga() {
                                     return idadmin.update({
                                         idliga: docRef.id
                                     }).then(function() {
+                                        alert("Creacion exitosa");
                                         console.log("inserccion correcta");
                                         console.log("Document successfully updated!");
                                         document.getElementById('nomLiga').value = '';
