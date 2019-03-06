@@ -12,42 +12,44 @@ var storage = firebase.storage();
         selection_roll2.innerHTML = '';
         querySnapshot.forEach((doc) => {
             selection_roll.innerHTML += ` 
-            <option class="form-control" >${doc.data().nombreEquipo}</option>`;
+            <option  value="" disabled selected>${doc.data().nombreEquipo}</option>`;
             selection_roll2.innerHTML += ` 
-            <option class="form-control" >${doc.data().nombreEquipo}</option>`;
+            <option value="" disabled selected>${doc.data().nombreEquipo}</option>`;
         });
+      
     });
+    console.log(selection_roll); 
 })();
 function crearPartido() {
-  var local = document.getElementById('local').value;
-  var visitante = document.getElementById('visitante').value;
-  var fecha = document.getElementById('fecha').value;
-  var hora = document.getElementById('hora').value;
-  var lugar = document.getElementById('lugar').value;
-  var jornada = document.getElementById('jornada').value;
+    var local = document.getElementById('local').value;
+    var visitante = document.getElementById('visitante').value;
+    var fecha = document.getElementById('fecha').value;
+    var hora = document.getElementById('hora').value;
+    var lugar = document.getElementById('lugar').value;
+    var jornada = document.getElementById('jornada').value;
 
-  db.collection("Partido").add({
-    local: local,
-    visitante: visitante,
-    fecha: fecha,
-    hora: hora,
-    lugar: lugar,
-    jornada: jornada,
-  }).then(function (docRef) {
-    console.log("Document written with ID: ", docRef.id);
-    var washingtonRef = db.collection("Partido").doc(docRef.id);
-    return washingtonRef.update({
-      id: docRef.id
-    }).then(function () {
-        console.log("Document successfully updated!");
-        document.getElementById('fecha').value = '';
-        document.getElementById('hora').value = '';
-        document.getElementById('lugar').value = '';
-        document.getElementById('jornada').value = '';
-         window.location = "Partidos.html";
-      })
-  }).catch(function (error) {
-      console.error("Error adding document: ", error);
+    db.collection("Partido").add({
+        local: local,
+        visitante: visitante,
+        fecha: fecha,
+        hora: hora,
+        lugar: lugar,
+        jornada: jornada,
+    }).then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        var washingtonRef = db.collection("Partido").doc(docRef.id);
+        return washingtonRef.update({
+            id: docRef.id
+        }).then(function () {
+            console.log("Document successfully updated!");
+            document.getElementById('fecha').value = '';
+            document.getElementById('hora').value = '';
+            document.getElementById('lugar').value = '';
+            document.getElementById('jornada').value = '';
+            window.location = "Partidos.html";
+        })
+    }).catch(function (error) {
+        console.error("Error adding document: ", error);
     });
 }
 (function leerLigas() {
@@ -71,6 +73,9 @@ function crearPartido() {
         </tr>
         `;
         });
+        var contenedor = document.getElementById('contCarga');
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
     });
 })();
 function eliminarPartido(id) {
@@ -80,44 +85,48 @@ function eliminarPartido(id) {
         console.error("Error removing document: ", error);
     });
 }
-function actualizarPartido(id, local,visitante,fecha,hora,lugar,jornada) {
-  console.log('entro');
-  document.getElementById('local').value = local;
-  document.getElementById('visitante').value = visitante;
-  document.getElementById('fecha').value = fecha;
-  document.getElementById('hora').value = hora;
-  document.getElementById('lugar').value = lugar;
-  document.getElementById('jornada').value = jornada;
-  var boton = document.getElementById('boton');
-  boton.innerHTML = 'Editar';
-  boton.onclick = function () {
-    var washingtonRef = db.collection("Partido").doc(id);
-    var local = document.getElementById('local').value;
-    var visitante = document.getElementById('visitante').value;
-    var fecha = document.getElementById('fecha').value;
-    var hora = document.getElementById('hora').value;
-    var lugar = document.getElementById('lugar').value;
-    var jornada = document.getElementById('jornada').value;
-      return washingtonRef.update({
-      local: local,
-        visitante: visitante,
-        fecha: fecha,
-        hora: hora,
-        lugar: lugar,
-        jornada: jornada
-      }).then(function () {
-        console.log("Document succesfully updated!");
-     document.getElementById('local').value = '';
-        document.getElementById('visitante').value = '';
-        document.getElementById('fecha').value = '';
-        document.getElementById('hora').value = '';
-        document.getElementById('lugar').value = '';
-        document.getElementById('jornada').value = '';
-        boton.innerHTML = 'Guardar';
-        window.location = "Partidos.html";
-      }).catch(function (error) {
-        console.error("Error updating document: ", error);
-      })
+function actualizarPartido(id, local, visitante, fecha, hora, lugar, jornada) {
+    console.log('entro');
+    document.getElementById('local').value = local;
+    document.getElementById('visitante').value = visitante;
+    document.getElementById('fecha').value = fecha;
+    document.getElementById('hora').value = hora;
+    document.getElementById('lugar').value = lugar;
+    document.getElementById('jornada').value = jornada;
+    var boton = document.getElementById('boton');
+    boton.innerHTML = 'Editar';
+    boton.onclick = function () {
+        var washingtonRef = db.collection("Partido").doc(id);
+        var local = document.getElementById('local').value;
+        var visitante = document.getElementById('visitante').value;
+        var fecha = document.getElementById('fecha').value;
+        var hora = document.getElementById('hora').value;
+        var lugar = document.getElementById('lugar').value;
+        var jornada = document.getElementById('jornada').value;
+        return washingtonRef.update({
+            local: local,
+            visitante: visitante,
+            fecha: fecha,
+            hora: hora,
+            lugar: lugar,
+            jornada: jornada
+        }).then(function () {
+            console.log("Document succesfully updated!");
+            document.getElementById('local').value = '';
+            document.getElementById('visitante').value = '';
+            document.getElementById('fecha').value = '';
+            document.getElementById('hora').value = '';
+            document.getElementById('lugar').value = '';
+            document.getElementById('jornada').value = '';
+            boton.innerHTML = 'Guardar';
+            window.location = "Partidos.html";
+        }).catch(function (error) {
+            console.error("Error updating document: ", error);
+        })
     }
-  }
+}
 
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
