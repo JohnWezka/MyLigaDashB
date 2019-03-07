@@ -105,7 +105,7 @@ function leerPartidos() {
               <td><h4 class="center"><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4"
               href="#modal1" onclick="actualizarPartido('${doc.id}','${doc.data().local}',
               '${doc.data().visitante}','${doc.data().fecha}','${doc.data().hora}','${doc.data().lugar}','${doc.data().jornada}')"></i></h4></td>
-              <td><h4 class="center"><i class="fas fa-trash-alt red-text text-accent-4" onclick="eliminarPartido('${doc.id}')"></i></h4></td>
+              <td><h4 class="center" href=""><i class="fas fa-trash-alt red-text text-accent-4" onclick="eliminarPartido('${doc.id}')"></i></h4></td>
             </tr>
             `;
         });
