@@ -1,169 +1,167 @@
+<!DOCTYPE html>
 <html lang="en">
 
-    <head id="head">
+<head id="head">
 
 
-    </head>
+</head>
 
-    <body id="page-top">
+<body id="page-top">
 
-        <div id="contCarga">
-            <div id="carga"></div>
-        </div>
+    <div id="contCarga">
+        <div id="carga"></div>
+    </div>
 
-        <nav class="navbar navbar-expand navbar-dark bg-dark static-top" id="navbar">
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top" id="navbar">
 
 
-        </nav>
+    </nav>
 
-        <div id="wrapper" class="fondoGris">
+    <div id="wrapper" class="fondoGris">
 
-            <!-- Sidebar -->
-            <ul class="sidebar navbar-nav" id="sidebar">
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav" id="sidebar">
 
-            </ul>
+        </ul>
 
-            <div id="content-wrapper">
+        <div id="content-wrapper">
 
-                <div class="container-fluid">
+            <div class="container-fluid">
 
-                    <!-- End Navbar -->
+                <!-- End Navbar -->
 
-                    <div class="row">
-                        <div class="col s12 m6">
-                            <div class="card">
-                                <div class="card-content">
-                                    <span class="card-title">
-                                        <h4 class="waves-effect waves-light modal-trigger deep-purple-text text-accent-4"
-                                            href="#modal1">
-                                            Agregar
-                                            <i class="fas fa-plus-circle"></i>
-                                        </h4>
-                                    </span>
-                                    <h5>Plantilla</h5>
-                                </div>
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Local</th>
-                                                <th scope="col">visitante</th>
-                                                <th scope="col">Fecha</th>
-                                                <th scope="col">Hora</th>
-                                                <th scope="col">Lugar</th>
-                                                <th scope="col">Jornada</th>
-                                                <th scope="col">Editar</th>
-                                                <th scope="col">Eliminar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tabla">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <h4 class="waves-effect waves-light modal-trigger deep-purple-text text-accent-4"
+                                        href="#modal1">
+                                        <b>Agregar</b>
+                                        <i class="fas fa-plus-circle"></i>
+                                    </h4>
+                                </span>
+                                <h5 class="blue-text text-darken-4 flow-text"><b>Partidos</b></h5>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Local</th>
+                                            <th scope="col">Visitante</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Hora</th>
+                                            <th scope="col">Lugar</th>
+                                            <th scope="col">Jornada</th>
+                                            <th scope="col">Editar</th>
+                                            <th scope="col">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabla">
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-                <footer class="sticky-footer" id="footer">
-
-                </footer>
             </div>
+
+            <footer class="sticky-footer" id="footer">
+
+            </footer>
         </div>
+    </div>
 
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title black-text">Registro de Partidos</h3>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title black-text">Registro De Partidos</h3>
+            </div>
+            <div class="modal-body">
+                <div class="input-field"">
+                    <select class=" form-control form-control-lg" id="local">
+                    </select>
+                    <label for="local">Equipo Local:</label>
                 </div>
-                <div class="modal-body">
-                    <div class="input-field col s12 m6">
-                        <select class="icons validate" id="local" required>
-                         </select>
-                    <label>Images in select</label>
+                <div class="input-field">
+                    <select class="form-control form-control-lg" id="visitante">
+                    </select>
+                    <label>Equipo Visitante:</label>
                 </div>
-                    <div class="input-field col s12 m6">
-                        <select class="icons validate" id="visitante" required>
-                        </select>
-                    <label>Images in select</label>
+                <div class="form-group">
+                    <label for="fecha">Fecha Del Partido</label>
+                    <input id="fecha" type="date" class="validate" required>
                 </div>
-                    <div class="form-group">
-
-                        <input id="fecha" type="date" class="validate" required>
-                        <label for="fecha">Fecha del Partido</label>
-                    </div>
-                    <div class="form-group">
-
-                        <input id="hora" type="time" class="validate" required>
-                        <label for="exampleInputEmail1">Hora</label>
-                    </div>  
-                    <div class="form-group">
-
-                        <input id="lugar" type="text" class="validate" required>
-                        <label for="exampleInputEmail1">Lugar</label>
-                    </div>
-                    <div class="form-group">
-
-                        <input id="jornada" type="text" class="validate" required>
-                        <label for="exampleInputEmail1">Jornada</label>
-                    </div>
-                    <div>
-                        <button class="btn waves-effect waves-light purple darken-4" id="boton" type="submit"
-                                onclick="crearpartido('QePXhkX8CCx8NqDDgit5')">Registrar</button>
-                        <button class="btn waves-effect waves-light red accent-2" data-dismiss="modal">Close</button>
-                    </div>
+                <div class="form-group">
+                    <label for="hora">Hora</label>
+                    <input id="hora" type="time" class="validate" required>
+                </div>
+                <div class="form-group">
+                    <label for="lugar">Lugar</label>
+                    <input id="lugar" type="text" class="validate" required>
+                </div>
+                <div class="form-group">
+                    <label for="jornada">Jornada</label>
+                    <input id="jornada" type="text" class="validate" required>
+                </div>
+                <div>
+                    <button class="btn waves-effect waves-light purple darken-4" id="boton" type="submit"
+                        onclick="crearPartido()">Registrar</button>
+                    <button class="btn waves-effect waves-light red accent-2 modal-close"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
 
-        </div>
-
-
-
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-        <!-- SCRIPT -->
-        <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
-        <script src="../js/conexion.js"></script>
-        <script src="../js/RegistrarPartidos.js"></script>
-        <script src="../js/plantilla.js"></script>
+    </div>
 
 
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="../vendor/jquery/jquery.min.js"></script>
-        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- SCRIPT -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script src="../js/conexion.js"></script>
+    <script src="../js/RegistrarPartidos.js"></script>
+    <script src="../js/plantilla.js"></script>
 
-        <!-- Page level plugin JavaScript-->
-        <script src="../vendor/chart.js/Chart.min.js"></script>
-        <script src="../vendor/datatables/jquery.dataTables.js"></script>
-        <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="../js/sb-admin.min.js"></script>
 
-        <!-- Demo scripts for this page-->
-        <script src="../js/demo/datatables-demo.js"></script>
-        <script src="../js/demo/chart-area-demo.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Demo scripts for this page-->
-        <script src="../js/demo/datatables-demo.js"></script>
-        <script src="../js/demo/chart-area-demo.js"></script>
-    </body>
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-</html> 
+    <!-- Page level plugin JavaScript-->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="../js/demo/datatables-demo.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="../js/demo/datatables-demo.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
+</body>
+
+</html>
