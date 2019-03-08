@@ -3,6 +3,26 @@
 // Initialize Cloud Firestore through Firebase
 var db = firebase.firestore();
 var storage = firebase.storage();
+
+var idLiga;
+(function user() {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+
+            db.collection("admin").where("userID", "==", user.uid).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    user = doc.id;
+                    idLiga = doc.data().idliga;
+                    leerArbitros();
+                });
+            });
+        } else {
+            console.log("entro");
+
+        }
+    });
+})();
+
 function crearArbitro() {
     var nombre = document.getElementById('nombreArbitro').value;
     var apaterno = document.getElementById('apaterno').value;
@@ -28,7 +48,8 @@ function crearArbitro() {
                 apellidoMaterno: amaterno,
                 edad: edad,
                 roll: roll,
-                foto: downloadURL
+                foto: downloadURL,
+                idLiga:idLiga
             }).then(function (docRef) {
                 console.log("Document written with ID: ", docRef.id);
                 document.getElementById('nombreArbitro').value = '';
@@ -65,7 +86,7 @@ function limpiar() {
         crearArbitro();
     }
 }
-(function leerLigas() {
+function leerArbitros() {
     var tabla_arbitros = document.getElementById('tabla');
     tabla_arbitros.innerHTML = '';
     db.collection("arbitro").onSnapshot((querySnapshot) => {
@@ -91,7 +112,7 @@ function limpiar() {
         contenedor.style.visibility = 'hidden';
         contenedor.style.opacity = '0';
     });
-})();
+};
 
 function eliminarArbitro(id) {
     db.collection("arbitro").doc(id).delete().then(function () {
