@@ -228,7 +228,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                         document.getElementById('curpJuga').value = '';
                         document.getElementById('combo').value = '';
                         document.getElementById('foto').value = null;
-                        boton.innerHTML = 'Guardar';
+                        boton.innerHTML = 'boton';
                     }).catch(function(error) {
                         // The document probably doesn't exist.
                         console.error("Error updating document: ", error);
@@ -260,7 +260,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                 document.getElementById('curpJuga').value = '';
                 document.getElementById('combo').value = '';
                 document.getElementById('foto').value = null;
-                boton.innerHTML = 'Guardar';
+                boton.innerHTML = 'boton';
                 window.location = "Jugadores.html"
             }).catch(function(error) {
                 // The document probably doesn't exist.
