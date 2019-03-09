@@ -1,178 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head id = "head">
+<head id="head">
 
 </head>
 
 <body id="page-top">
-  
-    <div id="contCarga">
-        <div id="carga"></div>
-    </div>
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top" id="navbar">
 
   </nav>
 
-  <div id="wrapper">
+  <div id="wrapper" class="fondoGris">
 
     <!-- Sidebar -->
-    <ul class="sidebar navbar-nav" id ="sidebar">
+
+    <ul class="sidebar navbar-nav" id="sidebar">
 
     </ul>
 
     <div id="content-wrapper">
 
       <div class="container-fluid">
-        
-            <!-- Registrar Jugador -->
-            <div class="row">
-                <div class="col s12 m6">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">
-                                <h4 class="waves-effect waves-light modal-trigger deep-purple-text text-accent-4"
-                                    href="#modal1">
-                                    Agregar
-                                    <i class="fas fa-plus-circle"></i>
-                                </h4>
-                            </span>
-                            <h5>Plantilla</h5>
-                        </div>
-                  <div class="content table-responsive table-full-width">
-                    <table class="table table-hover table-striped">
-                      <thead>
-                        <tr>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Apellido Paterno</th>
-                          <th scope="col">Apellido Materno</th>
-                          <th scope="col">Fecha de nacimieto</th>
-                          <th scope="col">Numero</th>
-                          <th scope="col">Peso</th>
-                          <th scope="col">Estatura</th>
-                          <th scope="col">Curp</th>
-                          <th scope="col">Equipo</th>
-                          <th scope="col">Categoria</th>
-                          <th scope="col">Foto</th>
-                          <th scope="col">Editar</th>
-                          <th scope="col">Eliminar</th>
-                        </tr>
-                      </thead>
-                      <tbody id="table"></tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-      </div>
 
-      <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div id="content-wrapper" class="container">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Registro de Jugadores</h4>
-                </div>
-                <div class="container-fluid">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre(s):</label>
-                    <input type="text" class="form-control" id="nomJugador" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  </div>
+        <!-- End Navbar -->
 
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Apellido Paterno:</label>
-                    <input type="text" class="form-control" id="aPaterno" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Apellido Materno:</label>
-                    <input type="text" class="form-control" id="aMaterno" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Fecha de Nacimiento:</label>
-                    <input type="date" class="form-control" id="fechaJuga" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Numero:</label>
-                    <input type="text" class="form-control" id="numJuga" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Peso:</label>
-                    <input type="text" class="form-control" id="pesoJuga" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Estatura:</label>
-                    <input type="text" class="form-control" id="estaJuga" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Curp:</label>
-                    <input type="text" class="form-control" id="curpJuga" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Equipo:</label>
-                    <select class="form-control form-control-lg" id="combo"></select>
-                  </div>
-                 
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Categria:</label>
-                    <select class="form-control form-control-lg" id="cateJuga">
-                      <option class="from-control">Categoria</option>
-                      <option class="form-control">Infantil</option>
-                      <option class="form-control">Juvenil</option>
-                      <option class="form-control">Libre</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Foto:</label>
-                    <input type="file" class="form-control" id="foto" aria-describedby="emailHelp"
-                      placeholder="Enter email">
-                  </div>
-                  <button class="btn btn-primary" id="boton" onclick="registrarJugador('QePXhkX8CCx8NqDDgit5')">Registrar</button>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="card">
-                        <div class="header">
-                          <h4>
-                            <a class="right">
-                              <i class="pe-7s-plus"></i>
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card">
+              <div class="card-content">
+                <span class="card-title">
+                  <h4 class="waves-effect waves-light modal-trigger deep-purple-text text-accent-4" href="#modal1"
+                    onclick="limpiar()">
+                    Agregar
+                    <i class="fas fa-plus-circle"></i>
+                  </h4>
+                </span>
+                <h5>Jugadores</h5>
+                <div class="content table-responsive table-full-width">
+                  <table class="table table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido Paterno</th>
+                        <th scope="col">Apellido Materno</th>
+                        <th scope="col">Fecha de nacimieto</th>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Estatura</th>
+                        <th scope="col">Curp</th>
+                        <th scope="col">Equipo</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Foto</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                      </tr>
+                    </thead>
+                    <tbody id="table">
 
-                            </a>
-                          </h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
+
+        <footer class="sticky-footer" id="footer">
+
+        </footer>
       </div>
+    </div>
 
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title black-text">Registro de Jugador</h3>
+        </div>
+        <div class="modal-body">
+          <div class="input-field col s6">
+            <input id="nomJugador" type="text" class="validate" placeholder="Nombre" required>
+            <label for="nomJugador">Nombres(s)</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="aPaterno" type="text" class="validate" placeholder="Apellido Paterno" required>
+            <label for="aPaterno">Apellido Paterno</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="aMaterno" type="text" class="validate" placeholder="Apellido Materno" required>
+            <label for="aMaterno">Apellido Materno</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="fechaJuga" type="text" class="validate" placeholder="Fecha de Nacimiento" required>
+            <label for="fechaJuga">Fecha de Nacimiento</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="numJuga" type="text" class="validate" placeholder="Numero" required>
+            <label for="numJuga">Numero</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="pesoJuga" type="text" class="validate" placeholder="Peso" required>
+            <label for="pesoJuga">Peso</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="estaJuga" type="text" class="validate" placeholder="Estatura" required>
+            <label for="estaJuga">Estatura</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="curpJuga" type="text" class="validate" placeholder="Curp" required>
+            <label for="curpJuga">Curp</label>
+          </div>
+          <div class="input-field col s6" placeholder="Equipos  ">
+            <select class="form-control form-control-lg" id="combo">
+            </select>
+          </div>
+          <div class="input-field col s6" placeholder="Categoria  ">
+            <select class="form-control form-control-lg" id="cateJuga">
+              <option class="form-control">Infantil</option>
+              <option class="form-control">Juvenil</option>
+              <option class="form-control">Libre</option>
+            </select>
+          </div>
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>File</span>
+              <input type="file" id="foto">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" required type="text">
+            </div>
+          </div>
 
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright © Your Website 2019</span>
+          <div>
+            <button class="btn waves-effect waves-light purple darken-4" id="boton" type="submit"
+              onclick="registrarJugador('QePXhkX8CCx8NqDDgit5')">Registrar</button>
+            <button class="btn modal-close waves-effect waves-light red accent-2" data-dismiss="modal">Close</button>
           </div>
         </div>
-      </footer>
-  </div>
-    <!-- /.content-wrapper -->
+      </div>
+    </div>
 
+    <footer class="sticky-footer" id="footer">
+
+    </footer>
   </div>
-  <!-- /#wrapper -->
+  </div>
+
+
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
@@ -182,52 +157,44 @@
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
+
   </div>
 
-   
+
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
   <!-- SCRIPT -->
   <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
   <script src="../js/conexion.js"></script>
   <script src="../js/Jugador.js"></script>
   <script src="../js/plantilla.js"></script>
+  <<<<<<< HEAD=======>>>>>>> f57b0237dc7483c946e29cee5ae7749edec3fa2c
 
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Page level plugin JavaScript-->
-  <script src="../vendor/chart.js/Chart.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin.min.js"></script>
 
-  <!-- Demo scripts for this page-->
-  <script src="../js/demo/datatables-demo.js"></script>
-  <script src="../js/demo/chart-area-demo.js"></script>
+    <!-- Demo scripts for this page-->
+    <script src="../js/demo/datatables-demo.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
 
+    <!-- Demo scripts for this page-->
+    <script src="../js/demo/datatables-demo.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
 </body>
 
 </html>
