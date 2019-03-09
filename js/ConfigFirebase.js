@@ -1,16 +1,4 @@
-//llave de configuracion de firebase
-/*const varConfig = {
-    apiKey: "AIzaSyDu92rdtAJ-mOjDF2IoMua6gM5S_1RaMMU",
-    authDomain: "myleague-a4d04.firebaseapp.com",
-    databaseURL: "https://myleague-a4d04.firebaseio.com",
-    projectId: "myleague-a4d04",
-    storageBucket: "myleague-a4d04.appspot.com",
-    messagingSenderId: "468908962623"
-};
-firebase.initializeApp(varConfig);*/
 var db = firebase.firestore();
-/*const db = firebase.firestore();
-const storage = firebase.storage();*/
 
 function registrar() {
     var email = document.getElementById('emailr').value;
@@ -37,7 +25,19 @@ function acceder() {
         if (user.emailVerified != true) {
             alert("Por favor verique su correo electronico");
         } else {
-            console.log('jasnck');
+            var docRef = db.collection("admin").doc(user.uid);
+
+            docRef.get().then(function(doc) {
+                if (doc.exists) {
+                    alert("Bienvenido");
+                    location.href = "../index.html";
+                } else {
+                    alert("Necesitamos saber un poco más de usted: ");
+                    location.href = "../login/datos_personales.html";
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
         }
     }).catch(function(error) {
         // Handle Errors here.
