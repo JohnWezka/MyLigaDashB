@@ -6,7 +6,31 @@ var db = firebase.firestore();
 // Get a reference to the storage service, which is used to create references in your storage bucket
 var storage = firebase.storage();
 
-function registrarEquipo(idLiga) {
+var idLiga;
+
+(function user() {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+
+            db.collection("admin").where("userID", "==", user.uid).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    idLiga = doc.data().idliga;
+                    leerEquipos();
+                    var contenedor = document.getElementById('contCarga');
+                    contenedor.style.visibility = 'hidden';
+                    contenedor.style.opacity = '0';
+                });
+            });
+        } else {
+            var contenedor = document.getElementById('contCarga');
+            contenedor.style.visibility = 'hidden';
+            contenedor.style.opacity = '0';
+            location.href = "../Login/index.html";
+        }
+    });
+})();
+
+function registrarEquipo() {
     var contenedor = document.getElementById('contCarga');
     contenedor.style.visibility = 'visible';
     contenedor.style.opacity = '100';
@@ -18,76 +42,14 @@ function registrarEquipo(idLiga) {
     var desc = document.getElementById('descripcion').value;
     var imgEquipo = ($('#foto'))[0].files[0];
     var downloadURL;
-    db.collection("equipos").where("nombreEquipo", "==", nomEquipo).get().then(function (querySnapshot) {
+    db.collection("equipos").where("nombreEquipo", "==", nomEquipo).where("nombreCategoria", "==", nomCategoria).where("idLiga", "==", idLiga).get().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
         if (!querySnapshot.empty) {
-                if ("nombreCategoria" === nomCategoria){
-                    alert('Ese nombre de ya existe');
-                var contenedor = document.getElementById('contCarga');
-                contenedor.style.visibility = 'hidden';
-                contenedor.style.opacity = '0';
-                break;
-                }else{
-                    
-            var storageRef = storage.ref('equipos/' + imgEquipo.name);
-            storageRef.put(imgEquipo).then((data) => {
-                storage.ref('equipos/' + imgEquipo.name).getDownloadURL().then((url) => {
-                    downloadURL = url;
-                    db.collection("equipos").add({
-                        nombreEquipo: nomEquipo,
-                        nombreCategoria: nomCategoria,
-                        nombreRama: nomRama,
-                        idLiga: idLiga,
-                        nombreEntrenador: nomEntrenador,
-                        nombreAsistente: nomAsistente,
-                        descripcion: desc,
-                        foto: downloadURL
-                    }).then(function (docRef) {
-                        var washingtonRef = db.collection("equipos").doc(docRef.id);
-                        return washingtonRef.update({
-                            idEquipo: docRef.id
-                        }).then(function () {
-                            console.log("Document successfully updated!");
-                            document.getElementById('nomEquipo').value = '';
-                            document.getElementById('nomCategoria').value = '';
-                            document.getElementById('nomRama').value = '';
-                            document.getElementById('nomEntrenador').value = '';
-                            document.getElementById('nomAsistente').value = '';
-                            document.getElementById('descripcion').value = '';
-                            document.getElementById('foto').value = null;
-                            var contenedor = document.getElementById('contCarga');
-                            contenedor.style.visibility = 'hidden';
-                            contenedor.style.opacity = '0';
-                        }).catch(function (error) {
-                            console.error("Error updating document: ", error);
-                            var contenedor = document.getElementById('contCarga');
-                            contenedor.style.visibility = 'hidden';
-                            contenedor.style.opacity = '0';
-                        });
-                    }).catch(function (error) {
-                        console.error("Error adding document: ", error);
-                        var contenedor = document.getElementById('contCarga');
-                        contenedor.style.visibility = 'hidden';
-                        contenedor.style.opacity = '0';
-                    });
-                }).catch((error) => {
-                    console.log("url error");
-                    console.log(error);
-                    var contenedor = document.getElementById('contCarga');
-                    contenedor.style.visibility = 'hidden';
-                    contenedor.style.opacity = '0';
-                });
-            }).catch((error) => {
-                console.log("error");
-                console.log(error);
-                var contenedor = document.getElementById('contCarga');
-                contenedor.style.visibility = 'hidden';
-                contenedor.style.opacity = '0';
-            });
-                }
-            
-            } else {
-                
+            console.log("El equipo existe en la misma categoria");
+            var contenedor = document.getElementById('contCarga');
+            contenedor.style.visibility = 'hidden';
+            contenedor.style.opacity = '0';
+        } else {
             var storageRef = storage.ref('equipos/' + imgEquipo.name);
             storageRef.put(imgEquipo).then((data) => {
                 storage.ref('equipos/' + imgEquipo.name).getDownloadURL().then((url) => {
