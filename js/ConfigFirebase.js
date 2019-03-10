@@ -26,11 +26,21 @@ function acceder() {
             alert("Por favor verique su correo electronico");
         } else {
             var docRef = db.collection("admin").doc(user.uid);
-
             docRef.get().then(function(doc) {
                 if (doc.exists) {
-                    alert("Bienvenido");
-                    location.href = "../index.html";
+                    var docRef2 = db.collection("ligas").doc(user.uid);
+
+                    docRef2.get().then(function(doc) {
+                        if (doc.exists) {
+                            alert("Bienvenido");
+                            location.href = "../index.html";
+                        } else {
+                            alert("Aun no ha creado su liga");
+                            location.href = "../login/registro_liga.html";
+                        }
+                    }).catch(function(error) {
+                        console.log("Error getting document:", error);
+                    });
                 } else {
                     alert("Necesitamos saber un poco más de usted: ");
                     location.href = "../login/datos_personales.html";
