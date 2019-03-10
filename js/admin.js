@@ -41,7 +41,7 @@ function registrarAdmin() {
                 userID: uid
             }).then(function() {
                 alert("Perfil Completo");
-                location.href = "../pages/crear-liga.html";
+                location.href = "../login/registro_liga.html";
                 document.getElementById('nom').value = '';
                 document.getElementById('appma').value = '';
                 document.getElementById('apppa').value = '';

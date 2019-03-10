@@ -194,12 +194,21 @@ function crearLiga() {
                 foto: downloadURL,
                 userID: user.uid
             }).then(function() {
-                alert("Liga creada");
-                location.href = "../index.html";
-                console.log("Document successfully updated!");
-                document.getElementById('nomLiga').value = '';
-                document.getElementById('nomDueno').value = '';
-                document.getElementById('descripcion').value = '';
+                var administrador = db.collection("admin").doc(user.uid);
+                return administrador.update({
+                        idliga: user.uid
+                    })
+                    .then(function() {
+                        alert("Liga creada");
+                        location.href = "../index.html";
+                        console.log("Document successfully updated!");
+                        document.getElementById('nomLiga').value = '';
+                        document.getElementById('nomDueno').value = '';
+                        document.getElementById('descripcion').value = '';
+                    })
+                    .catch(function(error) {
+                        console.error("Error updating document: ", error);
+                    });
             }).catch(function(error) {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);

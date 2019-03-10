@@ -21,6 +21,7 @@ var idLiga;
       var contenedor = document.getElementById('contCarga');
       contenedor.style.visibility = 'hidden';
       contenedor.style.opacity = '0';
+      location.href = "../Login/index.html";
     }
   });
 })();
@@ -39,11 +40,13 @@ function registrarJugador() {
     var categoria = document.getElementById('cateJuga').value;
     var foto = ($('#foto'))[0].files[0];
     var downloadURL;
-    db.collection("jugadores").where("nomJuga", "==", nombre).get().then(function (querySnapshot) {
+    db.collection("jugadores").where("nombre", "==", nombre).where("apellidoP", "==", apellidoP).where("apellidoM", "==", apellidoM)
+    .where("numero", "==", numero).get().then(function (querySnapshot){
         console.log(querySnapshot.empty);
         if (!querySnapshot.empty) {
             console.log('Jugador existente')
         } else {
+
             var storageRef = storage.ref('jugadores/' + foto.name);
             storageRef.put(foto).then((data) => {
                 console.log("then");
@@ -57,16 +60,16 @@ function registrarJugador() {
 
                     db.collection("jugadores").add({
                         idLiga: idLiga,
-                        nom: nombre,
-                        apeP: apellidoP,
-                        apeM: apellidoM,
-                        fechaN: fechaNacimiento,
-                        num: numero,
-                        pes: peso,
-                        esta: estatura,
-                        cp: curp,
-                        equip: equipo,
-                        cate: categoria,
+                        nombre: nombre,
+                        apellidoP: apellidoP,
+                        apellidoM: apellidoM,
+                        fechaNacimiento: fechaNacimiento,
+                        numero: numero,
+                        peso: peso,
+                        estatura: estatura,
+                        curp: curp,
+                        equipo: equipo,
+                        categoria: categoria,
                         foto: downloadURL,
                     }).then(function(docRef) {
                         console.log("Document written with ID: ", docRef.id);
@@ -143,7 +146,7 @@ function registrarJugador() {
 function leerJugadores() {
     var table = document.getElementById('table');
     table.innerHTML = '';
-    db.collection("jugadores").onSnapshot((querySnapshot) => {
+    db.collection("jugadores").where("idLiga", "==", idLiga).onSnapshot(function (querySnapshot) {
         table.innerHTML = '';
 
         querySnapshot.forEach((doc) => {
@@ -163,8 +166,8 @@ function leerJugadores() {
                 <td><h4><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4" href="#modal1"
                 onclick="editarJugador('${doc.id}','${doc.data().nombre}','${doc.data().apellidoP}','${doc.data().apellidoM}',
                 '${doc.data().fechaNacimiento}','${doc.data().numero}','${doc.data().peso}','${doc.data().estatura}','${doc.data().curp}',
-                '${doc.data().equipo}','${doc.data().categoria}','${doc.data().foto}')">Editar</i></h4></td>
-                <td><button class="btn btan-warning" onclick="eliminarJugador('${doc.id}')">Eliminar</button></td>
+                '${doc.data().equipo}','${doc.data().categoria}','${doc.data().foto}')"></i></h4></td>
+                <td><h4><i class="fas fa-trash-alt" onclick="eliminarJugador('${doc.id}')"></i></h4></td>
             </tr>
             `;
 
