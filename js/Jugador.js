@@ -4,15 +4,25 @@ var storage = firebase.storage();
 
 var idLiga;
 
-(function() {
-    var user = firebase.auth().currentUser;
+(function user() {
+  firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        db.collection("admin").where("userID", "==", user.uid).get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                idLiga = idliga;
-            });
+      idUser = user.uid;
+      db.collection("admin").where("userID", "==", user.uid).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          idLiga = doc.data().idliga;
+          leerJugadores();
+          var contenedor = document.getElementById('contCarga');
+          contenedor.style.visibility = 'hidden';
+          contenedor.style.opacity = '0';
         });
+      });
+    } else {
+      var contenedor = document.getElementById('contCarga');
+      contenedor.style.visibility = 'hidden';
+      contenedor.style.opacity = '0';
     }
+  });
 })();
 
 function registrarJugador() {
@@ -29,9 +39,9 @@ function registrarJugador() {
     var categoria = document.getElementById('cateJuga').value;
     var foto = ($('#foto'))[0].files[0];
     var downloadURL;
-    db.collection("jugadores").where("nomJuga", "==", nombre).gte().then(function (querySnapshot) {
+    db.collection("jugadores").where("nomJuga", "==", nombre).get().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
-        if (querySnapshot.empty) {
+        if (!querySnapshot.empty) {
             console.log('Jugador existente')
         } else {
             var storageRef = storage.ref('jugadores/' + foto.name);
@@ -130,7 +140,7 @@ function registrarJugador() {
 })();
 
 
-(function leerJugadores() {
+function leerJugadores() {
     var table = document.getElementById('table');
     table.innerHTML = '';
     db.collection("jugadores").onSnapshot((querySnapshot) => {
@@ -164,7 +174,7 @@ function registrarJugador() {
         contenedor.style.opacity = '0';
     });
 
-})();
+}
 
 function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, pesoJuga, estaJuga, curpJuga, equipoJuga, categoria) {
     console.log('entro');
