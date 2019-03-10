@@ -102,7 +102,7 @@ function verificar() {
         console.log(error);
     });
 }
-
+/*
 function crearLiga() {
     var nomLiga = document.getElementById('nomLiga').value;
     var nomDueno = document.getElementById('nomDueno').value;
@@ -161,7 +161,6 @@ function crearLiga() {
                         // The document probably doesn't exist.
                         console.error("Error updating document: ", error);
                     });
-
                 })
                 .catch(function(error) {
                     console.error("Error adding document: ", error);
@@ -176,7 +175,46 @@ function crearLiga() {
         console.log(error);
     });
 }
+*/
+function crearLiga() {
+    var nomLiga = document.getElementById('nomLiga').value;
+    var nomDueno = document.getElementById('nomDueno').value;
+    var desc = document.getElementById('descripcion').value;
+    var img = ($('#foto'))[0].files[0];
+    var downloadURL;
+    var user = firebase.auth().currentUser;
+    var storageRef = storage.ref('ligas/' + img.name);
+    storageRef.put(img).then((data) => {
+        storage.ref('ligas/' + img.name).getDownloadURL().then((url) => {
+            downloadURL = url;
+            db.collection("ligas").doc(user.uid).set({
+                nombreLiga: nomLiga,
+                nombreDueno: nomDueno,
+                descripcion: desc,
+                foto: downloadURL,
+                userID: user.uid
+            }).then(function() {
+                alert("Liga creada");
+                location.href = "../index.html";
+                console.log("Document successfully updated!");
+                document.getElementById('nomLiga').value = '';
+                document.getElementById('nomDueno').value = '';
+                document.getElementById('descripcion').value = '';
+            }).catch(function(error) {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
+        }).catch((error) => {
+            console.log("url error");
+            console.log(error);
+        });
 
+    }).catch((error) => {
+        console.log("error");
+        console.log(error);
+    });
+}
+/*
 function leerLigas() {
     var tabla = document.getElementById('tabla');
     console.log(tabla);
@@ -244,3 +282,4 @@ function actualizarLiga(id, nomLiga, nomDueno, desc, foto) {
             });
     }
 }
+*/
