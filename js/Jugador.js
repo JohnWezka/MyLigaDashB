@@ -132,7 +132,7 @@ function registrarJugador() {
 (function consultarEquipos() {
     var combo = document.getElementById('combo');
     combo.innerHTML = '';
-    db.collection("equipos").onSnapshot((querySnapshot) => {
+    db.collection("equipos").where("idLiga", "==", idLiga).onSnapshot(function (querySnapshot) {
         combo.innerHTML = '';
         querySnapshot.forEach((doc) => {
             combo.innerHTML += `
@@ -303,7 +303,7 @@ function lipmiar(){
     db.collection("curpJuga").value = '';
     db.collection("combo").value = '';
     db.collection("cateJuga").value = '';
-    db.collection("foto").value = '';
+    db.collection("foto").value = null;
     var boton = document.getElementById('boton');
     boton.innerHTML = 'Guardar';
     boton.onclick = function (){
