@@ -12,6 +12,7 @@ var idLiga;
         querySnapshot.forEach(function (doc) {
           idLiga = doc.data().idliga;
           leerJugadores();
+          consultarEquipos();
           var contenedor = document.getElementById('contCarga');
           contenedor.style.visibility = 'hidden';
           contenedor.style.opacity = '0';
@@ -129,7 +130,7 @@ function registrarJugador() {
     });
 
 }
-(function consultarEquipos() {
+function consultarEquipos() {
     var combo = document.getElementById('combo');
     combo.innerHTML = '';
     db.collection("equipos").where("idLiga", "==", idLiga).onSnapshot(function (querySnapshot) {
@@ -140,7 +141,7 @@ function registrarJugador() {
             `;
         })
     })
-})();
+}
 
 
 function leerJugadores() {
