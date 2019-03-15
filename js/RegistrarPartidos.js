@@ -24,12 +24,21 @@ var idLiga;
     });
 })();
 
-function leerEquipos() {
+function cambiar() {
+    var select = document.getElementById('categoria').value;
+    if (select == "Seleccione una categoria") {
+        console.log("nel");
+    } else {
+        leerEquipos(select);
+    }
+}
+
+function leerEquipos(categoria) {
     let selection_roll = document.getElementById('local');
     let selection_roll2 = document.getElementById('visitante');
     selection_roll.innerHTML = '';
     selection_roll2.innerHTML = '';
-    db.collection("equipos").where("idLiga", "==", idLiga).get().then(function (querySnapshot) {
+    db.collection("equipos").where("nombreCategoria", "==", categoria).where("idLiga", "==", idLiga).get().then(function (querySnapshot) {
         selection_roll.innerHTML = '';
         selection_roll2.innerHTML = '';
         querySnapshot.forEach((doc) => {
@@ -53,6 +62,11 @@ function crearPartido() {
     let hora = document.getElementById('hora').value;
     let lugar = document.getElementById('lugar').value;
     let jornada = document.getElementById('jornada').value;
+    let categoria = document.getElementById('categoria').value;
+    let fotoLocal;
+    let fotoVisitante;
+    let nombreLocal;
+    let nombreVisitante;
 
     db.collection("Partido").add({
         local: local,
@@ -62,21 +76,45 @@ function crearPartido() {
         idLiga: idLiga,
         lugar: lugar,
         jornada: jornada,
+        categoria: categoria
     }).then(function (docRef) {
-        console.log("Document written with ID: ", docRef.id);
-        var washingtonRef = db.collection("Partido").doc(docRef.id);
-        return washingtonRef.update({
-            id: docRef.id
-        }).then(function () {
-            console.log("Document successfully updated!");
-            document.getElementById('fecha').value = '';
-            document.getElementById('hora').value = '';
-            document.getElementById('lugar').value = '';
-            document.getElementById('jornada').value = '';
-            var contenedor = document.getElementById('contCarga');
-            contenedor.style.visibility = 'hidden';
-            contenedor.style.opacity = '0';
+        db.collection("equipos").doc(local).get().then((docloc) => {
+            nombreLocal = docloc.data().nombreEquipo;
+            fotoLocal = docloc.data().foto;
+            db.collection("equipos").doc(visitante).get().then((docvis) => {
+                nombreVisitante = docvis.data().nombreEquipo;
+                fotoVisitante = docvis.data().foto;
+                var washingtonRef = db.collection("Partido").doc(docRef.id);
+                return washingtonRef.update({
+                    id: docRef.id,
+                    fotoLocal: fotoLocal,
+                    fotoVisitante: fotoVisitante,
+                    nombreLocal: nombreLocal,
+                    nombreVisitante: nombreVisitante
+                }).then(function () {
+                    console.log("Document successfully updated!");
+                    document.getElementById('fecha').value = '';
+                    document.getElementById('hora').value = '';
+                    document.getElementById('lugar').value = '';
+                    document.getElementById('jornada').value = '';
+                    var contenedor = document.getElementById('contCarga');
+                    contenedor.style.visibility = 'hidden';
+                    contenedor.style.opacity = '0';
+                }).catch((error) => {
+                    console.log(error);
+                    var contenedor = document.getElementById('contCarga');
+                    contenedor.style.visibility = 'hidden';
+                    contenedor.style.opacity = '0';
+                });
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+                console.log(error);
+                var contenedor = document.getElementById('contCarga');
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
+            });
         }).catch((error) => {
+            console.log("Error getting document:", error);
             console.log(error);
             var contenedor = document.getElementById('contCarga');
             contenedor.style.visibility = 'hidden';
@@ -100,10 +138,11 @@ function leerPartidos() {
             docRef.get().then(function (doc1) {
                 var local = doc1.data().nombreEquipo + "\n - " + doc1.data().nombreCategoria;
                 var docRef2 = db.collection("equipos").doc(doc.data().visitante);
-            docRef2.get().then(function (doc2) {
-                var visitante = doc2.data().nombreEquipo + "\n - " + doc2.data().nombreCategoria;
-                tabla_arbitros.innerHTML += `
+                docRef2.get().then(function (doc2) {
+                    var visitante = doc2.data().nombreEquipo + "\n - " + doc2.data().nombreCategoria;
+                    tabla_arbitros.innerHTML += `
                 <tr>
+                <td>${doc.data().categoria}</td>
                 <td>${local}</td>
                 <td>${visitante}</td>
                 <td>${doc.data().fecha}</td>
@@ -116,9 +155,9 @@ function leerPartidos() {
                 <td><h4 class="center" href=""><i class="fas fa-trash-alt red-text text-accent-4" onclick="eliminarPartido('${doc.id}')"></i></h4></td>
                 </tr>
                 `;
-            }).catch(function (error) {
-                console.log("Error getting document:", error);
-            });
+                }).catch(function (error) {
+                    console.log("Error getting document:", error);
+                });
             }).catch(function (error) {
                 console.log("Error getting document:", error);
             });
