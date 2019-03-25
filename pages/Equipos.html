@@ -38,12 +38,12 @@
                             <div class="card-content">
                                 <span class="card-title">
                                     <h4 class="waves-effect waves-light modal-trigger deep-purple-text text-accent-4"
-                                        href="#modal1">
+                                        href="#modal1" onclick="limpiar()">
                                         Agregar
                                         <i class="fas fa-plus-circle"></i>
                                     </h4>
                                 </span>
-                                <h5>Registrar Equipos</h5>
+                                <h5 class="blue-text text-darken-4 flow-text">Equipos</h5>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -84,40 +84,40 @@
             </div>
             <div class="modal-body">
                 <div class="input-field col s6">
-                    <input id="nomEquipo" type="text" class="validate" required>
+                    <input id="nomEquipo" type="text" class="validate" required placeholder="Nombre Del Equipo">
                     <label for="nomEquipo">Nombre del Equipo</label>
                 </div>
                 <div class="input-field col s12 m6">
                     <select class="icons validate" id="nomCategoria" required>
                         <option value="" disabled selected>Escoge una Opcion</option>
-                        <option value="Infantil" data-icon="images/sample-1.jpg">Infantil</option>
-                        <option value="Juvenil" data-icon="images/office.jpg">Juvenil</option>
-                        <option value="Libre" data-icon="images/yuna.jpg">Libre</option>
+                        <option value="Infantil" >Infantil</option>
+                        <option value="Juvenil" >Juvenil</option>
+                        <option value="Libre" >Libre</option>
                     </select>
                     <label>Categoria</label>
                 </div>
                 <div class="input-field col s12 m6">
                     <select class="icons validate" id="nomRama" required>
                         <option value="" disabled selected>Escoge una Opcion</option>
-                        <option value="Femenil" data-icon="images/sample-1.jpg">Femenil</option>
-                        <option value="Varonil" data-icon="images/office.jpg">Varonil</option>
-                        <option value="Mixta" data-icon="images/yuna.jpg">Mixta</option>
+                        <option value="Femenil" >Femenil</option>
+                        <option value="Varonil" >Varonil</option>
+                        <option value="Mixta" >Mixta</option>
                     </select>
                     <label>Rama</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="nomEntrenador" type="text" class="validate" required>
+                    <input id="nomEntrenador" type="text" class="validate" required placeholder="Entrenador">
                     <label for="nomEntrenador">Nombre del Entrenador</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="nomAsistente" type="text" class="validate" required>
+                    <input id="nomAsistente" type="text" class="validate" required placeholder="Asistente">
                     <label for="nomAsistente">Nombre del Asistente</label>
                 </div>
                 <div class="row">
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="descripcion" class="materialize-textarea validate" required></textarea>
+                                <textarea id="descripcion" class="materialize-textarea validate" required placeholder="Descripcion"></textarea>
                                 <label for="descripcion">Descripcion</label>
                             </div>
                         </div>
@@ -134,8 +134,8 @@
                 </div>
                 <div>
                     <button class="btn waves-effect waves-light purple darken-4" id="boton" type="submit"
-                        onclick="registrarEquipo('QePXhkX8CCx8NqDDgit5')">Registrar</button>
-                    <button class="btn waves-effect waves-light red accent-2" data-dismiss="modal">Close</button>
+                        onclick="registrarEquipo()">Registrar</button>
+                    <button class="btn waves-effect waves-light red accent-2 modal-close" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
