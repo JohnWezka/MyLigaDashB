@@ -21,41 +21,41 @@
             <div class="container-fluid">
                 <!-- End Navbar -->
                 <div class="row">
-                        <div class="col s12 m6">
-                            <div class="card">
-                                <div class="card-content">
-                                    <span class="card-title">
-                                        <h4 class="waves-effect waves-light modal-trigger deep-purple-text text-accent-4"
-                                            href="#modal1" onclick="limpiar()">
-                                            <i class="fas fa-plus-circle"></i>
-                                            Nuevo Torneo
-                                        </h4>
-                                    </span>
-                                    <h5 style="text-align: center">Tabla de torneos existentes</h5>
-                                </div>
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Tipo</th>
-                                                    <th scope="col">Inicio</th>
-                                                    <th scope="col">Cierre</th>
-                                                    <th scope="col">Fecha nacimiento inicio</th>
-                                                    <th scope="col">Fecha nacimiento cierre</th>
-                                                    <th scope="col">Categoria</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    </tr>
-                                        </thead>
-                                        <tbody id="tabla">
-    
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <h4 class="waves-effect waves-light modal-trigger deep-purple-text text-accent-4"
+                                        href="#modal1" onclick="limpiar()">
+                                        <i class="fas fa-plus-circle"></i>
+                                        Nuevo Torneo
+                                    </h4>
+                                </span>
+                                <h5 style="text-align: center">Tabla de torneos existentes</h5>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Inicio</th>
+                                            <th scope="col">Cierre</th>
+                                            <th scope="col">Fecha Nacimiento Inicio</th>
+                                            <th scope="col">Fecha Nacimiento Cierre</th>
+                                            <th scope="col">Categoria</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabla">
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
             <footer class="sticky-footer" id="footer">
             </footer>
@@ -70,7 +70,7 @@
             </div>
             <div class="modal-body">
                 <div class="input-field col s6">
-                    <input id="nombreTorneo" type="text" class="validate" required>
+                    <input id="nombreTorneo" type="text" class="validate" placeholder="Nombre torneo" required>
                     <label for="nombreTorneo">Nombre de Torneo</label>
                 </div>
                 <div class="input-field col s12 m6">
@@ -83,7 +83,6 @@
                     </select>
                     <label>Selecciona un tipo de torneo</label>
                 </div>
-
                 <div class="input-field col s6">
                     <input id="fechaInicio" type="date" class="validate" required>
                     <label for="fechaInicio">Fecha inicio</label>
@@ -104,7 +103,7 @@
                 </div>
 
                 <div class="input-field col s12 m6">
-                    <select class="icons validate" id="categoria">
+                    <select class="icons validate" id="Categoria" required>
                         <option value="" disabled selected>Categoria</option>
                         <option value="Infantil">Infantil</option>
                         <option value="Juvenil">Juvenil</option>
@@ -115,7 +114,7 @@
                 <div>
                     <button class="btn waves-effect waves-light purple darken-4" id="boton" type="submit"
                         onclick="crearTorneo()">Registrar</button>
-                    <button class="btn waves-effect waves-light red accent-2" data-dismiss="modal">Close</button>
+                    <button class="btn waves-effect waves-light red accent-2 modal-close" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -139,9 +138,9 @@
     <script src="../js/conexion.js"></script>
     <script src="../js/registro-torneos.js"></script>
     <script src="../js/plantilla.js"></script>
-    
-    
-    
+
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
