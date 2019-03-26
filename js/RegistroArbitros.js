@@ -11,15 +11,16 @@ var idLiga;
 
             db.collection("admin").where("userID", "==", user.uid).get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    user = doc.id;
                     idLiga = doc.data().idliga;
                     leerArbitros();
                 });
             });
         } else {
-            console.log("entro");
-
-        }
+            var contenedor = document.getElementById('contCarga');
+            contenedor.style.visibility = 'hidden';
+            contenedor.style.opacity = '0';
+            location.href = "../login/index.html";
+          }
     });
 })();
 
@@ -49,7 +50,7 @@ function crearArbitro() {
                 edad: edad,
                 roll: roll,
                 foto: downloadURL,
-                idLiga:idLiga
+                idLiga:idLiga 
             }).then(function (docRef) {
                 console.log("Document written with ID: ", docRef.id);
                 document.getElementById('nombreArbitro').value = '';
@@ -89,7 +90,7 @@ function limpiar() {
 function leerArbitros() {
     var tabla_arbitros = document.getElementById('tabla');
     tabla_arbitros.innerHTML = '';
-    db.collection("arbitro").onSnapshot((querySnapshot) => {
+    db.collection("Partido").where("idLiga", "==", idLiga).onSnapshot((querySnapshot) => {
         tabla_arbitros.innerHTML = '';
         querySnapshot.forEach((doc) => {
 
@@ -104,7 +105,7 @@ function leerArbitros() {
               <td><h4><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4" 
             href="#modal1" onclick="actualizarArbitro('${doc.id}','${doc.data().nombreArbitro}',
           '${doc.data().apellidoPaterno}','${doc.data().apellidoMaterno}','${doc.data().edad}','${doc.data().roll}','${doc.data().foto}')"></i></h4></td>
-          <td><h4><i class="fas fa-trash-alt" onclick="eliminarArbitro('${doc.id}')"></i></h4></td>
+          <td><h4><i class="fas fa-trash-alt red-text text-accent-4" onclick="eliminarArbitro('${doc.id}')"></i></h4></td>
         </tr>
         `;
         });
