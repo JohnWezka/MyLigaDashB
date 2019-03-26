@@ -22,7 +22,7 @@ var idLiga;
       var contenedor = document.getElementById('contCarga');
       contenedor.style.visibility = 'hidden';
       contenedor.style.opacity = '0';
-      location.href = "../Login/index.html";
+      location.href = "login/index.html";
     }
   });
 })();

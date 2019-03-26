@@ -45,7 +45,7 @@ function registrarEquipo() {
     db.collection("equipos").where("nombreEquipo", "==", nomEquipo).where("nombreCategoria", "==", nomCategoria).where("idLiga", "==", idLiga).get().then(function (querySnapshot) {
         console.log(querySnapshot.empty);
         if (!querySnapshot.empty) {
-            console.log("El equipo existe en la misma categoria");
+            alert("El equipo existe en la misma categoria");
             var contenedor = document.getElementById('contCarga');
             contenedor.style.visibility = 'hidden';
             contenedor.style.opacity = '0';
@@ -120,7 +120,7 @@ function leerEquipos() {
     console.log('entro');
     var tabla = document.getElementById('tabla');
     tabla.innerHTML = '';
-    db.collection("equipos").onSnapshot((querySnapshot) => {
+    db.collection("equipos").where("idLiga", "==", idLiga).onSnapshot((querySnapshot) => {
         tabla.innerHTML = '';
         querySnapshot.forEach((doc) => {
             tabla.innerHTML += `
@@ -234,7 +234,6 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
                 document.getElementById('descripcion').value = '';
                 document.getElementById('foto').value = null;
                 boton.innerHTML = 'Guardar';
-                window.location = "RegistroArbitros.html";
             }).catch(function (error) {
                 console.error("Error updating document: ", error);
             })
@@ -242,4 +241,18 @@ function actualizarEquipo(id, nombreEquipo, nombreCategoria, nombreRama, nombreE
     }
 }
 
+function limpiar() {
 
+    document.getElementById('nomEquipo').value = '';
+    document.getElementById('nomCategoria').value = '';
+    document.getElementById('nomRama').value = '';
+    document.getElementById('nomEntrenador').value = '';
+    document.getElementById('nomAsistente').value = '';
+    document.getElementById('descripcion').value = '';
+    document.getElementById('foto').value = null;
+    var boton = document.getElementById('boton');
+    boton.innerHTML = 'Guardar';
+    boton.onclick = function () {
+        registrarEquipo();
+    }
+}
