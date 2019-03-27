@@ -193,7 +193,7 @@ function actualizarArbitro(id, nomArbitro, apaterno, amaterno, edad, roll) {
                 document.getElementById('roll').value = '';
                 document.getElementById('foto').value = null;
                 boton.innerHTML = 'Guardar';
-                window.location = "RegistroArbitros.html";
+                window.location = "Arbitros.html";
             }).catch(function (error) {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
