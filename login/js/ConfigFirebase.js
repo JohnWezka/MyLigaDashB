@@ -11,16 +11,23 @@ firebase.initializeApp(varConfig);*/
 var db = firebase.firestore();
 /*const db = firebase.firestore();
 const storage = firebase.storage();*/
-
+var contenedor = document.getElementById('contCarga');
+          
 function registrar() {
+    contenedor.style.visibility = 'visible';
+    contenedor.style.opacity = '100';
     var email = document.getElementById('emailr').value;
     var password = document.getElementById('passwordr').value;
     console.log(email);
     console.log(password);
     firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+        contenedor.style.visibility = 'hidden';
+          contenedor.style.opacity = '0';
         verificar();
     }).catch(function(error) {
         // Handle Errors here.
+        contenedor.style.visibility = 'hidden';
+          contenedor.style.opacity = '0';
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log(errorCode);
@@ -30,6 +37,10 @@ function registrar() {
 }
 
 function acceder() {
+    var contenedor = document.getElementById('contCarga');
+    console.log(contenedor);
+    contenedor.style.visibility = 'visible';
+    contenedor.style.opacity = '100';
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
     firebase.auth().signInWithEmailAndPassword(email, password).then(result => {
@@ -39,8 +50,12 @@ function acceder() {
         } else {
             console.log('jasnck');
         }
+        contenedor.style.visibility = 'hidden';
+          contenedor.style.opacity = '0';
     }).catch(function(error) {
         // Handle Errors here.
+        contenedor.style.visibility = 'hidden';
+          contenedor.style.opacity = '0';
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log(errorCode);
