@@ -77,7 +77,7 @@
                     <h6 class="dropdown-header">Registros:</h6>
                     <a class="dropdown-item" href="../pages/Equipos.html">Equipos</a>
                     <a class="dropdown-item" href="../pages/Jugadores.html">Jugadores</a>
-                    <a class="dropdown-item" href="../pages/RegistrosArbitros.html">Arbitros</a>
+                    <a class="dropdown-item" href="../pages/Arbitros.html">Arbitros</a>
                     <a class="dropdown-item" href="../pages/Torneos.html">Torneos</a>
                     <a class="dropdown-item" href="../pages/Partidos.html">Partidos</a>
                 </div>
