@@ -137,9 +137,9 @@ function consultarEquipos() {
         combo.innerHTML = '';
         querySnapshot.forEach((doc) => {
             combo.innerHTML += `
-            <option>${doc.data().nombreEquipo}</option>
+            <option value = "${doc.data().idEquipo}">${doc.data().nombreEquipo} - ${doc.data().nombreCategoria  }</option>
             `;
-        })
+        })      
     })
 }
 
@@ -150,9 +150,13 @@ function leerJugadores() {
     db.collection("jugadores").where("idLiga", "==", idLiga).onSnapshot(function (querySnapshot) {
         table.innerHTML = '';
 
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach(function (doc){
+            var docRef = db.collection("equipos").doc(doc.data().equipo);
+            docRef.get().then(function (doc1){
+                    var equipo = doc1.data().nombreEquipo + "\n - " + doc1.data().nombreCategoria;
             table.innerHTML += `
             <tr>
+                
                 <td>${doc.data().nombre}</td>
                 <td>${doc.data().apellidoP}</td>
                 <td>${doc.data().apellidoM}</td>
@@ -161,7 +165,7 @@ function leerJugadores() {
                 <td>${doc.data().peso}</td>
                 <td>${doc.data().estatura}</td>
                 <td>${doc.data().curp}</td>
-                <td>${doc.data().equipo}</td>
+                <td>${equipo}</td>
                 <td>${doc.data().categoria}</>
                 <td><img height="70" width="70" src=${doc.data().foto}</td>
                 <td><h4><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4" href="#modal1"
@@ -171,6 +175,10 @@ function leerJugadores() {
                 <td><h4><i class="fas fa-trash-alt" onclick="eliminarJugador('${doc.id}')"></i></h4></td>
             </tr>
             `;
+            }).catch(function (error){
+                console.log("Error getting document:", error);
+            });
+
 
         });
         var contenedor = document.getElementById('contCarga');
@@ -268,7 +276,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                 document.getElementById('nomJugador').value = '';
                 document.getElementById('aPaterno').value = '';
                 document.getElementById('aMaterno').value = '';
-                document.getElementById('numJugadr').value = '';
+                document.getElementById('nu mJugadr').value = '';
                 document.getElementById('pesoJuga').value = '';
                 document.getElementById('estaJuga').value = '';
                 document.getElementById('curpJuga').value = '';
