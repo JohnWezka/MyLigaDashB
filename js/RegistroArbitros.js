@@ -110,7 +110,7 @@ function leerArbitros() {
         console.log(querySnapshot);
         console.log(idLiga);
         querySnapshot.forEach((doc) => {
-        console.log(doc);
+            console.log(doc);
             tabla_arbitros.innerHTML += `
         <tr>
           <td>${doc.data().nombreArbitro}</td>
@@ -149,6 +149,9 @@ function actualizarArbitro(id, nomArbitro, apaterno, amaterno, edad, roll) {
     var boton = document.getElementById('boton');
     boton.innerHTML = 'Editar';
     boton.onclick = function () {
+        var contenedor = document.getElementById('contCarga');
+        contenedor.style.visibility = 'visible';
+        contenedor.style.opacity = '100';
         var washingtonRef = db.collection("arbitro").doc(id);
         var nombre = document.getElementById('nombreArbitro').value;
         var apaterno = document.getElementById('apaterno').value;
@@ -184,13 +187,22 @@ function actualizarArbitro(id, nomArbitro, apaterno, amaterno, edad, roll) {
                         document.getElementById('roll').value = '';
                         document.getElementById('foto').value = null;
                         boton.innerHTML = 'Guardar';
+                        var contenedor = document.getElementById('contCarga');
+                        contenedor.style.visibility = 'hidden';
+                        contenedor.style.opacity = '0';
                     }).catch(function (error) {
                         // The document probably doesn't exist.
                         console.error("Error updating document: ", error);
+                        var contenedor = document.getElementById('contCarga');
+                        contenedor.style.visibility = 'hidden';
+                        contenedor.style.opacity = '0';
                     });
                 }).catch((error) => {
                     console.log("error");
                     console.log(error);
+                    var contenedor = document.getElementById('contCarga');
+                    contenedor.style.visibility = 'hidden';
+                    contenedor.style.opacity = '0';
                 });
             });
 
@@ -210,9 +222,15 @@ function actualizarArbitro(id, nomArbitro, apaterno, amaterno, edad, roll) {
                 document.getElementById('roll').value = '';
                 document.getElementById('foto').value = null;
                 boton.innerHTML = 'Guardar';
+                var contenedor = document.getElementById('contCarga');
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
             }).catch(function (error) {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
+                var contenedor = document.getElementById('contCarga');
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
             });
         }
     }
