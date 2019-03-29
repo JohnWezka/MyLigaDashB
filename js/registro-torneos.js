@@ -9,7 +9,7 @@
 
 var db = firebase.firestore();
 
-var user;
+
 var idLiga;
 
 (function user() {
@@ -21,8 +21,8 @@ var idLiga;
           idLiga = doc.data().idliga;
           leerTorneos();
           var contenedor = document.getElementById('contCarga');
-          contenedor.style.visibility = 'hidden';
-          contenedor.style.opacity = '0';
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
         });
       });
     } else {
@@ -37,6 +37,10 @@ var idLiga;
 
 
 function crearTorneo() {
+  var contenedor = document.getElementById('contCarga');
+  contenedor.style.visibility = 'visible';
+  contenedor.style.opacity = '100';
+
   var nombreTorneo = document.getElementById('nombreTorneo').value;
   var tipoTorneo = document.getElementById('tipoTorneo').value;
   var fechaInicio = document.getElementById('fechaInicio').value;
@@ -45,62 +49,47 @@ function crearTorneo() {
   var fechaNacimientoFinal = document.getElementById('fechaNacimientoFinal').value;
   var categoria = document.getElementById('categoria').value;
 
-  db.collection("torneo").where("nombreTorneo", "==", nombreTorneo).get().then(function (querySnapshot) {
-    if (!querySnapshot.empty) {
-      console.log("El Torneo que intenta registrar ya existe");
+
+  db.collection("torneo").add({
+    nombreTorneo: nombreTorneo,
+    tipoTorneo: tipoTorneo,
+    idLiga: idLiga,
+    fechaInicio: fechaInicio,
+    fechaCierre: fechaCierre,
+    fechaNacimientoInicio: fechaNacimientoInicio,
+    fechaNacimientoFinal: fechaNacimientoFinal,
+    categoria: categoria
+  }).then(function (docRef) {
+    console.log("Document written with ID: ", docRef.id);
+    var washingtonRef = db.collection("torneo").doc(docRef.id);
+    return washingtonRef.update({
+      id: docRef.id
+    }).then(function () {
+      console.log("Document successfully updated!");
+      document.getElementById('nombreTorneo').value = '';
+      document.getElementById('tipoTorneo').value = '';
+      document.getElementById('fechaInicio').value = '';
+      document.getElementById('fechaCierre').value = '';
+      document.getElementById('fechaNacimientoInicio').value = '';
+      document.getElementById('fechaNacimientoFinal').value = '';
+      document.getElementById('categoria').value = '';
+
       var contenedor = document.getElementById('contCarga');
       contenedor.style.visibility = 'hidden';
       contenedor.style.opacity = '0';
-    } else {
-      db.collection("torneo").add({
-        nombreTorneo: nombreTorneo,
-        tipoTorneo: tipoTorneo,
-        idLiga: idLiga,
-        fechaInicio: fechaInicio,
-        fechaCierre: fechaCierre,
-        fechaNacimientoInicio: fechaNacimientoInicio,
-        fechaNacimientoFinal: fechaNacimientoFinal,
-        categoria: categoria
-      }).then(function (docRef) {
-        console.log("Document written with ID: ", docRef.id);
-        var washingtonRef = db.collection("torneo").doc(docRef.id);
-        return washingtonRef.update({
-          id: docRef.id
-        }).then(function () {
-          console.log("Document successfully updated!");
-          document.getElementById('nombreTorneo').value = '';
-          document.getElementById('tipoTorneo').value = '';
-          document.getElementById('fechaInicio').value = '';
-          document.getElementById('fechaCierre').value = '';
-          document.getElementById('fechaNacimientoInicio').value = '';
-          document.getElementById('fechaNacimientoFinal').value = '';
-          document.getElementById('categoria').value = '';
-
-          var contenedor = document.getElementById('contCarga');
-          contenedor.style.visibility = 'hidden';
-          contenedor.style.opacity = '0';
-          //window.location = "../index.html";
-        }).catch(function (error) {
-          console.error("Error updating document: ", error);
-          var contenedor = document.getElementById('contCarga');
-          contenedor.style.visibility = 'hidden';
-          contenedor.style.opacity = '0';
-        });
-      }).catch(function (error) {
-        console.error("Error adding document: ", error);
-        var contenedor = document.getElementById('contCarga');
-        contenedor.style.visibility = 'hidden';
-        contenedor.style.opacity = '0';
-      });
-    }
+      //window.location = "../index.html";
+    }).catch(function (error) {
+      console.error("Error updating document: ", error);
+      var contenedor = document.getElementById('contCarga');
+      contenedor.style.visibility = 'hidden';
+      contenedor.style.opacity = '0';
+    });
   }).catch(function (error) {
-    console.log("Error getting documents: ", error);
+    console.error("Error adding document: ", error);
     var contenedor = document.getElementById('contCarga');
     contenedor.style.visibility = 'hidden';
     contenedor.style.opacity = '0';
   });
-
-
 }
 
 function limpiar() {
@@ -120,18 +109,12 @@ function limpiar() {
 }
 
 function leerTorneos() {
-  var contenedor = document.getElementById('contCarga');
-  contenedor.style.visibility = 'hidden';
-  contenedor.style.opacity = '0';
-
   var tabla = document.getElementById('tabla');
   tabla.innerHTML = '';
-  db.collection("torneo").where("idLiga", "==", idLiga)
-    .get()
-    .then((querySnapshot) => {
-      tabla.innerHTML = '';
-      querySnapshot.forEach((doc) => {
-        tabla.innerHTML += `
+  db.collection("torneo").where("idLiga", "==", idLiga).get().then((querySnapshot) => {
+    tabla.innerHTML = '';
+    querySnapshot.forEach((doc) => {
+      tabla.innerHTML += `
           <tr>
           <th scope="row">${doc.data().nombreTorneo}</th>
           <td>${doc.data().tipoTorneo}</td>
@@ -144,11 +127,11 @@ function leerTorneos() {
           '${doc.data().fechaInicio}','${doc.data().fechaCierre}','${doc.data().fechaNacimientoInicio}','${doc.data().fechaNacimientoFinal}','${doc.data().categoria}')"></i></td>
           <td><i class="fas fa-trash-alt" onclick="eliminarTorneo('${doc.id}')"></i></td>
           </tr>`;
-      });
-      var contenedor = document.getElementById('contCarga');
-      contenedor.style.visibility = 'hidden';
-      contenedor.style.opacity = '0';
-    })
+    });
+    var contenedor = document.getElementById('contCarga');
+    contenedor.style.visibility = 'hidden';
+    contenedor.style.opacity = '0';
+  })
     .catch(function (error) {
       console.log("Error getting documents: ", error);
       var contenedor = document.getElementById('contCarga');
@@ -156,10 +139,10 @@ function leerTorneos() {
       contenedor.style.opacity = '0';
     });
 }
-leerTorneos();
+
+
 
 function eliminarTorneo(id) {
-
   db.collection("torneo").doc(id).delete().then(function () {
   }).catch(function (error) {
     console.error("Error removing document: ", error);
