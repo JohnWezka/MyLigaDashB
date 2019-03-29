@@ -3,8 +3,10 @@
 // Initialize Cloud Firestore through Firebase
 var db = firebase.firestore();
 var storage = firebase.storage();
+var contenedor = document.getElementById('contCarga');
 
 var idLiga;
+
 (function user() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -13,6 +15,9 @@ var idLiga;
                 querySnapshot.forEach(function (doc) {
                     idLiga = doc.data().idliga;
                     leerArbitros();
+                    var contenedor = document.getElementById('contCarga');
+                    contenedor.style.visibility = 'hidden';
+                    contenedor.style.opacity = '0';
                 });
             });
         } else {
@@ -20,11 +25,13 @@ var idLiga;
             contenedor.style.visibility = 'hidden';
             contenedor.style.opacity = '0';
             location.href = "../login/index.html";
-          }
+        }
     });
 })();
 
 function crearArbitro() {
+    contenedor.style.visibility = 'visible';
+    contenedor.style.opacity = '100';
     var nombre = document.getElementById('nombreArbitro').value;
     var apaterno = document.getElementById('apaterno').value;
     var amaterno = document.getElementById('amaterno').value;
@@ -50,7 +57,7 @@ function crearArbitro() {
                 edad: edad,
                 roll: roll,
                 foto: downloadURL,
-                idLiga:idLiga 
+                idLiga: idLiga
             }).then(function (docRef) {
                 console.log("Document written with ID: ", docRef.id);
                 document.getElementById('nombreArbitro').value = '';
@@ -59,22 +66,29 @@ function crearArbitro() {
                 document.getElementById('edad').value = '';
                 document.getElementById('roll').value = '';
                 document.getElementById('foto').value = null;
-                window.location = "RegistroArbitros.html";
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
             }).catch(function (error) {
                 console.error("Error adding document: ", error);
+                contenedor.style.visibility = 'hidden';
+                contenedor.style.opacity = '0';
             });
         }).catch((error) => {
             console.log("url error");
             console.log(error);
+            contenedor.style.visibility = 'hidden';
+            contenedor.style.opacity = '0';
         });
     }).catch((error) => {
         console.log("error");
         console.log(error);
+        contenedor.style.visibility = 'hidden';
+        contenedor.style.opacity = '0';
     });
 }
 
 function limpiar() {
-    
+
     document.getElementById('nombreArbitro').value = '';
     document.getElementById('apaterno').value = '';
     document.getElementById('amaterno').value = '';
@@ -83,17 +97,20 @@ function limpiar() {
     document.getElementById('foto').value = null;
     var boton = document.getElementById('boton');
     boton.innerHTML = 'Guardar';
-    boton.onclick = function (){
+    boton.onclick = function () {
         crearArbitro();
     }
 }
+
 function leerArbitros() {
     var tabla_arbitros = document.getElementById('tabla');
     tabla_arbitros.innerHTML = '';
-    db.collection("Partido").where("idLiga", "==", idLiga).onSnapshot((querySnapshot) => {
+    db.collection("arbitro").where("idLiga", "==", idLiga).onSnapshot((querySnapshot) => {
         tabla_arbitros.innerHTML = '';
+        console.log(querySnapshot);
+        console.log(idLiga);
         querySnapshot.forEach((doc) => {
-
+        console.log(doc);
             tabla_arbitros.innerHTML += `
         <tr>
           <td>${doc.data().nombreArbitro}</td>
@@ -101,11 +118,11 @@ function leerArbitros() {
           <td>${doc.data().apellidoMaterno}</td>
           <td>${doc.data().edad}</td>
           <td>${doc.data().roll}</td>
-            <td><img  height="70" width="70" src=${doc.data().foto}></td>
-              <td><h4><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4" 
+          <td><img  height="70" width="70" src=${doc.data().foto}></td>
+          <td><h4><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4" 
             href="#modal1" onclick="actualizarArbitro('${doc.id}','${doc.data().nombreArbitro}',
           '${doc.data().apellidoPaterno}','${doc.data().apellidoMaterno}','${doc.data().edad}','${doc.data().roll}','${doc.data().foto}')"></i></h4></td>
-          <td><h4><i class="fas fa-trash-alt red-text text-accent-4" onclick="eliminarArbitro('${doc.id}')"></i></h4></td>
+          <td><h4 class="center" href="#"><i class="fas fa-trash-alt red-text text-accent-4" onclick="eliminarArbitro('${doc.id}')"></i></h4></td>
         </tr>
         `;
         });
@@ -193,7 +210,6 @@ function actualizarArbitro(id, nomArbitro, apaterno, amaterno, edad, roll) {
                 document.getElementById('roll').value = '';
                 document.getElementById('foto').value = null;
                 boton.innerHTML = 'Guardar';
-                window.location = "Arbitros.html";
             }).catch(function (error) {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
@@ -201,4 +217,3 @@ function actualizarArbitro(id, nomArbitro, apaterno, amaterno, edad, roll) {
         }
     }
 }
-        
