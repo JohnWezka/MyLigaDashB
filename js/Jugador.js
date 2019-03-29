@@ -130,6 +130,7 @@ function registrarJugador() {
         });
 
 }
+
 function consultarEquipos() {
     var combo = document.getElementById('combo');
     combo.innerHTML = '';
@@ -271,7 +272,7 @@ function editarJugador(id, nomJugador, aPaterno, aMaterno, fechaJuga, numJuga, p
                 document.getElementById('nomJugador').value = '';
                 document.getElementById('aPaterno').value = '';
                 document.getElementById('aMaterno').value = '';
-                document.getElementById('nu mJugadr').value = '';
+                document.getElementById('numJuga').value = '';
                 document.getElementById('pesoJuga').value = '';
                 document.getElementById('estaJuga').value = '';
                 document.getElementById('curpJuga').value = '';
@@ -296,18 +297,15 @@ function eliminarJugador(id) {
     });
 }
 
-function lipmiar() {
-    db.collection("nomJugador").value = '';
-    db.collection("aPaterno").value = '';
-    db.collection("aMaterno").value = '';
-    db.collection("fechaJuga").value = '';
-    db.collection("numJugadr").value = '';
-    db.collection("pesoJuga").value = '';
-    db.collection("estaJuga").value = '';
-    db.collection("curpJuga").value = '';
-    db.collection("combo").value = '';
-    db.collection("cateJuga").value = '';
-    db.collection("foto").value = null;
+function limpiar() {
+    document.getElementById('nomJugador').value = '';
+    document.getElementById('aPaterno').value = '';
+    document.getElementById('aMaterno').value = '';
+    document.getElementById('numJuga').value = '';
+    document.getElementById('pesoJuga').value = '';
+    document.getElementById('estaJuga').value = '';
+    document.getElementById('curpJuga').value = '';
+    document.getElementById('foto').value = null;
     var boton = document.getElementById('boton');
     boton.innerHTML = 'Guardar';
     boton.onclick = function () {
