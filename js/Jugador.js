@@ -149,11 +149,10 @@ function leerJugadores() {
     table.innerHTML = '';
     db.collection("jugadores").where("idLiga", "==", idLiga).onSnapshot(function (querySnapshot) {
         table.innerHTML = '';
-
         querySnapshot.forEach(function (doc){
             var docRef = db.collection("equipos").doc(doc.data().equipo);
             docRef.get().then(function (doc1){
-                    var equipo = doc1.data().nombreEquipo + "\n - " + doc1.data().nombreCategoria;
+                var equipo = doc1.data().nombreEquipo + "\n - " + doc1.data().nombreCategoria;
             table.innerHTML += `
             <tr>
                 
@@ -167,12 +166,12 @@ function leerJugadores() {
                 <td>${doc.data().curp}</td>
                 <td>${equipo}</td>
                 <td>${doc.data().categoria}</>
-                <td><img height="70" width="70" src=${doc.data().foto}</td>
+                <td><img height="70" width="70" src="${doc.data().foto}"</td>
                 <td><h4><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4" href="#modal1"
                 onclick="editarJugador('${doc.id}','${doc.data().nombre}','${doc.data().apellidoP}','${doc.data().apellidoM}',
                 '${doc.data().fechaNacimiento}','${doc.data().numero}','${doc.data().peso}','${doc.data().estatura}','${doc.data().curp}',
                 '${doc.data().equipo}','${doc.data().categoria}','${doc.data().foto}')"></i></h4></td>
-                <td><h4><i class="fas fa-trash-alt" onclick="eliminarJugador('${doc.id}')"></i></h4></td>
+                <td><h4 class="center" href=""><i class="fas fa-trash-alt red-text text-accent-4" onclick="eliminarJugador('${doc.id}')"></i></h4></td>
             </tr>
             `;
             }).catch(function (error){
