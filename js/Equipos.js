@@ -21,6 +21,9 @@ var idLiga;
                     contenedor.style.opacity = '0';
                 });
             });
+            var contenedor = document.getElementById('contCarga');
+            contenedor.style.visibility = 'hidden';
+            contenedor.style.opacity = '0';
         } else {
             var contenedor = document.getElementById('contCarga');
             contenedor.style.visibility = 'hidden';

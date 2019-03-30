@@ -15,21 +15,20 @@ var idLiga;
 (function user() {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-
-      db.collection("torneo").where("userID", "==", user.uid).get().then(function (querySnapshot) {
+      db.collection("admin").where("userID", "==", user.uid).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           idLiga = doc.data().idliga;
           leerTorneos();
-          var contenedor = document.getElementById('contCarga');
+        });
+        var contenedor = document.getElementById('contCarga');
         contenedor.style.visibility = 'hidden';
         contenedor.style.opacity = '0';
-        });
       });
     } else {
       var contenedor = document.getElementById('contCarga');
       contenedor.style.visibility = 'hidden';
       contenedor.style.opacity = '0';
-      location.href = "../Login/index.html";
+      location.href = "../login/index.html";
     }
   });
 })();
@@ -37,6 +36,7 @@ var idLiga;
 
 
 function crearTorneo() {
+  console.log(idLiga);
   var contenedor = document.getElementById('contCarga');
   contenedor.style.visibility = 'visible';
   contenedor.style.opacity = '100';
@@ -47,7 +47,7 @@ function crearTorneo() {
   var fechaCierre = document.getElementById('fechaCierre').value;
   var fechaNacimientoInicio = document.getElementById('fechaNacimientoInicio').value;
   var fechaNacimientoFinal = document.getElementById('fechaNacimientoFinal').value;
-  var categoria = document.getElementById('categoria').value;
+  var categoria = document.getElementById('Categoria').value;
 
 
   db.collection("torneo").add({
@@ -72,7 +72,7 @@ function crearTorneo() {
       document.getElementById('fechaCierre').value = '';
       document.getElementById('fechaNacimientoInicio').value = '';
       document.getElementById('fechaNacimientoFinal').value = '';
-      document.getElementById('categoria').value = '';
+      document.getElementById('Categoria').value = '';
 
       var contenedor = document.getElementById('contCarga');
       contenedor.style.visibility = 'hidden';
@@ -111,7 +111,7 @@ function limpiar() {
 function leerTorneos() {
   var tabla = document.getElementById('tabla');
   tabla.innerHTML = '';
-  db.collection("torneo").where("idLiga", "==", idLiga).get().then((querySnapshot) => {
+  db.collection("torneo").where("idLiga", "==", idLiga).onSnapshot((querySnapshot) => {
     tabla.innerHTML = '';
     querySnapshot.forEach((doc) => {
       tabla.innerHTML += `
@@ -123,21 +123,21 @@ function leerTorneos() {
           <td>${doc.data().fechaNacimientoInicio}</td>
           <td>${doc.data().fechaNacimientoFinal}</td>
           <td>${doc.data().categoria}</td>
-          <td><i class="fas fa-sync-alt" data-toggle="modal" data-target="#modal1" onclick="actualizarTorneo('${doc.id}','${doc.data().nombreTorneo}',
-          '${doc.data().fechaInicio}','${doc.data().fechaCierre}','${doc.data().fechaNacimientoInicio}','${doc.data().fechaNacimientoFinal}','${doc.data().categoria}')"></i></td>
-          <td><i class="fas fa-trash-alt" onclick="eliminarTorneo('${doc.id}')"></i></td>
+          <td class="center"><h4 class="center" href="#"><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4"
+                href="#modal1" onclick="actualizarTorneo('${doc.id}','${doc.data().nombreTorneo}',
+          '${doc.data().fechaInicio}','${doc.data().fechaCierre}','${doc.data().fechaNacimientoInicio}','${doc.data().fechaNacimientoFinal}','${doc.data().categoria}')"></i></h4></td>
+          <td><h4 class="center" href="#"><i class="fas fa-trash-alt red-text text-accent-4" onclick="eliminarTorneo('${doc.id}')"></i></h4></td>
           </tr>`;
     });
     var contenedor = document.getElementById('contCarga');
     contenedor.style.visibility = 'hidden';
     contenedor.style.opacity = '0';
-  })
-    .catch(function (error) {
-      console.log("Error getting documents: ", error);
-      var contenedor = document.getElementById('contCarga');
-      contenedor.style.visibility = 'hidden';
-      contenedor.style.opacity = '0';
-    });
+  }).catch(function (error) {
+    console.log("Error getting documents: ", error);
+    var contenedor = document.getElementById('contCarga');
+    contenedor.style.visibility = 'hidden';
+    contenedor.style.opacity = '0';
+  });
 }
 
 

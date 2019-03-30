@@ -95,13 +95,13 @@ function admin() {
                   </div>
                   <hr>
                   <div class="button-container mr-auto ml-auto">
-                    <button href="#" class="btn btn-simple btn-link btn-icon">
+                    <button href="#" class="btn btn-simple btn-link btn-icon deep-purple accent-4">
                     <i class="fab fa-facebook-square"></i>
                     </button>
-                    <button href="#" class="btn btn-simple btn-link btn-icon">
+                    <button href="#" class="btn btn-simple btn-link btn-icon deep-purple accent-4">
                     <i class="fab fa-twitter"></i>
                     </button>
-                    <button href="#" class="btn btn-simple btn-link btn-icon">
+                    <button href="#" class="btn btn-simple btn-link btn-icon deep-purple accent-4">
                     <i class="fab fa-google-plus-square"></i>
                     </button>
                   </div>

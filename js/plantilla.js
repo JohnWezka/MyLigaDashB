@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Dashboard</title>
+    <title>My League</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,6 +33,8 @@
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <link href="../css/style.css" rel="stylesheet">
+
+    <link rel="icon" href="../img/myleague.ico">
     `;
 })();
 
@@ -82,16 +84,6 @@
                     <a class="dropdown-item" href="../pages/Partidos.html">Partidos</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
     `;
 })();
 
@@ -121,7 +113,7 @@
     footer.innerHTML =  `
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright © Your Website 2019</span>
+            <span>Copyright © Cypher 2019</span>
         </div>
     </div>
     `;
