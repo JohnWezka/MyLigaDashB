@@ -68,9 +68,29 @@ function crearPartido() {
     let nombreLocal;
     let nombreVisitante;
 
+    
+    let local1 = local,{ 
+        asistencia:_,
+        rebotesOfensivos: _,
+        rebotesDefensivos: _,
+        robos: _,
+        tapones: _,
+        perdidas: _,
+        puntos: _,
+        faltas: _};
+    let visitante1=visitante,{ 
+        asistencia:_,
+        rebotesOfensivos: _,
+        rebotesDefensivos: _,
+        robos: _,
+        tapones: _,
+        perdidas: _,
+        puntos: _,
+        faltas: _}
+
     db.collection("Partido").add({
-        local: local,
-        visitante: visitante,
+        local: local1,
+        visitante: visitante1,
         fecha: fecha,
         hora: hora,
         idLiga: idLiga,
