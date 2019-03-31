@@ -21,6 +21,9 @@ var idLiga;
                     contenedor.style.opacity = '0';
                 });
             });
+            var contenedor = document.getElementById('contCarga');
+            contenedor.style.visibility = 'hidden';
+            contenedor.style.opacity = '0';
         } else {
             var contenedor = document.getElementById('contCarga');
             contenedor.style.visibility = 'hidden';
@@ -132,10 +135,10 @@ function leerEquipos() {
                 <td>${doc.data().nombreAsistente}</td>
                 <td>${doc.data().descripcion}</td>
                 <td><img height="70" width="70" src="${doc.data().foto}"></td>
-                <td class="center"><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4"
+                <td class="center"><h4 class="center" href="#"><i class="fas fa-sync-alt modal-trigger deep-purple-text text-accent-4"
                 href="#modal1" onclick="actualizarEquipo('${doc.id}','${doc.data().nombreEquipo}',
-                '${doc.data().nombreCategoria}','${doc.data().nombreRama}','${doc.data().nombreEntrenador}','${doc.data().nombreAsistente}','${doc.data().descripcion}')"></i></td>
-                <td class="center"><i class="fas fa-trash-alt" onclick="eliminarEquipo('${doc.id}')"></i></td>
+                '${doc.data().nombreCategoria}','${doc.data().nombreRama}','${doc.data().nombreEntrenador}','${doc.data().nombreAsistente}','${doc.data().descripcion}')"></i></4></td>
+                <td><h4 class="center" href="#"><i class="fas fa-trash-alt red-text text-accent-4" onclick="eliminarEquipo('${doc.id}')"></i></h4></td>
             </tr>`;
         });
         var contenedor = document.getElementById('contCarga');
