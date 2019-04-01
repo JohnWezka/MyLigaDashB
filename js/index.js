@@ -110,3 +110,12 @@ function admin() {
     })
   });
 }
+
+function logout() {
+  firebase.auth().signOut().then(() => {
+      console.log('saliendo');
+      location.href="/login/index.html"
+  }).catch((error) => {
+      console.log(error);
+  });
+}

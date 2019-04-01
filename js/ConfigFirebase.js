@@ -63,6 +63,7 @@ function acceder() {
 function logout() {
     firebase.auth().signOut().then(() => {
         console.log('saliendo');
+        location.href="../login/index.html"
     }).catch((error) => {
         console.log(error);
     });
@@ -103,7 +104,7 @@ function observador() {
             var uid = user.uid;
             var providerData = user.providerData;
             console.log("Existe usuario")
-
+            location.href="../index.html";
             // ...
         } else {
             //location.href = "../login/index.html";

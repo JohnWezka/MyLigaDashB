@@ -107,8 +107,8 @@ function observador() {
             var isAnonymous = user.isAnonymous;
             var uid = user.uid;
             var providerData = user.providerData;
-            console.log("Existe usuario")
-
+            console.log("Existe usuario");
+            location.href="../index.html";
             // ...
         } else {
             //location.href = "../login/index.html";

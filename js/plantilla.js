@@ -58,7 +58,7 @@
                     <a class="dropdown-item" href="#">Settings</a>
                     <a class="dropdown-item" href="#">Activity Log</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
                 </div>
             </li>
         </ul>
@@ -118,6 +118,15 @@
     </div>
     `;
 })();
+
+function logout() {
+    firebase.auth().signOut().then(() => {
+        console.log('saliendo');
+        location.href="../login/index.html"
+    }).catch((error) => {
+        console.log(error);
+    });
+  }
 
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.modal');
