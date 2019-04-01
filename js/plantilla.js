@@ -122,7 +122,7 @@
 function logout() {
     firebase.auth().signOut().then(() => {
         console.log('saliendo');
-        location.href="../login/index.html"
+        location.href="../Login/index.html"
     }).catch((error) => {
         console.log(error);
     });
